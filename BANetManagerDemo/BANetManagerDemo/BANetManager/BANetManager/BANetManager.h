@@ -174,19 +174,6 @@ typedef NSURLSessionTask BAURLSessionTask;
  */
 + (BAURLSessionTask *)ba_downLoadFileWithOperations:(NSDictionary *)operations withSavaPath:(NSString *)savePath withUrlString:(NSString *)urlString withSuccessBlock:(BAResponseSuccess)successBlock withFailureBlock:(BAResponseFail)failureBlock withDownLoadProgress:(BADownloadProgress)progress;
 
-/*!
- *  取消所有的网络请求
- */
-//+ (void)ba_cancelAllRequest;
-
-/*!
- *  取消指定的url请求
- *
- *  @param requestType 该请求的请求类型
- *  @param string      该请求的url
- */
-
-//+ (void)ba_cancelHttpRequestWithRequestType:(NSString *)requestType requestUrlString:(NSString *)string;
 
 
 @end
