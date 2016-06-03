@@ -523,6 +523,7 @@ static NSMutableArray *tasks;
 
 + (NSString *)strUTF8Encoding:(NSString *)str
 {
+    /*! ios9适配的话 打开第一个 */
     //return [str stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLPathAllowedCharacterSet]];
     return [str stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 }
