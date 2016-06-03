@@ -68,10 +68,6 @@
 
 #import "UIImage+compressIMG.h"
 
-/**国内天气预报融合版－－－－－apikey*/
-
-#define apikey  @"82428a4618b6aa313be6914d727cb9b7"
-
 
 static NSMutableArray *tasks;
 
@@ -115,7 +111,7 @@ static NSMutableArray *tasks;
         response.removesKeysWithNullValues = YES;
         
         /*! 设置apikey ------类似于自己应用中的tokken---此处仅仅作为测试使用*/
-        [manager.requestSerializer setValue:apikey forHTTPHeaderField:@"apikey"];
+//        [manager.requestSerializer setValue:apikey forHTTPHeaderField:@"apikey"];
         
         /*! 复杂的参数类型 需要使用json传值-设置请求内容的类型*/
         

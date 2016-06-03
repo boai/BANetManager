@@ -66,6 +66,9 @@ static NSString * const url2 = @"http://apis.baidu.com/apistore/";
 static NSString * const url3 = @"http://yycloudvod1932283664.bs2dl.yy.com/djMxYTkzNjQzNzNkNmU4ODc1NzY1ODQ3ZmU5ZDJlODkxMTIwMjM2NTE5Nw";
 static NSString * const url4 = @"http://www.aomy.com/attach/2012-09/1347583576vgC6.jpg";
 
+/*！国内天气预报融合版－apikey */
+//#define apikey  @"82428a4618b6aa313be6914d727cb9b7"
+
 
 
 @interface ViewController ()
