@@ -1,0 +1,12 @@
+# Uncomment this line to define a global platform for your project
+# platform :ios, '8.0'
+# Uncomment this line if you're using Swift
+# use_frameworks!
+
+target 'BANetManager' do
+
+    # GitHub 排名第一的网络操作框架，底层使用NSURLSession+NSOperation(多线程)
+    pod 'AFNetworking'
+
+end
+

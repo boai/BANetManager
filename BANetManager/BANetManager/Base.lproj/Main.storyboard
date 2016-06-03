@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="42b-Sn-LEb">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+    </dependencies>
+    <scenes>
+        <!--Navigation Controller-->
+        <scene sceneID="z0M-Kw-uHB">
+            <objects>
+                <navigationController id="42b-Sn-LEb" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="KSg-cf-jUQ">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="KoL-dc-LDy"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="iai-ct-YkE" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-752" y="374"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g3r-aG-k1W">
+                                <rect key="frame" x="40" y="84" width="100" height="30"/>
+                                <color key="backgroundColor" red="0.77724880991246637" green="1" blue="0.63734442800302482" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="eqL-KF-NWl"/>
+                                </constraints>
+                                <state key="normal" title="get请求"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="getData:" destination="BYZ-38-t0r" eventType="touchUpInside" id="NPF-1V-afi"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OZ2-PS-Lxb">
+                                <rect key="frame" x="40" y="134" width="100" height="30"/>
+                                <color key="backgroundColor" red="0.65307161308688721" green="1" blue="0.7422603629025244" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="jmx-KD-c62"/>
+                                </constraints>
+                                <state key="normal" title="post请求"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="postData:" destination="BYZ-38-t0r" eventType="touchUpInside" id="juJ-q1-3mh"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gJQ-00-zAe">
+                                <rect key="frame" x="40" y="234" width="100" height="30"/>
+                                <color key="backgroundColor" red="0.52214601754944079" green="0.90892097137181238" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="F1q-8z-nkF"/>
+                                </constraints>
+                                <state key="normal" title="上传图片"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="uploadImageData:" destination="BYZ-38-t0r" eventType="touchUpInside" id="6S2-S2-czG"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P9T-Tc-I8R">
+                                <rect key="frame" x="40" y="284" width="100" height="30"/>
+                                <color key="backgroundColor" red="1" green="0.60782491010961048" blue="0.083088709362713287" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="M4J-pq-wFP"/>
+                                </constraints>
+                                <state key="normal" title="上传视频"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="uploadVideoData:" destination="BYZ-38-t0r" eventType="touchUpInside" id="nOw-cZ-zYZ"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="上传进度：" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f4k-0H-L9a">
+                                <rect key="frame" x="50" y="370" width="500" height="50"/>
+                                <color key="backgroundColor" red="0.9173139598736062" green="1" blue="0.795505198629049" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="8bk-9r-0O4"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                </userDefinedRuntimeAttributes>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="下载进度：" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7xm-jc-Lsv">
+                                <rect key="frame" x="50" y="450" width="500" height="50"/>
+                                <color key="backgroundColor" red="0.70337517676857464" green="1" blue="0.91275967488755294" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="g6V-PS-aiH"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                </userDefinedRuntimeAttributes>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cfz-pE-Y5J">
+                                <rect key="frame" x="40" y="184" width="100" height="30"/>
+                                <color key="backgroundColor" red="0.51736511791096262" green="1" blue="0.86339235775829437" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="4MX-cX-AAa"/>
+                                </constraints>
+                                <state key="normal" title="download"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="downloadData:" destination="BYZ-38-t0r" eventType="touchUpInside" id="dNF-2z-eXH"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="cfz-pE-Y5J" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="40" id="6Sa-Yg-ML6"/>
+                            <constraint firstItem="f4k-0H-L9a" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="50" id="AAq-ot-kQ0"/>
+                            <constraint firstItem="OZ2-PS-Lxb" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="40" id="F4Z-Ix-y0q"/>
+                            <constraint firstItem="g3r-aG-k1W" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="40" id="Lbe-Sr-JSi"/>
+                            <constraint firstItem="gJQ-00-zAe" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="40" id="NAj-Pf-MyL"/>
+                            <constraint firstItem="OZ2-PS-Lxb" firstAttribute="top" secondItem="g3r-aG-k1W" secondAttribute="bottom" constant="20" id="NI9-2y-l6h"/>
+                            <constraint firstItem="cfz-pE-Y5J" firstAttribute="top" secondItem="OZ2-PS-Lxb" secondAttribute="bottom" constant="20" id="TB3-7M-pEp"/>
+                            <constraint firstAttribute="trailing" secondItem="7xm-jc-Lsv" secondAttribute="trailing" constant="50" id="bm5-Yf-70A"/>
+                            <constraint firstItem="P9T-Tc-I8R" firstAttribute="top" secondItem="gJQ-00-zAe" secondAttribute="bottom" constant="20" id="hFU-Yw-H5g"/>
+                            <constraint firstItem="7xm-jc-Lsv" firstAttribute="top" secondItem="f4k-0H-L9a" secondAttribute="bottom" constant="30" id="hmy-OP-9zc"/>
+                            <constraint firstItem="g3r-aG-k1W" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="20" id="nVm-1O-QMb"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="7xm-jc-Lsv" secondAttribute="bottom" constant="100" id="qT1-En-DbE"/>
+                            <constraint firstItem="P9T-Tc-I8R" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="40" id="uew-gm-vMv"/>
+                            <constraint firstAttribute="trailing" secondItem="f4k-0H-L9a" secondAttribute="trailing" constant="50" id="wdq-Gb-b8k"/>
+                            <constraint firstItem="gJQ-00-zAe" firstAttribute="top" secondItem="cfz-pE-Y5J" secondAttribute="bottom" constant="20" id="x0k-cc-0bD"/>
+                            <constraint firstItem="7xm-jc-Lsv" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="50" id="yxl-vW-RFE"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="MbP-7W-hWQ"/>
+                    <connections>
+                        <outlet property="downloadLabel" destination="7xm-jc-Lsv" id="HMB-Ho-2tU"/>
+                        <outlet property="uploadLabel" destination="f4k-0H-L9a" id="iuV-Bb-cA6"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="0.0" y="380"/>
+        </scene>
+    </scenes>
+</document>
