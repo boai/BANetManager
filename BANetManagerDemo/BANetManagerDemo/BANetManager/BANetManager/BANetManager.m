@@ -114,8 +114,7 @@ static NSMutableArray *tasks;
 //        [manager.requestSerializer setValue:apikey forHTTPHeaderField:@"apikey"];
         
         /*! 复杂的参数类型 需要使用json传值-设置请求内容的类型*/
-        
-        [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+//        [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
         
         /*! 设置响应数据的基本了类型 */
         manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html",@"text/css",@"text/xml",@"text/plain", @"application/javascript", nil];
@@ -202,7 +201,7 @@ static NSMutableArray *tasks;
         } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
             
             /* ************************************************** */
-            //如果请求成功 , 回调请求到的数据 , 同时 在这里 做本地缓存
+            // 如果请求成功 , 回调请求到的数据 , 同时 在这里 做本地缓存
             NSString *path = [NSString stringWithFormat:@"%ld.plist", [URLString hash]];
             // 存储的沙盒路径
             NSString *path_doc = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject];
@@ -221,6 +220,7 @@ static NSMutableArray *tasks;
             if (failureBlock)
             {
                 failureBlock(error);
+                NSLog(@"错误信息：%@",error);
             }
             [[self tasks] removeObject:sessionTask];
 

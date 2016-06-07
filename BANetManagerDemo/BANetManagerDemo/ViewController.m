@@ -69,8 +69,6 @@ static NSString * const url4 = @"http://www.aomy.com/attach/2012-09/1347583576vg
 /*！国内天气预报融合版－apikey */
 //#define apikey  @"82428a4618b6aa313be6914d727cb9b7"
 
-
-
 @interface ViewController ()
 
 @property (weak, nonatomic) IBOutlet UILabel *uploadLabel;
@@ -124,7 +122,11 @@ static NSString * const url4 = @"http://www.aomy.com/attach/2012-09/1347583576vg
 #pragma mark - ***** post
 - (IBAction)postData:(UIButton *)sender
 {
-    self.tasks = [BANetManager ba_requestWithType:BAHttpRequestTypePost withUrlString:[NSString stringWithFormat:@"%@%@", url2, @"idservice/id"] withParameters:@{@"id":@"420984198704207895"} withSuccessBlock:^(id response) {
+    /*! 此处的手机号填写自己的手机号，返回成功，即可收到短信验证码 */
+    NSString *url = @"http://api.mncnet.cn/mncApp/common/sendSmsCode";
+    NSDictionary *params = @{@"apiKey":@"A71F631C4788AB35AB1EE0191BD7FBDE", @"mobile":@"", @"sendType":@"1"};
+
+    self.tasks = [BANetManager ba_requestWithType:BAHttpRequestTypePost withUrlString:url withParameters:params withSuccessBlock:^(id response) {
         
         NSLog(@"post请求数据成功： *** %@", response);
         
