@@ -182,7 +182,7 @@ static NSString * const url4 = @"http://www.aomy.com/attach/2012-09/1347583576vg
 {
     /*! 此处要你们自己测拉，我没有相关服务器，只好麻烦各位了，发现有问题了几十联系博爱哈！ */
     /*! 如果有大神补充完整也可以，将代码不全后发送给我，多谢！ */
-    self.tasks = [BANetManager ba_uploadImageWithOperations:nil withImageArray:nil withtargetWidth:200 withUrlString:nil withSuccessBlock:^(id response) {
+    self.tasks = [BANetManager ba_uploadImageWithUrlString:nil parameters:nil withImageArray:nil withSuccessBlock:^(id response) {
         
     } withFailurBlock:^(NSError *error) {
         

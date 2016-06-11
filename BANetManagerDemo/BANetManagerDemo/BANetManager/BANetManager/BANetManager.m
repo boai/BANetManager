@@ -66,7 +66,8 @@
 #import <AFNetworking.h>
 #import "AFNetworkActivityIndicatorManager.h"
 
-#import "UIImage+compressIMG.h"
+//#import "UIImage+compressIMG.h"
+#import "UIImage+CompressImage.h"
 
 
 static NSMutableArray *tasks;
@@ -246,7 +247,7 @@ static NSMutableArray *tasks;
  *  @param failureBlock 上传失败的回调
  *  @param progress     上传进度
  */
-+ (BAURLSessionTask *)ba_uploadImageWithOperations:(NSDictionary *)operations withImageArray:(NSArray *)imageArray withtargetWidth:(CGFloat )width withUrlString:(NSString *)urlString withSuccessBlock:(BAResponseSuccess)successBlock withFailurBlock:(BAResponseFail)failureBlock withUpLoadProgress:(BAUploadProgress)progress
++ (BAURLSessionTask *)ba_uploadImageWithUrlString:(NSString *)urlString parameters:(NSDictionary *)parameters withImageArray:(NSArray *)imageArray withSuccessBlock:(BAResponseSuccess)successBlock withFailurBlock:(BAResponseFail)failureBlock withUpLoadProgress:(BAUploadProgress)progress
 {
     NSLog(@"请求地址----%@\n    请求参数----%@", urlString, imageArray);
     if (urlString == nil)
@@ -258,20 +259,22 @@ static NSMutableArray *tasks;
     NSString *URLString = [NSURL URLWithString:urlString] ? urlString : [self strUTF8Encoding:urlString];
 
     BAURLSessionTask *sessionTask = nil;
-    sessionTask = [[self sharedAFManager] POST:URLString parameters:operations constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
+    sessionTask = [[self sharedAFManager] POST:URLString parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
         
         NSUInteger i = 0 ;
         /*! 出于性能考虑,将上传图片进行压缩 */
         for (UIImage *image in imageArray)
         {
             /*! image的分类方法 */
-            UIImage *  resizedImage =  [UIImage ba_IMGCompressed:image targetWidth:width];
-            
-            NSData * imgData = UIImageJPEGRepresentation(resizedImage, .5);
+//            UIImage *  resizedImage =  [UIImage ba_IMGCompressed:image targetWidth:width];
+            UIImage *resizedImage = [self imageWithImage:image scaledToSize:image.size];
+            NSData *imgData = UIImageJPEGRepresentation(resizedImage, 0.8);
             
             /*! 拼接data */
-            [formData appendPartWithFileData:imgData name:[NSString stringWithFormat:@"picflie%ld",(long)i] fileName:@"image.png" mimeType:@" image/jpeg"];
-            
+            if (imgData != nil)
+            {   // 图片数据不为空才传递
+                [formData appendPartWithFileData:imgData name:[NSString stringWithFormat:@"picflie%ld",(long)i] fileName:@"image.png" mimeType:@" image/jpeg"];
+            }
             i++;
         }
     } progress:^(NSProgress * _Nonnull uploadProgress) {
@@ -516,6 +519,23 @@ static NSMutableArray *tasks;
     [[AFNetworkReachabilityManager sharedManager] startMonitoring];
 }
 
+/*! 对图片尺寸进行压缩 */
++ (UIImage *)imageWithImage:(UIImage *)image scaledToSize:(CGSize)newSize
+{
+    if (newSize.height > 375/newSize.width*newSize.height)
+    {
+        newSize.height = 375/newSize.width*newSize.height;
+    }
+    
+    if (newSize.width > 375)
+    {
+        newSize.width = 375;
+    }
+    
+    UIImage *newImage = [UIImage needCenterImage:image size:newSize scale:1.0];
+    
+    return newImage;
+}
 
 + (NSString *)strUTF8Encoding:(NSString *)str
 {
