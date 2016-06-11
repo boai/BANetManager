@@ -63,6 +63,13 @@
 #import <AVFoundation/AVAssetExportSession.h>
 #import <AVFoundation/AVMediaFormat.h>
 
+/*! 系统相册 */
+#import <AssetsLibrary/ALAsset.h>
+#import <AssetsLibrary/ALAssetsLibrary.h>
+#import <AssetsLibrary/ALAssetsGroup.h>
+#import <AssetsLibrary/ALAssetRepresentation.h>
+
+
 #import <AFNetworking.h>
 #import "AFNetworkActivityIndicatorManager.h"
 
@@ -263,11 +270,33 @@ static NSMutableArray *tasks;
         
         NSUInteger i = 0 ;
         /*! 出于性能考虑,将上传图片进行压缩 */
-        for (UIImage *image in imageArray)
+        for (int i = 0; i < imageArray.count; i++)
         {
-            /*! image的分类方法 */
-//            UIImage *  resizedImage =  [UIImage ba_IMGCompressed:image targetWidth:width];
-            UIImage *resizedImage = [self imageWithImage:image scaledToSize:image.size];
+            /*! image的压缩方法 */
+            UIImage *resizedImage;
+            /*! 此处是使用原生系统相册 */
+            if([imageArray[i] isKindOfClass:[ALAsset class]])
+            {
+                // 用ALAsset获取Asset URL  转化为image
+                ALAssetRepresentation *assetRep = [imageArray[i] defaultRepresentation];
+                
+                CGImageRef imgRef = [assetRep fullResolutionImage];
+                resizedImage = [UIImage imageWithCGImage:imgRef
+                                          scale:1.0
+                                    orientation:(UIImageOrientation)assetRep.orientation];
+                //                imageWithImage
+                NSLog(@"1111-----size : %@",NSStringFromCGSize(resizedImage.size));
+                
+                resizedImage = [self imageWithImage:resizedImage scaledToSize:resizedImage.size];
+                NSLog(@"2222-----size : %@",NSStringFromCGSize(resizedImage.size));
+            }
+            else
+            {
+                /*! 此处是使用其他第三方相册，可以自由定制压缩方法 */
+                resizedImage = imageArray[i];
+            }
+            
+            /*! 此处压缩方法是jpeg格式是原图大小的0.8倍，要调整大小的话，就在这里调整就行了还是原图等比压缩 */
             NSData *imgData = UIImageJPEGRepresentation(resizedImage, 0.8);
             
             /*! 拼接data */
@@ -275,7 +304,6 @@ static NSMutableArray *tasks;
             {   // 图片数据不为空才传递
                 [formData appendPartWithFileData:imgData name:[NSString stringWithFormat:@"picflie%ld",(long)i] fileName:@"image.png" mimeType:@" image/jpeg"];
             }
-            i++;
         }
     } progress:^(NSProgress * _Nonnull uploadProgress) {
         
