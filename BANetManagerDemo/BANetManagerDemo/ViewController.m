@@ -70,7 +70,9 @@ static NSString * const url4 = @"http://www.aomy.com/attach/2012-09/1347583576vg
 //#define apikey  @"82428a4618b6aa313be6914d727cb9b7"
 
 @interface ViewController ()
-
+{
+    BOOL isFinishDownload;
+}
 @property (weak, nonatomic) IBOutlet UILabel *uploadLabel;
 
 @property (weak, nonatomic) IBOutlet UILabel *downloadLabel;
@@ -141,12 +143,31 @@ static NSString * const url4 = @"http://www.aomy.com/attach/2012-09/1347583576vg
 - (IBAction)downloadData:(UIButton *)sender
 {
     NSString *path1 = [NSHomeDirectory() stringByAppendingString:[NSString stringWithFormat:@"/Documents/半塘.mp4"]];
-//    NSString *path2 = [NSHomeDirectory() stringByAppendingString:[NSString stringWithFormat:@"/Documents/image123.mp3"]];
+    //    NSString *path2 = [NSHomeDirectory() stringByAppendingString:[NSString stringWithFormat:@"/Documents/image123.mp3"]];
+    
+    NSLog(@"路径：%@", path1);
+
+    /*! 查找路径中是否存在"半塘.mp4"，是，返回真；否，返回假。 */
+    BOOL result2 = [path1 hasSuffix:@"半塘.mp4"];
+    NSLog(@"%d", result2);
+    
+    /*! 
+     下载前先判断该用户是否已经下载，目前用了两种方式：
+     1、第一次下载完用变量保存，
+     2、查找路径中是否包含改文件的名字
+     如果下载完了，就不要再让用户下载，也可以添加alert的代理方法，增加用户的选择！
+     */
+    if (isFinishDownload || result2)
+    {
+        [[[UIAlertView alloc] initWithTitle:@"温馨提示：" message:@"您已经下载该视频！" delegate:nil cancelButtonTitle:@"确 定" otherButtonTitles:nil, nil] show];
+        return;
+    }
     
     self.tasks = [BANetManager ba_downLoadFileWithOperations:nil withSavaPath:path1 withUrlString:url4 withSuccessBlock:^(id response) {
         
         NSLog(@"下载完成，路径为：%@", response);
         self.downloadLabel.text = @"下载完成";
+        isFinishDownload = YES;
 
     } withFailureBlock:^(NSError *error) {
         

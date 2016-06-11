@@ -9,38 +9,6 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "BANetManagerDemo/ViewController.m"
-            timestampString = "486958196.297317"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "138"
-            endingLineNumber = "138"
-            landmarkName = "-postData:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "BANetManagerDemo/ViewController.m"
-            timestampString = "486958196.297317"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "140"
-            endingLineNumber = "140"
-            landmarkName = "-postData:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "BANetManagerDemo/BANetManager/BANetManager/BANetManager.m"
             timestampString = "486956818.58511"
             startingColumnNumber = "9223372036854775807"
@@ -54,31 +22,31 @@
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "+[BANetManager ba_requestWithType:withUrlString:withParameters:withSuccessBlock:withFailureBlock:progress:]"
+                  symbolName = "__107+[BANetManager ba_requestWithType:withUrlString:withParameters:withSuccessBlock:withFailureBlock:progress:]_block_invoke89"
                   moduleName = "BANetManagerDemo"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/boai/%E5%8D%9A%E7%88%B1%E8%B5%84%E6%96%99/GitHub/BANetManager/BANetManagerDemo/BANetManagerDemo/BANetManager/BANetManager/BANetManager.m"
-                  timestampString = "486959028.327208"
+                  urlString = "file:///Users/boai/Documents/gitHub/BANetManager/BANetManagerDemo/BANetManagerDemo/BANetManager/BANetManager/BANetManager.m"
+                  timestampString = "487137442.054192"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "200"
-                  endingLineNumber = "200"
-                  offsetFromSymbolStart = "1132">
+                  startingLineNumber = "201"
+                  endingLineNumber = "201"
+                  offsetFromSymbolStart = "52">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "__107+[BANetManager ba_requestWithType:withUrlString:withParameters:withSuccessBlock:withFailureBlock:progress:]_block_invoke89"
+                  symbolName = "__107+[BANetManager ba_requestWithType:withUrlString:withParameters:withSuccessBlock:withFailureBlock:progress:]_block_invoke_292"
                   moduleName = "BANetManagerDemo"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/boai/%E5%8D%9A%E7%88%B1%E8%B5%84%E6%96%99/GitHub/BANetManager/BANetManagerDemo/BANetManagerDemo/BANetManager/BANetManager/BANetManager.m"
-                  timestampString = "486959028.327353"
+                  urlString = "file:///Users/boai/Documents/gitHub/BANetManager/BANetManagerDemo/BANetManagerDemo/BANetManager/BANetManager/BANetManager.m"
+                  timestampString = "487137442.054704"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "200"
-                  endingLineNumber = "200"
-                  offsetFromSymbolStart = "44">
+                  startingLineNumber = "201"
+                  endingLineNumber = "201"
+                  offsetFromSymbolStart = "64">
                </Location>
             </Locations>
          </BreakpointContent>
