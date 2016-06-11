@@ -58,58 +58,79 @@
  
  */
 
-#import "UIImage+compressIMG.h"
+#import "UIImage+CompressImage.h"
 
-@implementation UIImage (compressIMG)
+@implementation UIImage (CompressImage)
 
-+(UIImage *)ba_IMGCompressed:(UIImage *)sourceImage targetWidth:(CGFloat)defineWidth
++(JPEGImage *)needCompressImage:(UIImage *)image size:(CGSize )size scale:(CGFloat )scale
 {
-    
-    UIImage *newImage = nil;
-    CGSize imageSize = sourceImage.size;
-    CGFloat width = imageSize.width;
-    CGFloat height = imageSize.height;
-    CGFloat targetWidth = defineWidth;
-    CGFloat targetHeight = height / (width / targetWidth);
-    CGSize size = CGSizeMake(targetWidth, targetHeight);
-    CGFloat scaleFactor = 0.0;
-    CGFloat scaledWidth = targetWidth;
-    CGFloat scaledHeight = targetHeight;
-    CGPoint thumbnailPoint = CGPointMake(0.0, 0.0);
-    if(CGSizeEqualToSize(imageSize, size) == NO){
-        CGFloat widthFactor = targetWidth / width;
-        CGFloat heightFactor = targetHeight / height;
-        if(widthFactor > heightFactor){
-            scaleFactor = widthFactor;
-        }
-        else{
-            scaleFactor = heightFactor;
-        }
-        scaledWidth = width * scaleFactor;
-        scaledHeight = height * scaleFactor;
-        if(widthFactor > heightFactor){
-            thumbnailPoint.y = (targetHeight - scaledHeight) * 0.5;
-        }else if(widthFactor < heightFactor){
-            thumbnailPoint.x = (targetWidth - scaledWidth) * 0.5;
-        }
-    }
+    JPEGImage *newImage = nil;
+    //创建画板
     UIGraphicsBeginImageContext(size);
-    CGRect thumbnailRect = CGRectZero;
-    thumbnailRect.origin = thumbnailPoint;
-    thumbnailRect.size.width = scaledWidth;
-    thumbnailRect.size.height = scaledHeight;
     
-    [sourceImage drawInRect:thumbnailRect];
+    //写入图片
+    [image drawInRect:CGRectMake(0, 0, size.width, size.height)];
     
+    //得到新的图片
     newImage = UIGraphicsGetImageFromCurrentImageContext();
-    if(newImage == nil){
-        
-        NSAssert(!newImage,@"图片压缩失败");
-    }
     
+    //释放画板
     UIGraphicsEndImageContext();
+    
+    //比例压缩
+    newImage = [UIImage imageWithData:UIImageJPEGRepresentation(newImage, scale)];
+//    newImage = [UIImage imageWithData:UIImageJPEGRepresentation(newImage, 1.0) scale:scale];
+    
     return newImage;
 }
 
++(JPEGImage *)needCompressImageData:(NSData *)imageData size:(CGSize )size scale:(CGFloat )scale
+{
+    PNGImage *image = [UIImage imageWithData:imageData];
+    return [UIImage needCompressImage:image size:size scale:scale];
+}
 
++ (JPEGImage *)needCenterImage:(UIImage *)image size:(CGSize )size scale:(CGFloat )scale
+{
+    /* 想切中间部分,待解决 */
+#warning area of center image
+    JPEGImage *newImage = nil;
+    //创建画板
+    UIGraphicsBeginImageContext(size);
+    
+    //写入图片,在中间
+    [image drawInRect:CGRectMake(0, 0, size.width, size.height)];
+    
+    //得到新的图片
+    newImage = UIGraphicsGetImageFromCurrentImageContext();
+    
+    //释放画板
+    UIGraphicsEndImageContext();
+    
+    //比例压缩
+    newImage = [UIImage imageWithData:UIImageJPEGRepresentation(newImage, scale)];
+
+    return newImage;
+}
+
++(JPEGImage *)jpegImageWithPNGImage:(PNGImage *)pngImage
+{
+    return [UIImage needCompressImage:pngImage size:pngImage.size scale:1.0];
+}
+
++(JPEGImage *)jpegImageWithPNGData:(PNGData *)pngData
+{
+    PNGImage *pngImage = [UIImage imageWithData:pngData];
+    return [UIImage needCompressImage:pngImage size:pngImage.size scale:1.0];
+}
+
++(JPEGData *)jpegDataWithPNGData:(PNGData *)pngData
+{
+    return UIImageJPEGRepresentation([UIImage jpegImageWithPNGData:pngData], 1.0);
+}
+
++(JPEGData *)jpegDataWithPNGImage:(PNGImage *)pngImage
+{
+    return UIImageJPEGRepresentation([UIImage jpegImageWithPNGImage:pngImage], 1.0);
+}
 @end

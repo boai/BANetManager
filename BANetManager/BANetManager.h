@@ -142,13 +142,12 @@ typedef NSURLSessionTask BAURLSessionTask;
  *
  *  @param operations   上传图片预留参数---视具体情况而定 可移除
  *  @param imageArray   上传的图片数组
- *  @parm width      图片要被压缩到的宽度
  *  @param urlString    上传的url
  *  @param successBlock 上传成功的回调
  *  @param failureBlock 上传失败的回调
  *  @param progress     上传进度
  */
-+ (BAURLSessionTask *)ba_uploadImageWithOperations:(NSDictionary *)operations withImageArray:(NSArray *)imageArray withtargetWidth:(CGFloat )width withUrlString:(NSString *)urlString withSuccessBlock:(BAResponseSuccess)successBlock withFailurBlock:(BAResponseFail)failureBlock withUpLoadProgress:(BAUploadProgress)progress;
++ (BAURLSessionTask *)ba_uploadImageWithUrlString:(NSString *)urlString parameters:(NSDictionary *)parameters withImageArray:(NSArray *)imageArray withSuccessBlock:(BAResponseSuccess)successBlock withFailurBlock:(BAResponseFail)failureBlock withUpLoadProgress:(BAUploadProgress)progress;
 
 /*!
  *  视频上传
@@ -174,19 +173,6 @@ typedef NSURLSessionTask BAURLSessionTask;
  */
 + (BAURLSessionTask *)ba_downLoadFileWithOperations:(NSDictionary *)operations withSavaPath:(NSString *)savePath withUrlString:(NSString *)urlString withSuccessBlock:(BAResponseSuccess)successBlock withFailureBlock:(BAResponseFail)failureBlock withDownLoadProgress:(BADownloadProgress)progress;
 
-/*!
- *  取消所有的网络请求
- */
-+ (void)ba_cancelAllRequest;
-
-/*!
- *  取消指定的url请求
- *
- *  @param requestType 该请求的请求类型
- *  @param string      该请求的url
- */
-
-+ (void)ba_cancelHttpRequestWithRequestType:(NSString *)requestType requestUrlString:(NSString *)string;
 
 
 @end

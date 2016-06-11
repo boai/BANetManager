@@ -63,14 +63,18 @@
 #import <AVFoundation/AVAssetExportSession.h>
 #import <AVFoundation/AVMediaFormat.h>
 
+/*! 系统相册 */
+#import <AssetsLibrary/ALAsset.h>
+#import <AssetsLibrary/ALAssetsLibrary.h>
+#import <AssetsLibrary/ALAssetsGroup.h>
+#import <AssetsLibrary/ALAssetRepresentation.h>
+
+
 #import <AFNetworking.h>
 #import "AFNetworkActivityIndicatorManager.h"
 
-#import "UIImage+compressIMG.h"
-
-/**国内天气预报融合版－－－－－apikey*/
-
-#define apikey  @"82428a4618b6aa313be6914d727cb9b7"
+//#import "UIImage+compressIMG.h"
+#import "UIImage+CompressImage.h"
 
 
 static NSMutableArray *tasks;
@@ -115,11 +119,10 @@ static NSMutableArray *tasks;
         response.removesKeysWithNullValues = YES;
         
         /*! 设置apikey ------类似于自己应用中的tokken---此处仅仅作为测试使用*/
-        [manager.requestSerializer setValue:apikey forHTTPHeaderField:@"apikey"];
+//        [manager.requestSerializer setValue:apikey forHTTPHeaderField:@"apikey"];
         
         /*! 复杂的参数类型 需要使用json传值-设置请求内容的类型*/
-        
-        [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+//        [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
         
         /*! 设置响应数据的基本了类型 */
         manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html",@"text/css",@"text/xml",@"text/plain", @"application/javascript", nil];
@@ -206,7 +209,7 @@ static NSMutableArray *tasks;
         } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
             
             /* ************************************************** */
-            //如果请求成功 , 回调请求到的数据 , 同时 在这里 做本地缓存
+            // 如果请求成功 , 回调请求到的数据 , 同时 在这里 做本地缓存
             NSString *path = [NSString stringWithFormat:@"%ld.plist", [URLString hash]];
             // 存储的沙盒路径
             NSString *path_doc = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject];
@@ -225,6 +228,7 @@ static NSMutableArray *tasks;
             if (failureBlock)
             {
                 failureBlock(error);
+                NSLog(@"错误信息：%@",error);
             }
             [[self tasks] removeObject:sessionTask];
 
@@ -250,7 +254,7 @@ static NSMutableArray *tasks;
  *  @param failureBlock 上传失败的回调
  *  @param progress     上传进度
  */
-+ (BAURLSessionTask *)ba_uploadImageWithOperations:(NSDictionary *)operations withImageArray:(NSArray *)imageArray withtargetWidth:(CGFloat )width withUrlString:(NSString *)urlString withSuccessBlock:(BAResponseSuccess)successBlock withFailurBlock:(BAResponseFail)failureBlock withUpLoadProgress:(BAUploadProgress)progress
++ (BAURLSessionTask *)ba_uploadImageWithUrlString:(NSString *)urlString parameters:(NSDictionary *)parameters withImageArray:(NSArray *)imageArray withSuccessBlock:(BAResponseSuccess)successBlock withFailurBlock:(BAResponseFail)failureBlock withUpLoadProgress:(BAUploadProgress)progress
 {
     NSLog(@"请求地址----%@\n    请求参数----%@", urlString, imageArray);
     if (urlString == nil)
@@ -262,21 +266,44 @@ static NSMutableArray *tasks;
     NSString *URLString = [NSURL URLWithString:urlString] ? urlString : [self strUTF8Encoding:urlString];
 
     BAURLSessionTask *sessionTask = nil;
-    sessionTask = [[self sharedAFManager] POST:URLString parameters:operations constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
+    sessionTask = [[self sharedAFManager] POST:URLString parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
         
         NSUInteger i = 0 ;
         /*! 出于性能考虑,将上传图片进行压缩 */
-        for (UIImage *image in imageArray)
+        for (int i = 0; i < imageArray.count; i++)
         {
-            /*! image的分类方法 */
-            UIImage *  resizedImage =  [UIImage ba_IMGCompressed:image targetWidth:width];
+            /*! image的压缩方法 */
+            UIImage *resizedImage;
+            /*! 此处是使用原生系统相册 */
+            if([imageArray[i] isKindOfClass:[ALAsset class]])
+            {
+                // 用ALAsset获取Asset URL  转化为image
+                ALAssetRepresentation *assetRep = [imageArray[i] defaultRepresentation];
+                
+                CGImageRef imgRef = [assetRep fullResolutionImage];
+                resizedImage = [UIImage imageWithCGImage:imgRef
+                                          scale:1.0
+                                    orientation:(UIImageOrientation)assetRep.orientation];
+                //                imageWithImage
+                NSLog(@"1111-----size : %@",NSStringFromCGSize(resizedImage.size));
+                
+                resizedImage = [self imageWithImage:resizedImage scaledToSize:resizedImage.size];
+                NSLog(@"2222-----size : %@",NSStringFromCGSize(resizedImage.size));
+            }
+            else
+            {
+                /*! 此处是使用其他第三方相册，可以自由定制压缩方法 */
+                resizedImage = imageArray[i];
+            }
             
-            NSData * imgData = UIImageJPEGRepresentation(resizedImage, .5);
+            /*! 此处压缩方法是jpeg格式是原图大小的0.8倍，要调整大小的话，就在这里调整就行了还是原图等比压缩 */
+            NSData *imgData = UIImageJPEGRepresentation(resizedImage, 0.8);
             
             /*! 拼接data */
-            [formData appendPartWithFileData:imgData name:[NSString stringWithFormat:@"picflie%ld",(long)i] fileName:@"image.png" mimeType:@" image/jpeg"];
-            
-            i++;
+            if (imgData != nil)
+            {   // 图片数据不为空才传递
+                [formData appendPartWithFileData:imgData name:[NSString stringWithFormat:@"picflie%ld",(long)i] fileName:@"image.png" mimeType:@" image/jpeg"];
+            }
         }
     } progress:^(NSProgress * _Nonnull uploadProgress) {
         
@@ -520,6 +547,23 @@ static NSMutableArray *tasks;
     [[AFNetworkReachabilityManager sharedManager] startMonitoring];
 }
 
+/*! 对图片尺寸进行压缩 */
++ (UIImage *)imageWithImage:(UIImage *)image scaledToSize:(CGSize)newSize
+{
+    if (newSize.height > 375/newSize.width*newSize.height)
+    {
+        newSize.height = 375/newSize.width*newSize.height;
+    }
+    
+    if (newSize.width > 375)
+    {
+        newSize.width = 375;
+    }
+    
+    UIImage *newImage = [UIImage needCenterImage:image size:newSize scale:1.0];
+    
+    return newImage;
+}
 
 + (NSString *)strUTF8Encoding:(NSString *)str
 {

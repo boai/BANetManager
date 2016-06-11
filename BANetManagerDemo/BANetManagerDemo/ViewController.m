@@ -195,8 +195,10 @@ static NSString * const url4 = @"http://www.aomy.com/attach/2012-09/1347583576vg
 #pragma mark - ***** 上传图片
 - (IBAction)uploadImageData:(UIButton *)sender
 {
-    /*! 此处要你们自己测拉，我没有相关服务器，只好麻烦各位了，发现有问题了几十联系博爱哈！ */
+    /*! 此处要你们自己测拉，我没有相关服务器，只好麻烦各位了，发现有问题了及时联系博爱哈！ */
     /*! 如果有大神补充完整也可以，将代码不全后发送给我，多谢！ */
+    
+    /*! 此处只需要传URL 和 parameters，和你的image数组就行了，具体压缩方法都已经做好处理！ */
     self.tasks = [BANetManager ba_uploadImageWithUrlString:nil parameters:nil withImageArray:nil withSuccessBlock:^(id response) {
         
     } withFailurBlock:^(NSError *error) {
