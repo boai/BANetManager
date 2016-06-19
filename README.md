@@ -7,8 +7,10 @@
 - 3、集成视频上传/下载，和文件下载，让视频的上传下载更方便，支持异步下载【待测试】
 - 5、集成网络监测，让你实时监测你的宝贝APP的网络状态【已经测试通过】
 
+#### 2、demo展示
 详情demo，请前往[『BABaseProject』](https://github.com/boai/BABaseProject)！
 
-#### 2、展示
+#### 3、图片展示
+
 ![image](https://github.com/boai/BANetManager/blob/master/image.png)
 
