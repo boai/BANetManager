@@ -87,6 +87,11 @@ static NSString * const url4 = @"http://www.aomy.com/attach/2012-09/1347583576vg
 
 - (IBAction)uploadVideoData:(UIButton *)sender;
 
+- (IBAction)putData:(UIButton *)sender;
+
+- (IBAction)deleteData:(UIButton *)sender;
+
+
 @property (nonatomic, strong) BAURLSessionTask  *tasks;
 
 
@@ -112,8 +117,10 @@ static NSString * const url4 = @"http://www.aomy.com/attach/2012-09/1347583576vg
 {
     self.tasks = [BANetManager ba_requestWithType:BAHttpRequestTypeGet withUrlString:url1 withParameters:nil withSuccessBlock:^(id response) {
         
+        /*! 新增get请求缓存，飞行模式下开启试试看！ */
         NSLog(@"get请求数据成功： *** %@", response);
-        
+        [[[UIAlertView alloc] initWithTitle:@"温馨提示：" message:@"get请求成功！" delegate:nil cancelButtonTitle:@"确 定" otherButtonTitles:nil, nil] show];
+        return;
     } withFailureBlock:^(NSError *error) {
         
     } progress:^(int64_t bytesProgress, int64_t totalBytesProgress) {
@@ -131,7 +138,8 @@ static NSString * const url4 = @"http://www.aomy.com/attach/2012-09/1347583576vg
     self.tasks = [BANetManager ba_requestWithType:BAHttpRequestTypePost withUrlString:url withParameters:params withSuccessBlock:^(id response) {
         
         NSLog(@"post请求数据成功： *** %@", response);
-        
+        [[[UIAlertView alloc] initWithTitle:@"温馨提示：" message:@"post请求成功！" delegate:nil cancelButtonTitle:@"确 定" otherButtonTitles:nil, nil] show];
+        return;
     } withFailureBlock:^(NSError *error) {
         
     } progress:^(int64_t bytesProgress, int64_t totalBytesProgress) {
@@ -164,12 +172,17 @@ static NSString * const url4 = @"http://www.aomy.com/attach/2012-09/1347583576vg
     //        return;
     //    }
     
-    self.tasks = [BANetManager ba_downLoadFileWithOperations:nil withSavaPath:path1 withUrlString:url4 withSuccessBlock:^(id response) {
-        
+    self.tasks = [BANetManager ba_downLoadFileWithUrlString:url4 parameters:nil withSavaPath:path1 withSuccessBlock:^(id response) {
+
         NSLog(@"下载完成，路径为：%@", response);
         self.downloadLabel.text = @"下载完成";
         isFinishDownload = YES;
         [downloadBtn setTitle:@"下载完成" forState:UIControlStateNormal];
+        [downloadBtn setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+        
+        [[[UIAlertView alloc] initWithTitle:@"温馨提示：" message:@"视频下载完成！" delegate:nil cancelButtonTitle:@"确 定" otherButtonTitles:nil, nil] show];
+        return;
+        
     } withFailureBlock:^(NSError *error) {
         
     } withDownLoadProgress:^(int64_t bytesProgress, int64_t totalBytesProgress) {
@@ -212,8 +225,9 @@ static NSString * const url4 = @"http://www.aomy.com/attach/2012-09/1347583576vg
 - (IBAction)uploadVideoData:(UIButton *)sender
 {
     /*! 此处要你们自己测拉，我没有相关服务器，只好麻烦各位了，发现有问题了几十联系博爱哈！ */
-    /*! 如果有大神补充完整也可以，将代码不全后发送给我，多谢！ */
-    [BANetManager ba_uploadVideoWithOperaitons:nil withVideoPath:nil withUrlString:nil withSuccessBlock:^(id response) {
+    /*! 如果有大神补充完整也可以，将代码补全后发送给我，多谢！ */
+    
+    [BANetManager ba_uploadVideoWithUrlString:nil parameters:nil withVideoPath:nil withSuccessBlock:^(id response) {
         
     } withFailureBlock:^(NSError *error) {
         
@@ -221,4 +235,31 @@ static NSString * const url4 = @"http://www.aomy.com/attach/2012-09/1347583576vg
         
     }];
 }
+
+- (IBAction)putData:(UIButton *)sender
+{
+    /*! 此处要你们自己测拉，我没有相关服务器，只好麻烦各位了，发现有问题了几十联系博爱哈！ */
+    /*! 如果有大神补充完整也可以，将代码补全后发送给我，多谢！ */
+    [BANetManager ba_requestWithType:BAHttpRequestTypePut withUrlString:nil withParameters:nil withSuccessBlock:^(id response) {
+        
+    } withFailureBlock:^(NSError *error) {
+        
+    } progress:^(int64_t bytesProgress, int64_t totalBytesProgress) {
+        
+    }];
+}
+
+- (IBAction)deleteData:(UIButton *)sender
+{
+    /*! 此处要你们自己测拉，我没有相关服务器，只好麻烦各位了，发现有问题了几十联系博爱哈！ */
+    /*! 如果有大神补充完整也可以，将代码补全后发送给我，多谢！ */
+    [BANetManager ba_requestWithType:BAHttpRequestTypeDelete withUrlString:nil withParameters:nil withSuccessBlock:^(id response) {
+        
+    } withFailureBlock:^(NSError *error) {
+        
+    } progress:^(int64_t bytesProgress, int64_t totalBytesProgress) {
+        
+    }];
+}
+
 @end

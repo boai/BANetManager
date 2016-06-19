@@ -1,8 +1,8 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="bku-Zi-qt3">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="16A201w" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="bku-Zi-qt3">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
     </dependencies>
     <scenes>
         <!--Navigation Controller-->
@@ -98,7 +98,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="上传进度：" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UAD-AU-2LH">
-                                <rect key="frame" x="50" y="370" width="500" height="50"/>
+                                <rect key="frame" x="50" y="334" width="500" height="50"/>
                                 <color key="backgroundColor" red="0.91731395989999998" green="1" blue="0.79550519860000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="089-Ia-MxZ"/>
@@ -114,7 +114,7 @@
                                 </userDefinedRuntimeAttributes>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="下载进度：" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eQl-ec-DJc">
-                                <rect key="frame" x="50" y="450" width="500" height="50"/>
+                                <rect key="frame" x="50" y="414" width="500" height="50"/>
                                 <color key="backgroundColor" red="0.70337517679999995" green="1" blue="0.91275967489999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="IdV-35-hrn"/>
@@ -145,26 +145,90 @@
                                     <action selector="downloadData:" destination="jJC-uE-gEo" eventType="touchUpInside" id="Yvy-f2-ML9"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8ar-4c-QKP">
+                                <rect key="frame" x="160" y="134" width="100" height="30"/>
+                                <color key="backgroundColor" red="0.65307161309999995" green="1" blue="0.74226036289999997" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="Gza-nN-5Z3"/>
+                                    <constraint firstAttribute="width" constant="100" id="heA-r6-PIs"/>
+                                    <constraint firstAttribute="height" constant="30" id="iFR-uI-xPE"/>
+                                </constraints>
+                                <state key="normal" title="delete请求"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="deleteData:" destination="jJC-uE-gEo" eventType="touchUpInside" id="tL6-xD-Ihr"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="感谢小伙伴儿们使用BANetManager，如果发现bug，或者有特殊需求，请告知博爱，博爱会尽快处理！" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ydx-JB-V2K">
+                                <rect key="frame" x="10" y="494" width="580" height="41"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="rEV-XC-6Rp"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="rEV-XC-6Rp"/>
+                                    </mask>
+                                </variation>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b9E-je-lIP">
+                                <rect key="frame" x="160" y="84" width="100" height="30"/>
+                                <color key="backgroundColor" red="0.7772488099" green="1" blue="0.63734442800000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="1Ma-BJ-y46"/>
+                                    <constraint firstAttribute="height" constant="30" id="IkN-7F-H1V"/>
+                                    <constraint firstAttribute="width" constant="100" id="XUh-LT-cXs"/>
+                                </constraints>
+                                <state key="normal" title="put请求"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="putData:" destination="jJC-uE-gEo" eventType="touchUpInside" id="eqq-81-OKg"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="ouw-IV-oZo" firstAttribute="top" secondItem="FzM-oG-JT7" secondAttribute="bottom" constant="20" id="1rz-7F-pGq"/>
+                            <constraint firstItem="8ar-4c-QKP" firstAttribute="leading" secondItem="ouw-IV-oZo" secondAttribute="trailing" constant="20" id="252-q5-C0l"/>
                             <constraint firstItem="FzM-oG-JT7" firstAttribute="leading" secondItem="Mjr-qJ-06Y" secondAttribute="leading" constant="40" id="2OD-Od-QVL"/>
                             <constraint firstItem="UAD-AU-2LH" firstAttribute="leading" secondItem="Mjr-qJ-06Y" secondAttribute="leading" constant="50" id="5ax-01-Ids"/>
                             <constraint firstItem="huQ-ph-ae7" firstAttribute="top" secondItem="eQl-ec-DJc" secondAttribute="bottom" constant="100" id="8QE-fl-Mes"/>
+                            <constraint firstItem="b9E-je-lIP" firstAttribute="leading" secondItem="FzM-oG-JT7" secondAttribute="trailing" constant="20" id="DAy-qu-ASu"/>
                             <constraint firstItem="kE1-U4-XVz" firstAttribute="leading" secondItem="Mjr-qJ-06Y" secondAttribute="leading" constant="40" id="EyR-Nk-HSM"/>
                             <constraint firstItem="J44-Cc-wD7" firstAttribute="leading" secondItem="Mjr-qJ-06Y" secondAttribute="leading" constant="40" id="L2V-LH-0eA"/>
                             <constraint firstItem="kE1-U4-XVz" firstAttribute="top" secondItem="ouw-IV-oZo" secondAttribute="bottom" constant="20" id="Mjx-Cc-cW4"/>
                             <constraint firstAttribute="trailing" secondItem="UAD-AU-2LH" secondAttribute="trailing" constant="50" id="QPp-ZD-FtM"/>
+                            <constraint firstItem="Ydx-JB-V2K" firstAttribute="leading" secondItem="Mjr-qJ-06Y" secondAttribute="leading" constant="10" id="UdI-Eh-D4Z"/>
+                            <constraint firstItem="UAD-AU-2LH" firstAttribute="top" secondItem="4V9-Fu-K2S" secondAttribute="bottom" constant="20" id="VfS-xS-1Rz"/>
                             <constraint firstItem="FzM-oG-JT7" firstAttribute="top" secondItem="N0G-0z-LNZ" secondAttribute="bottom" constant="20" id="X2u-Fe-FfA"/>
                             <constraint firstItem="4V9-Fu-K2S" firstAttribute="leading" secondItem="Mjr-qJ-06Y" secondAttribute="leading" constant="40" id="cgM-lX-aEh"/>
                             <constraint firstAttribute="trailing" secondItem="eQl-ec-DJc" secondAttribute="trailing" constant="50" id="hNf-Ju-yrj"/>
                             <constraint firstItem="ouw-IV-oZo" firstAttribute="leading" secondItem="Mjr-qJ-06Y" secondAttribute="leading" constant="40" id="kjn-ci-05A"/>
+                            <constraint firstAttribute="trailing" secondItem="Ydx-JB-V2K" secondAttribute="trailing" constant="10" id="knv-Xe-MuW"/>
+                            <constraint firstItem="8ar-4c-QKP" firstAttribute="top" secondItem="ouw-IV-oZo" secondAttribute="top" id="nGX-Q3-NUb"/>
+                            <constraint firstItem="8ar-4c-QKP" firstAttribute="top" secondItem="b9E-je-lIP" secondAttribute="bottom" constant="20" id="pYh-w5-dh2"/>
                             <constraint firstItem="eQl-ec-DJc" firstAttribute="leading" secondItem="Mjr-qJ-06Y" secondAttribute="leading" constant="50" id="qY5-Sx-wD9"/>
+                            <constraint firstItem="Ydx-JB-V2K" firstAttribute="top" secondItem="eQl-ec-DJc" secondAttribute="bottom" constant="30" id="s2w-kc-Qcg"/>
                             <constraint firstItem="J44-Cc-wD7" firstAttribute="top" secondItem="kE1-U4-XVz" secondAttribute="bottom" constant="20" id="wQQ-2i-C6o"/>
+                            <constraint firstItem="b9E-je-lIP" firstAttribute="top" secondItem="FzM-oG-JT7" secondAttribute="top" id="wpP-5B-Zbc"/>
                             <constraint firstItem="4V9-Fu-K2S" firstAttribute="top" secondItem="J44-Cc-wD7" secondAttribute="bottom" constant="20" id="yGC-Gr-v9i"/>
                             <constraint firstItem="eQl-ec-DJc" firstAttribute="top" secondItem="UAD-AU-2LH" secondAttribute="bottom" constant="30" id="ytj-bk-eon"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="8QE-fl-Mes"/>
+                            </mask>
+                        </variation>
                     </view>
                     <navigationItem key="navigationItem" id="LP9-7F-veB"/>
                     <connections>

@@ -4,83 +4,13 @@
    version = "2.0">
    <Breakpoints>
       <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         BreakpointExtensionID = "Xcode.Breakpoint.ExceptionBreakpoint">
          <BreakpointContent
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "BANetManagerDemo/BANetManager/BANetManager/BANetManager.m"
-            timestampString = "487332832.015101"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "208"
-            endingLineNumber = "208"
-            landmarkName = "+ba_requestWithType:withUrlString:withParameters:withSuccessBlock:withFailureBlock:progress:"
-            landmarkType = "5">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__107+[BANetManager ba_requestWithType:withUrlString:withParameters:withSuccessBlock:withFailureBlock:progress:]_block_invoke89"
-                  moduleName = "BANetManagerDemo"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/boai/Documents/gitHub/BANetManager/BANetManagerDemo/BANetManagerDemo/BANetManager/BANetManager/BANetManager.m"
-                  timestampString = "487333754.124579"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "209"
-                  endingLineNumber = "209"
-                  offsetFromSymbolStart = "52">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__107+[BANetManager ba_requestWithType:withUrlString:withParameters:withSuccessBlock:withFailureBlock:progress:]_block_invoke_292"
-                  moduleName = "BANetManagerDemo"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/boai/Documents/gitHub/BANetManager/BANetManagerDemo/BANetManagerDemo/BANetManager/BANetManager/BANetManager.m"
-                  timestampString = "487333754.126207"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "209"
-                  endingLineNumber = "209"
-                  offsetFromSymbolStart = "64">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "BANetManagerDemo/BANetManager/BANetManager/BANetManager.m"
-            timestampString = "487332832.015101"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "220"
-            endingLineNumber = "220"
-            landmarkName = "+ba_requestWithType:withUrlString:withParameters:withSuccessBlock:withFailureBlock:progress:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "BANetManagerDemo/BANetManager/BANetManager/BANetManager.m"
-            timestampString = "487332832.015101"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "229"
-            endingLineNumber = "229"
-            landmarkName = "+ba_requestWithType:withUrlString:withParameters:withSuccessBlock:withFailureBlock:progress:"
-            landmarkType = "5">
+            scope = "0"
+            stopOnStyle = "0">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
