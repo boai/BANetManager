@@ -129,6 +129,12 @@ static NSMutableArray *tasks;
         /*! 设置响应数据的基本了类型 */
         manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html",@"text/css",@"text/xml",@"text/plain", @"application/javascript", nil];
         
+        // https  参数配置
+        AFSecurityPolicy *securityPolicy = [AFSecurityPolicy defaultPolicy];
+        securityPolicy.allowInvalidCertificates = YES;
+        securityPolicy.validatesDomainName = NO;
+        manager.securityPolicy = securityPolicy;
+        
     });
     
     return manager;
@@ -162,7 +168,6 @@ static NSMutableArray *tasks;
                         withFailureBlock:(BAResponseFail)failureBlock
                                 progress:(BADownloadProgress)progress
 {
-    NSLog(@"请求地址----%@\n    请求参数----%@", urlString, parameters);
     if (urlString == nil)
     {
         return nil;
@@ -171,10 +176,12 @@ static NSMutableArray *tasks;
     /*! 检查地址中是否有中文 */
     NSString *URLString = [NSURL URLWithString:urlString] ? urlString : [self strUTF8Encoding:urlString];
     
+    NSLog(@"******************** 请求参数 ***************************");
+    NSLog(@"请求头: %@\n请求方式: %@\n请求URL: %@\n请求param: %@\n\n",[self sharedAFManager].requestSerializer.HTTPRequestHeaders, (type == BAHttpRequestTypeGet) ? @"POST":@"GET",URLString, parameters);
+    NSLog(@"******************************************************");
+
     BAURLSessionTask *sessionTask = nil;
-    
-    
-    
+
     if (type == BAHttpRequestTypeGet)
     {
         sessionTask = [[self sharedAFManager] GET:URLString parameters:parameters  progress:^(NSProgress * _Nonnull downloadProgress) {
@@ -313,7 +320,6 @@ static NSMutableArray *tasks;
                                   withFailurBlock:(BAResponseFail)failureBlock
                                withUpLoadProgress:(BAUploadProgress)progress
 {
-    NSLog(@"请求地址----%@\n    请求参数----%@", urlString, imageArray);
     if (urlString == nil)
     {
         return nil;
@@ -322,10 +328,14 @@ static NSMutableArray *tasks;
     /*! 检查地址中是否有中文 */
     NSString *URLString = [NSURL URLWithString:urlString] ? urlString : [self strUTF8Encoding:urlString];
     
+    NSLog(@"******************** 请求参数 ***************************");
+    NSLog(@"请求头: %@\n请求方式: %@\n请求URL: %@\n请求param: %@\n\n",[self sharedAFManager].requestSerializer.HTTPRequestHeaders, @"POST",URLString, parameters);
+    NSLog(@"******************************************************");
+
+    
     BAURLSessionTask *sessionTask = nil;
     sessionTask = [[self sharedAFManager] POST:URLString parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
         
-        NSUInteger i = 0 ;
         /*! 出于性能考虑,将上传图片进行压缩 */
         for (int i = 0; i < imageArray.count; i++)
         {
@@ -516,6 +526,11 @@ static NSMutableArray *tasks;
     }
     
     NSURLRequest *downloadRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:urlString]];
+    
+    NSLog(@"******************** 请求参数 ***************************");
+    NSLog(@"请求头: %@\n请求方式: %@\n请求URL: %@\n请求param: %@\n\n",[self sharedAFManager].requestSerializer.HTTPRequestHeaders, @"download",urlString, parameters);
+    NSLog(@"******************************************************");
+
     
     BAURLSessionTask *sessionTask = nil;
     
