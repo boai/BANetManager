@@ -519,7 +519,6 @@ static NSMutableArray *tasks;
                                   withFailureBlock:(BAResponseFail)failureBlock
                               withDownLoadProgress:(BADownloadProgress)progress
 {
-    NSLog(@"请求地址----%@\n    请求参数----%@", urlString, parameters);
     if (urlString == nil)
     {
         return nil;
