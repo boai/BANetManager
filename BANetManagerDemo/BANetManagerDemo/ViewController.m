@@ -47,16 +47,19 @@
  *
  * 在使用BAKit的过程中如果出现bug请及时以以下任意一种方式联系我，我会及时修复bug
  *
- * QQ     : 博爱1616【137361770】
+ * QQ     : 可以添加ios开发技术群 479663605 在这里找到我(博爱1616【137361770】)
  * 微博    : 博爱1616
  * Email  : 137361770@qq.com
  * GitHub : https://github.com/boai
  * 博客园  : http://www.cnblogs.com/boai/
  * 博客    : http://boai.github.io
+ * 简书    : http://www.jianshu.com/users/95c9800fdf47/latest_articles
+ * 简书专题 : http://www.jianshu.com/collection/072d578bf782
  
  *********************************************************************************
  
  */
+
 
 #import "ViewController.h"
 #import "BANetManager.h"
@@ -115,7 +118,7 @@ static NSString * const url4 = @"http://www.aomy.com/attach/2012-09/1347583576vg
 #pragma mark - ***** get
 - (IBAction)getData:(UIButton *)sender
 {
-    self.tasks = [BANetManager ba_requestWithType:BAHttpRequestTypeGet withUrlString:url1 withParameters:nil withSuccessBlock:^(id response) {
+    [BANetManager ba_requestWithType:BAHttpRequestTypeGet withUrlString:url1 withParameters:nil withSuccessBlock:^(id response) {
         
         /*! 新增get请求缓存，飞行模式下开启试试看！ */
         NSLog(@"get请求数据成功： *** %@", response);
@@ -135,7 +138,7 @@ static NSString * const url4 = @"http://www.aomy.com/attach/2012-09/1347583576vg
     NSString *url = @"http://api.mncnet.cn/mncApp/common/sendSmsCode";
     NSDictionary *params = @{@"apiKey":@"A71F631C4788AB35AB1EE0191BD7FBDE", @"mobile":@"", @"sendType":@"1"};
 
-    self.tasks = [BANetManager ba_requestWithType:BAHttpRequestTypePost withUrlString:url withParameters:params withSuccessBlock:^(id response) {
+    [BANetManager ba_requestWithType:BAHttpRequestTypePost withUrlString:url withParameters:params withSuccessBlock:^(id response) {
         
         NSLog(@"post请求数据成功： *** %@", response);
         [[[UIAlertView alloc] initWithTitle:@"温馨提示：" message:@"post请求成功！" delegate:nil cancelButtonTitle:@"确 定" otherButtonTitles:nil, nil] show];

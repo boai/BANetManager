@@ -47,16 +47,19 @@
  *
  * 在使用BAKit的过程中如果出现bug请及时以以下任意一种方式联系我，我会及时修复bug
  *
- * QQ     : 博爱1616【137361770】
+ * QQ     : 可以添加ios开发技术群 479663605 在这里找到我(博爱1616【137361770】)
  * 微博    : 博爱1616
  * Email  : 137361770@qq.com
  * GitHub : https://github.com/boai
  * 博客园  : http://www.cnblogs.com/boai/
  * 博客    : http://boai.github.io
+ * 简书    : http://www.jianshu.com/users/95c9800fdf47/latest_articles
+ * 简书专题 : http://www.jianshu.com/collection/072d578bf782
  
  *********************************************************************************
  
  */
+
 
 #import "BANetManager.h"
 #import <AVFoundation/AVAsset.h>
@@ -197,8 +200,8 @@ static NSMutableArray *tasks;
     NSString *URLString = [NSURL URLWithString:urlString] ? urlString : [self strUTF8Encoding:urlString];
     
     NSLog(@"******************** 请求参数 ***************************");
-    NSLog(@"请求头: %@\n请求方式: %@\n请求URL: %@\n请求param: %@\n\n",[self sharedAFManager].requestSerializer.HTTPRequestHeaders, (type == BAHttpRequestTypeGet) ? @"POST":@"GET",URLString, parameters);
-    NSLog(@"******************************************************");
+    NSLog(@"请求头: %@\n请求方式: %@\n请求URL: %@\n请求param: %@\n\n",[self sharedAFManager].requestSerializer.HTTPRequestHeaders, (type == BAHttpRequestTypeGet) ? @"GET":@"POST",URLString, parameters);
+    NSLog(@"********************************************************");
 
     BAURLSessionTask *sessionTask = nil;
 
