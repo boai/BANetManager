@@ -211,11 +211,16 @@ static NSString * const url4 = @"http://www.aomy.com/attach/2012-09/1347583576vg
 #pragma mark - ***** 上传图片
 - (IBAction)uploadImageData:(UIButton *)sender
 {
-    /*! 此处要你们自己测拉，我没有相关服务器，只好麻烦各位了，发现有问题了及时联系博爱哈！ */
-    /*! 如果有大神补充完整也可以，将代码不全后发送给我，多谢！ */
-    
-    /*! 此处只需要传URL 和 parameters，和你的image数组就行了，具体压缩方法都已经做好处理！ */
-    self.tasks = [BANetManager ba_uploadImageWithUrlString:nil parameters:nil withImageArray:nil withSuccessBlock:^(id response) {
+    /*! 
+     
+     1、此上传图片单张、多图上传都经过几十个项目亲测可用，大家可以放心使用，使用过程中有问题，请加群：479663605 进行反馈，多谢！
+     2、此处只需要传URL 和 parameters，和你的image数组、FileName就行了，具体压缩方法都已经做好处理！
+     
+     3、注意：如果使用PHP后台，后台不会对接此接口的话，博爱已经为你们量身定做了PHP后台接口，你们只需要把文件夹中的 postdynamic.php 文件发送给你们的PHP后台同事，他们就知道了，里面都有详细说明！
+     
+     */
+
+    [BANetManager ba_uploadImageWithUrlString:nil parameters:nil withImageArray:nil withFileName:nil withSuccessBlock:^(id response) {
         
     } withFailurBlock:^(NSError *error) {
         
@@ -227,9 +232,6 @@ static NSString * const url4 = @"http://www.aomy.com/attach/2012-09/1347583576vg
 #pragma mark - ***** 上传视频
 - (IBAction)uploadVideoData:(UIButton *)sender
 {
-    /*! 此处要你们自己测拉，我没有相关服务器，只好麻烦各位了，发现有问题了几十联系博爱哈！ */
-    /*! 如果有大神补充完整也可以，将代码补全后发送给我，多谢！ */
-    
     [BANetManager ba_uploadVideoWithUrlString:nil parameters:nil withVideoPath:nil withSuccessBlock:^(id response) {
         
     } withFailureBlock:^(NSError *error) {
@@ -241,8 +243,6 @@ static NSString * const url4 = @"http://www.aomy.com/attach/2012-09/1347583576vg
 
 - (IBAction)putData:(UIButton *)sender
 {
-    /*! 此处要你们自己测拉，我没有相关服务器，只好麻烦各位了，发现有问题了几十联系博爱哈！ */
-    /*! 如果有大神补充完整也可以，将代码补全后发送给我，多谢！ */
     [BANetManager ba_requestWithType:BAHttpRequestTypePut withUrlString:nil withParameters:nil withSuccessBlock:^(id response) {
         
     } withFailureBlock:^(NSError *error) {
@@ -254,8 +254,6 @@ static NSString * const url4 = @"http://www.aomy.com/attach/2012-09/1347583576vg
 
 - (IBAction)deleteData:(UIButton *)sender
 {
-    /*! 此处要你们自己测拉，我没有相关服务器，只好麻烦各位了，发现有问题了几十联系博爱哈！ */
-    /*! 如果有大神补充完整也可以，将代码补全后发送给我，多谢！ */
     [BANetManager ba_requestWithType:BAHttpRequestTypeDelete withUrlString:nil withParameters:nil withSuccessBlock:^(id response) {
         
     } withFailureBlock:^(NSError *error) {

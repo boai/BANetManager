@@ -79,6 +79,8 @@
 #import "UIImage+CompressImage.h"
 
 
+#define BAWeak         __weak __typeof(self) weakSelf = self
+
 static NSMutableArray *tasks;
 
 @interface BANetManager ()
@@ -97,9 +99,7 @@ static NSMutableArray *tasks;
     static BANetManager *manager = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        
         manager = [[self alloc] init];
-        
     });
     return manager;
 }
@@ -195,7 +195,7 @@ static NSMutableArray *tasks;
     {
         return nil;
     }
-    
+    BAWeak;
     /*! 检查地址中是否有中文 */
     NSString *URLString = [NSURL URLWithString:urlString] ? urlString : [self strUTF8Encoding:urlString];
     
@@ -224,7 +224,7 @@ static NSMutableArray *tasks;
                 successBlock(responseObject);
             }
             
-            [[self tasks] removeObject:sessionTask];
+            [[weakSelf tasks] removeObject:sessionTask];
             
             //        [self writeInfoWithDict:(NSDictionary *)responseObject];
             
@@ -234,7 +234,7 @@ static NSMutableArray *tasks;
             {
                 failureBlock(error);
             }
-            [[self tasks] removeObject:sessionTask];
+            [[weakSelf tasks] removeObject:sessionTask];
             
         }];
         
@@ -258,7 +258,7 @@ static NSMutableArray *tasks;
                 successBlock(responseObject);
             }
             
-            [[self tasks] removeObject:sessionTask];
+            [[weakSelf tasks] removeObject:sessionTask];
             
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
             
@@ -267,7 +267,7 @@ static NSMutableArray *tasks;
                 failureBlock(error);
                 NSLog(@"错误信息：%@",error);
             }
-            [[self tasks] removeObject:sessionTask];
+            [[weakSelf tasks] removeObject:sessionTask];
             
         }];
     }
@@ -280,7 +280,7 @@ static NSMutableArray *tasks;
                 successBlock(responseObject);
             }
             
-            [[self tasks] removeObject:sessionTask];
+            [[weakSelf tasks] removeObject:sessionTask];
             
             //        [self writeInfoWithDict:(NSDictionary *)responseObject];
             
@@ -290,7 +290,7 @@ static NSMutableArray *tasks;
             {
                 failureBlock(error);
             }
-            [[self tasks] removeObject:sessionTask];
+            [[weakSelf tasks] removeObject:sessionTask];
             
         }];
     }
@@ -302,7 +302,7 @@ static NSMutableArray *tasks;
                 successBlock(responseObject);
             }
             
-            [[self tasks] removeObject:sessionTask];
+            [[weakSelf tasks] removeObject:sessionTask];
             
             //        [self writeInfoWithDict:(NSDictionary *)responseObject];
             
@@ -312,14 +312,14 @@ static NSMutableArray *tasks;
             {
                 failureBlock(error);
             }
-            [[self tasks] removeObject:sessionTask];
+            [[weakSelf tasks] removeObject:sessionTask];
             
         }];
     }
         
     if (sessionTask)
     {
-        [[self tasks] addObject:sessionTask];
+        [[weakSelf tasks] addObject:sessionTask];
     }
     
     return sessionTask;
@@ -328,9 +328,9 @@ static NSMutableArray *tasks;
 /*!
  *  上传图片(多图)
  *
- *  @param operations   上传图片预留参数---视具体情况而定 可移除
+ *  @param parameters   上传图片预留参数---视具体情况而定 可移除
  *  @param imageArray   上传的图片数组
- *  @parm width      图片要被压缩到的宽度
+ *  @param fileName     上传的图片数组fileName
  *  @param urlString    上传的url
  *  @param successBlock 上传成功的回调
  *  @param failureBlock 上传失败的回调
@@ -339,6 +339,7 @@ static NSMutableArray *tasks;
 + (BAURLSessionTask *)ba_uploadImageWithUrlString:(NSString *)urlString
                                        parameters:(NSDictionary *)parameters
                                    withImageArray:(NSArray *)imageArray
+                                     withFileName:(NSString *)fileName
                                  withSuccessBlock:(BAResponseSuccess)successBlock
                                   withFailurBlock:(BAResponseFail)failureBlock
                                withUpLoadProgress:(BAUploadProgress)progress
@@ -347,7 +348,7 @@ static NSMutableArray *tasks;
     {
         return nil;
     }
-    
+    BAWeak;
     /*! 检查地址中是否有中文 */
     NSString *URLString = [NSURL URLWithString:urlString] ? urlString : [self strUTF8Encoding:urlString];
     
@@ -360,15 +361,15 @@ static NSMutableArray *tasks;
     sessionTask = [[self sharedAFManager] POST:URLString parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
         
         /*! 出于性能考虑,将上传图片进行压缩 */
-        for (int i = 0; i < imageArray.count; i++)
-        {
+        [imageArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            
             /*! image的压缩方法 */
             UIImage *resizedImage;
             /*! 此处是使用原生系统相册 */
-            if([imageArray[i] isKindOfClass:[ALAsset class]])
+            if([obj isKindOfClass:[ALAsset class]])
             {
                 // 用ALAsset获取Asset URL  转化为image
-                ALAssetRepresentation *assetRep = [imageArray[i] defaultRepresentation];
+                ALAssetRepresentation *assetRep = [obj defaultRepresentation];
                 
                 CGImageRef imgRef = [assetRep fullResolutionImage];
                 resizedImage = [UIImage imageWithCGImage:imgRef
@@ -377,13 +378,13 @@ static NSMutableArray *tasks;
                 //                imageWithImage
                 NSLog(@"1111-----size : %@",NSStringFromCGSize(resizedImage.size));
                 
-                resizedImage = [self imageWithImage:resizedImage scaledToSize:resizedImage.size];
+                resizedImage = [weakSelf imageWithImage:resizedImage scaledToSize:resizedImage.size];
                 NSLog(@"2222-----size : %@",NSStringFromCGSize(resizedImage.size));
             }
             else
             {
                 /*! 此处是使用其他第三方相册，可以自由定制压缩方法 */
-                resizedImage = imageArray[i];
+                resizedImage = obj;
             }
             
             /*! 此处压缩方法是jpeg格式是原图大小的0.8倍，要调整大小的话，就在这里调整就行了还是原图等比压缩 */
@@ -391,10 +392,14 @@ static NSMutableArray *tasks;
             
             /*! 拼接data */
             if (imgData != nil)
-            {   // 图片数据不为空才传递
-                [formData appendPartWithFileData:imgData name:[NSString stringWithFormat:@"picflie%ld",(long)i] fileName:@"image.png" mimeType:@" image/jpeg"];
+            {   // 图片数据不为空才传递 fileName
+                //                [formData appendPartWithFileData:imgData name:[NSString stringWithFormat:@"picflie%ld",(long)i] fileName:@"image.png" mimeType:@" image/jpeg"];
+                
+                [formData appendPartWithFileData:imgData name:[NSString stringWithFormat:@"picflie%ld",(long)idx] fileName:fileName mimeType:@"image/jpeg"];
             }
-        }
+
+        }];
+        
     } progress:^(NSProgress * _Nonnull uploadProgress) {
         
         NSLog(@"上传进度--%lld,总进度---%lld",uploadProgress.completedUnitCount,uploadProgress.totalUnitCount);
@@ -412,7 +417,7 @@ static NSMutableArray *tasks;
             successBlock(responseObject);
         }
         
-        [[self tasks] removeObject:sessionTask];
+        [[weakSelf tasks] removeObject:sessionTask];
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         
@@ -420,12 +425,12 @@ static NSMutableArray *tasks;
         {
             failureBlock(error);
         }
-        [[self tasks] removeObject:sessionTask];
+        [[weakSelf tasks] removeObject:sessionTask];
     }];
     
     if (sessionTask)
     {
-        [[self tasks] addObject:sessionTask];
+        [[weakSelf tasks] addObject:sessionTask];
     }
     
     return sessionTask;
@@ -518,10 +523,7 @@ static NSMutableArray *tasks;
             default:
                 break;
         }
-        
-        
     }];
-    
 }
 
 #pragma mark - ***** 文件下载

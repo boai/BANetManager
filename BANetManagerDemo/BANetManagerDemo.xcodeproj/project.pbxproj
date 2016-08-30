@@ -15,7 +15,7 @@
 		C459E4BC1D0176E20017A078 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C459E4BB1D0176E20017A078 /* Assets.xcassets */; };
 		C459E4BF1D0176E20017A078 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C459E4BD1D0176E20017A078 /* LaunchScreen.storyboard */; };
 		C459E4D91D0176FF0017A078 /* BANetManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C459E4CC1D0176FF0017A078 /* BANetManager.m */; };
-		C4C204BD1D75A85500F64982 /* postdynamic.php in Resources */ = {isa = PBXBuildFile; fileRef = C4C204BC1D75A85500F64982 /* postdynamic.php */; };
+		C4C204BF1D75AF0200F64982 /* postdynamic.php in Resources */ = {isa = PBXBuildFile; fileRef = C4C204BE1D75AF0200F64982 /* postdynamic.php */; };
 		C4DEB3651D0C113F001F1585 /* UIImage+CompressImage.m in Sources */ = {isa = PBXBuildFile; fileRef = C4DEB3641D0C113F001F1585 /* UIImage+CompressImage.m */; };
 /* End PBXBuildFile section */
 
@@ -34,7 +34,7 @@
 		C459E4C01D0176E20017A078 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C459E4CB1D0176FF0017A078 /* BANetManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BANetManager.h; sourceTree = "<group>"; };
 		C459E4CC1D0176FF0017A078 /* BANetManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BANetManager.m; sourceTree = "<group>"; };
-		C4C204BC1D75A85500F64982 /* postdynamic.php */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.php; name = postdynamic.php; path = ../../postdynamic.php; sourceTree = "<group>"; };
+		C4C204BE1D75AF0200F64982 /* postdynamic.php */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.php; path = postdynamic.php; sourceTree = "<group>"; };
 		C4DEB3631D0C113F001F1585 /* UIImage+CompressImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+CompressImage.h"; sourceTree = "<group>"; };
 		C4DEB3641D0C113F001F1585 /* UIImage+CompressImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+CompressImage.m"; sourceTree = "<group>"; };
 		EF6B0F787A3E19AE867AC0F8 /* Pods-BANetManagerDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BANetManagerDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BANetManagerDemo/Pods-BANetManagerDemo.debug.xcconfig"; sourceTree = "<group>"; };
@@ -110,7 +110,7 @@
 				C459E4CC1D0176FF0017A078 /* BANetManager.m */,
 				C4DEB3631D0C113F001F1585 /* UIImage+CompressImage.h */,
 				C4DEB3641D0C113F001F1585 /* UIImage+CompressImage.m */,
-				C4C204BC1D75A85500F64982 /* postdynamic.php */,
+				C4C204BE1D75AF0200F64982 /* postdynamic.php */,
 			);
 			name = BANetManager;
 			path = BANetManager/BANetManager;
@@ -186,8 +186,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				C459E4BF1D0176E20017A078 /* LaunchScreen.storyboard in Resources */,
-				C4C204BD1D75A85500F64982 /* postdynamic.php in Resources */,
 				C459E4BC1D0176E20017A078 /* Assets.xcassets in Resources */,
+				C4C204BF1D75AF0200F64982 /* postdynamic.php in Resources */,
 				C459E4BA1D0176E20017A078 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

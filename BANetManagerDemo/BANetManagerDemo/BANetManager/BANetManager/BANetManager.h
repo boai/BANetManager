@@ -154,8 +154,9 @@ typedef NSURLSessionTask BAURLSessionTask;
 /*!
  *  上传图片(多图)
  *
- *  @param operations   上传图片预留参数---视具体情况而定 可移除
+ *  @param parameters   上传图片预留参数---视具体情况而定 可移除
  *  @param imageArray   上传的图片数组
+ *  @param fileName     上传的图片数组fileName
  *  @param urlString    上传的url
  *  @param successBlock 上传成功的回调
  *  @param failureBlock 上传失败的回调
@@ -164,6 +165,7 @@ typedef NSURLSessionTask BAURLSessionTask;
 + (BAURLSessionTask *)ba_uploadImageWithUrlString:(NSString *)urlString
                                        parameters:(NSDictionary *)parameters
                                    withImageArray:(NSArray *)imageArray
+                                     withFileName:(NSString *)fileName
                                  withSuccessBlock:(BAResponseSuccess)successBlock
                                   withFailurBlock:(BAResponseFail)failureBlock
                                withUpLoadProgress:(BAUploadProgress)progress;
