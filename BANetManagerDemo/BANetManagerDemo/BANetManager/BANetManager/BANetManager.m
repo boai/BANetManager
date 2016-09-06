@@ -118,14 +118,14 @@ static NSMutableArray *tasks;
         manager.requestSerializer.cachePolicy = NSURLRequestReloadIgnoringLocalCacheData;
         
         /*! 设置返回数据为json, 分别设置请求以及相应的序列化器 */
-        //根据服务器的设定不同还可以设置 [AFHTTPResponseSerializer serializer](常用)
+        /*! 根据服务器的设定不同还可以设置 [AFHTTPResponseSerializer serializer](常用) */
         AFJSONResponseSerializer * response = [AFJSONResponseSerializer serializer];
-        //这里是去掉了键值对里空对象的键值
+        /*! 这里是去掉了键值对里空对象的键值 */
         response.removesKeysWithNullValues = YES;
         manager.responseSerializer = response;
         
         /* 设置请求服务器数据格式为json */
-        //根据服务器的设定不同还可以设置 [AFHTTPRequestSerializer serializer](常用)
+        /*! 根据服务器的设定不同还可以设置 [AFHTTPRequestSerializer serializer](常用) */
         AFJSONRequestSerializer * request = [AFJSONRequestSerializer serializer];
         manager.requestSerializer = request;
         
