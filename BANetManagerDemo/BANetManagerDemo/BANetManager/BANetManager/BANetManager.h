@@ -145,10 +145,10 @@ typedef NSURLSessionTask BAURLSessionTask;
  *  @param progress 进度
  */
 + (BAURLSessionTask *)ba_requestWithType:(BAHttpRequestType)type
-                           withUrlString:(NSString *)urlString
-                          withParameters:(NSDictionary *)parameters
-                        withSuccessBlock:(BAResponseSuccess)successBlock
-                        withFailureBlock:(BAResponseFail)failureBlock
+                               UrlString:(NSString *)urlString
+                              Parameters:(NSDictionary *)parameters
+                            SuccessBlock:(BAResponseSuccess)successBlock
+                            FailureBlock:(BAResponseFail)failureBlock
                                 progress:(BADownloadProgress)progress;
 
 /*!
@@ -164,11 +164,11 @@ typedef NSURLSessionTask BAURLSessionTask;
  */
 + (BAURLSessionTask *)ba_uploadImageWithUrlString:(NSString *)urlString
                                        parameters:(NSDictionary *)parameters
-                                   withImageArray:(NSArray *)imageArray
-                                     withFileName:(NSString *)fileName
-                                 withSuccessBlock:(BAResponseSuccess)successBlock
-                                  withFailurBlock:(BAResponseFail)failureBlock
-                               withUpLoadProgress:(BAUploadProgress)progress;
+                                       ImageArray:(NSArray *)imageArray
+                                         FileName:(NSString *)fileName
+                                     SuccessBlock:(BAResponseSuccess)successBlock
+                                      FailurBlock:(BAResponseFail)failureBlock
+                                   UpLoadProgress:(BAUploadProgress)progress;
 
 /*!
  *  视频上传
@@ -182,10 +182,10 @@ typedef NSURLSessionTask BAURLSessionTask;
  */
 + (void)ba_uploadVideoWithUrlString:(NSString *)urlString
                          parameters:(NSDictionary *)parameters
-                      withVideoPath:(NSString *)videoPath
-                   withSuccessBlock:(BAResponseSuccess)successBlock
-                   withFailureBlock:(BAResponseFail)failureBlock
-                 withUploadProgress:(BAUploadProgress)progress;
+                          VideoPath:(NSString *)videoPath
+                       SuccessBlock:(BAResponseSuccess)successBlock
+                       FailureBlock:(BAResponseFail)failureBlock
+                     UploadProgress:(BAUploadProgress)progress;
 
 /*!
  *  文件下载
@@ -199,10 +199,10 @@ typedef NSURLSessionTask BAURLSessionTask;
  */
 + (BAURLSessionTask *)ba_downLoadFileWithUrlString:(NSString *)urlString
                                         parameters:(NSDictionary *)parameters
-                                      withSavaPath:(NSString *)savePath
-                                  withSuccessBlock:(BAResponseSuccess)successBlock
-                                  withFailureBlock:(BAResponseFail)failureBlock
-                              withDownLoadProgress:(BADownloadProgress)progress;
+                                          SavaPath:(NSString *)savePath
+                                      SuccessBlock:(BAResponseSuccess)successBlock
+                                      FailureBlock:(BAResponseFail)failureBlock
+                                  DownLoadProgress:(BADownloadProgress)progress;
 
 
 

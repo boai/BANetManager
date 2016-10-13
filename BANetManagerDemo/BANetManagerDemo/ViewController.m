@@ -118,13 +118,13 @@ static NSString * const url4 = @"http://www.aomy.com/attach/2012-09/1347583576vg
 #pragma mark - ***** get
 - (IBAction)getData:(UIButton *)sender
 {
-    [BANetManager ba_requestWithType:BAHttpRequestTypeGet withUrlString:url1 withParameters:nil withSuccessBlock:^(id response) {
+    [BANetManager ba_requestWithType:BAHttpRequestTypeGet UrlString:url1 Parameters:nil SuccessBlock:^(id response) {
         
         /*! 新增get请求缓存，飞行模式下开启试试看！ */
         NSLog(@"get请求数据成功： *** %@", response);
         [[[UIAlertView alloc] initWithTitle:@"温馨提示：" message:@"get请求成功！" delegate:nil cancelButtonTitle:@"确 定" otherButtonTitles:nil, nil] show];
         return;
-    } withFailureBlock:^(NSError *error) {
+    } FailureBlock:^(NSError *error) {
         
     } progress:^(int64_t bytesProgress, int64_t totalBytesProgress) {
         
@@ -138,12 +138,12 @@ static NSString * const url4 = @"http://www.aomy.com/attach/2012-09/1347583576vg
     NSString *url = @"http://api.mncnet.cn/mncApp/common/sendSmsCode";
     NSDictionary *params = @{@"apiKey":@"A71F631C4788AB35AB1EE0191BD7FBDE", @"mobile":@"", @"sendType":@"1"};
 
-    [BANetManager ba_requestWithType:BAHttpRequestTypePost withUrlString:url withParameters:params withSuccessBlock:^(id response) {
+    [BANetManager ba_requestWithType:BAHttpRequestTypePost UrlString:url Parameters:params SuccessBlock:^(id response) {
         
         NSLog(@"post请求数据成功： *** %@", response);
         [[[UIAlertView alloc] initWithTitle:@"温馨提示：" message:@"post请求成功！" delegate:nil cancelButtonTitle:@"确 定" otherButtonTitles:nil, nil] show];
         return;
-    } withFailureBlock:^(NSError *error) {
+    } FailureBlock:^(NSError *error) {
         
     } progress:^(int64_t bytesProgress, int64_t totalBytesProgress) {
         
@@ -175,7 +175,7 @@ static NSString * const url4 = @"http://www.aomy.com/attach/2012-09/1347583576vg
     //        return;
     //    }
     
-    self.tasks = [BANetManager ba_downLoadFileWithUrlString:url4 parameters:nil withSavaPath:path1 withSuccessBlock:^(id response) {
+    self.tasks = [BANetManager ba_downLoadFileWithUrlString:url3 parameters:nil SavaPath:path1 SuccessBlock:^(id response) {
 
         NSLog(@"下载完成，路径为：%@", response);
         self.downloadLabel.text = @"下载完成";
@@ -186,9 +186,9 @@ static NSString * const url4 = @"http://www.aomy.com/attach/2012-09/1347583576vg
         [[[UIAlertView alloc] initWithTitle:@"温馨提示：" message:@"视频下载完成！" delegate:nil cancelButtonTitle:@"确 定" otherButtonTitles:nil, nil] show];
         return;
         
-    } withFailureBlock:^(NSError *error) {
+    } FailureBlock:^(NSError *error) {
         
-    } withDownLoadProgress:^(int64_t bytesProgress, int64_t totalBytesProgress) {
+    } DownLoadProgress:^(int64_t bytesProgress, int64_t totalBytesProgress) {
         /*! 封装方法里已经回到主线程，所有这里不用再调主线程了 */
         self.downloadLabel.text = [NSString stringWithFormat:@"下载进度：%.2lld%%",100 * bytesProgress/totalBytesProgress];
         [downloadBtn setTitle:@"下载中..." forState:UIControlStateNormal];
@@ -221,11 +221,11 @@ static NSString * const url4 = @"http://www.aomy.com/attach/2012-09/1347583576vg
      
      */
 
-    [BANetManager ba_uploadImageWithUrlString:nil parameters:nil withImageArray:nil withFileName:nil withSuccessBlock:^(id response) {
+    [BANetManager ba_uploadImageWithUrlString:nil parameters:nil ImageArray:nil FileName:nil SuccessBlock:^(id response) {
         
-    } withFailurBlock:^(NSError *error) {
+    } FailurBlock:^(NSError *error) {
         
-    } withUpLoadProgress:^(int64_t bytesProgress, int64_t totalBytesProgress) {
+    } UpLoadProgress:^(int64_t bytesProgress, int64_t totalBytesProgress) {
         
     }];
 }
@@ -233,20 +233,26 @@ static NSString * const url4 = @"http://www.aomy.com/attach/2012-09/1347583576vg
 #pragma mark - ***** 上传视频
 - (IBAction)uploadVideoData:(UIButton *)sender
 {
-    [BANetManager ba_uploadVideoWithUrlString:nil parameters:nil withVideoPath:nil withSuccessBlock:^(id response) {
+    /*!
+     
+     1、此上传视频都经过几十个项目亲测可用，大家可以放心使用，使用过程中有问题，请加群：479663605 进行反馈，多谢！
+     2、此处只需要传URL 和 parameters就行了，具体压缩方法都已经做好处理！
+
+     */
+    [BANetManager ba_uploadVideoWithUrlString:nil parameters:nil VideoPath:nil SuccessBlock:^(id response) {
         
-    } withFailureBlock:^(NSError *error) {
+    } FailureBlock:^(NSError *error) {
         
-    } withUploadProgress:^(int64_t bytesProgress, int64_t totalBytesProgress) {
+    } UploadProgress:^(int64_t bytesProgress, int64_t totalBytesProgress) {
         
     }];
 }
 
 - (IBAction)putData:(UIButton *)sender
 {
-    [BANetManager ba_requestWithType:BAHttpRequestTypePut withUrlString:nil withParameters:nil withSuccessBlock:^(id response) {
+    [BANetManager ba_requestWithType:BAHttpRequestTypePut UrlString:nil Parameters:nil SuccessBlock:^(id response) {
         
-    } withFailureBlock:^(NSError *error) {
+    } FailureBlock:^(NSError *error) {
         
     } progress:^(int64_t bytesProgress, int64_t totalBytesProgress) {
         
@@ -255,9 +261,9 @@ static NSString * const url4 = @"http://www.aomy.com/attach/2012-09/1347583576vg
 
 - (IBAction)deleteData:(UIButton *)sender
 {
-    [BANetManager ba_requestWithType:BAHttpRequestTypeDelete withUrlString:nil withParameters:nil withSuccessBlock:^(id response) {
+    [BANetManager ba_requestWithType:BAHttpRequestTypeDelete UrlString:nil Parameters:nil SuccessBlock:^(id response) {
         
-    } withFailureBlock:^(NSError *error) {
+    } FailureBlock:^(NSError *error) {
         
     } progress:^(int64_t bytesProgress, int64_t totalBytesProgress) {
         

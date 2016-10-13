@@ -191,10 +191,10 @@ static NSMutableArray *tasks;
  *  @param progress 进度
  */
 + (BAURLSessionTask *)ba_requestWithType:(BAHttpRequestType)type
-                           withUrlString:(NSString *)urlString
-                          withParameters:(NSDictionary *)parameters
-                        withSuccessBlock:(BAResponseSuccess)successBlock
-                        withFailureBlock:(BAResponseFail)failureBlock
+                               UrlString:(NSString *)urlString
+                              Parameters:(NSDictionary *)parameters
+                            SuccessBlock:(BAResponseSuccess)successBlock
+                            FailureBlock:(BAResponseFail)failureBlock
                                 progress:(BADownloadProgress)progress
 {
     if (urlString == nil)
@@ -344,11 +344,11 @@ static NSMutableArray *tasks;
  */
 + (BAURLSessionTask *)ba_uploadImageWithUrlString:(NSString *)urlString
                                        parameters:(NSDictionary *)parameters
-                                   withImageArray:(NSArray *)imageArray
-                                     withFileName:(NSString *)fileName
-                                 withSuccessBlock:(BAResponseSuccess)successBlock
-                                  withFailurBlock:(BAResponseFail)failureBlock
-                               withUpLoadProgress:(BAUploadProgress)progress
+                                       ImageArray:(NSArray *)imageArray
+                                         FileName:(NSString *)fileName
+                                     SuccessBlock:(BAResponseSuccess)successBlock
+                                      FailurBlock:(BAResponseFail)failureBlock
+                                   UpLoadProgress:(BAUploadProgress)progress
 {
     if (urlString == nil)
     {
@@ -454,13 +454,13 @@ static NSMutableArray *tasks;
  */
 + (void)ba_uploadVideoWithUrlString:(NSString *)urlString
                          parameters:(NSDictionary *)parameters
-                      withVideoPath:(NSString *)videoPath
-                   withSuccessBlock:(BAResponseSuccess)successBlock
-                   withFailureBlock:(BAResponseFail)failureBlock
-                 withUploadProgress:(BAUploadProgress)progress
+                          VideoPath:(NSString *)videoPath
+                       SuccessBlock:(BAResponseSuccess)successBlock
+                       FailureBlock:(BAResponseFail)failureBlock
+                     UploadProgress:(BAUploadProgress)progress
 {
     /*! 获得视频资源 */
-    AVURLAsset *avAsset = [AVURLAsset assetWithURL:[NSURL URLWithString:videoPath]];
+    AVURLAsset *avAsset = [AVURLAsset URLAssetWithURL:[NSURL URLWithString:videoPath]  options:nil];
     
     /*! 压缩 */
     
@@ -470,60 +470,50 @@ static NSMutableArray *tasks;
     //    NSString *const AVAssetExportPreset1920x1080;
     //    NSString *const AVAssetExportPreset3840x2160;
     
-    AVAssetExportSession  *  avAssetExport = [[AVAssetExportSession alloc] initWithAsset:avAsset presetName:AVAssetExportPreset640x480];
-    
     /*! 创建日期格式化器 */
     
-    NSDateFormatter * formatter = [[NSDateFormatter alloc] init];
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     
     [formatter setDateFormat:@"yyyy-MM-dd-HH:mm:ss"];
     
     /*! 转化后直接写入Library---caches */
+    NSString *videoWritePath = [NSString stringWithFormat:@"output-%@.mp4",[formatter stringFromDate:[NSDate date]]];
+    NSString *outfilePath = [NSHomeDirectory() stringByAppendingFormat:@"/Documents/%@", videoWritePath];
     
-    NSString *  videoWritePath = [[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) firstObject] stringByAppendingString:[NSString stringWithFormat:@"/output-%@.mp4",[formatter stringFromDate:[NSDate date]]]];
+    AVAssetExportSession *avAssetExport = [[AVAssetExportSession alloc] initWithAsset:avAsset presetName:AVAssetExportPresetMediumQuality];
     
-    
-    avAssetExport.outputURL = [NSURL URLWithString:videoWritePath];
-    
-    
+    avAssetExport.outputURL = [NSURL fileURLWithPath:outfilePath];
     avAssetExport.outputFileType =  AVFileTypeMPEG4;
     
     [avAssetExport exportAsynchronouslyWithCompletionHandler:^{
-        
         switch ([avAssetExport status]) {
             case AVAssetExportSessionStatusCompleted:
             {
                 [[self sharedAFManager] POST:urlString parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
                     
-                    //获得沙盒中的视频内容
-                    
-                    [formData appendPartWithFileURL:[NSURL fileURLWithPath:videoWritePath] name:@"write you want to writre" fileName:videoWritePath mimeType:@"video/mpeg4" error:nil];
+                    NSURL *filePathURL2 = [NSURL URLWithString:[NSString stringWithFormat:@"file://%@", outfilePath]];
+                    // 获得沙盒中的视频内容
+                    [formData appendPartWithFileURL:filePathURL2 name:@"video" fileName:outfilePath mimeType:@"application/octet-stream" error:nil];
                     
                 } progress:^(NSProgress * _Nonnull uploadProgress) {
-                    
                     NSLog(@"上传进度--%lld,总进度---%lld",uploadProgress.completedUnitCount,uploadProgress.totalUnitCount);
-                    
                     if (progress)
                     {
                         progress(uploadProgress.completedUnitCount, uploadProgress.totalUnitCount);
                     }
-                    
                 } success:^(NSURLSessionDataTask * _Nonnull task, NSDictionary *  _Nullable responseObject) {
-                    
                     NSLog(@"上传视频成功 = %@",responseObject);
                     if (successBlock)
                     {
                         successBlock(responseObject);
                     }
-                    
                 } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-                    
+                    NSLog(@"上传视频失败 = %@", error);
                     if (failureBlock)
                     {
                         failureBlock(error);
                     }
                 }];
-                
                 break;
             }
             default:
@@ -545,10 +535,10 @@ static NSMutableArray *tasks;
  */
 + (BAURLSessionTask *)ba_downLoadFileWithUrlString:(NSString *)urlString
                                         parameters:(NSDictionary *)parameters
-                                      withSavaPath:(NSString *)savePath
-                                  withSuccessBlock:(BAResponseSuccess)successBlock
-                                  withFailureBlock:(BAResponseFail)failureBlock
-                              withDownLoadProgress:(BADownloadProgress)progress
+                                          SavaPath:(NSString *)savePath
+                                      SuccessBlock:(BAResponseSuccess)successBlock
+                                      FailureBlock:(BAResponseFail)failureBlock
+                                  DownLoadProgress:(BADownloadProgress)progress
 {
     if (urlString == nil)
     {
