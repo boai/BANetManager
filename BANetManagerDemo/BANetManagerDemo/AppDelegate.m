@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "BANetManager.h"
 
 @interface AppDelegate ()
 
@@ -20,7 +21,7 @@
     
     /*! 设置默认缓存大小 */
     [self ba_setNSURLCache];
-    
+
     return YES;
 }
 

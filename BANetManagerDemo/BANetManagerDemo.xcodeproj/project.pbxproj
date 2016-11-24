@@ -158,6 +158,7 @@
 				TargetAttributes = {
 					C459E4AB1D0176E10017A078 = {
 						CreatedOnToolsVersion = 7.2;
+						DevelopmentTeam = 5MLEPWQRVD;
 					};
 				};
 			};
@@ -363,8 +364,10 @@
 			baseConfigurationReference = EF6B0F787A3E19AE867AC0F8 /* Pods-BANetManagerDemo.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = BANetManagerDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.-boai.BANetManagerDemo";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -376,8 +379,10 @@
 			baseConfigurationReference = AFE9FC1E4A52DB26DACEA29B /* Pods-BANetManagerDemo.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = BANetManagerDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.-boai.BANetManagerDemo";
 				PRODUCT_NAME = "$(TARGET_NAME)";

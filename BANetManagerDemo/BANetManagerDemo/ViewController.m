@@ -102,29 +102,119 @@ static NSString * const url4 = @"http://www.aomy.com/attach/2012-09/1347583576vg
 
 @implementation ViewController
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    
+
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
     self.title = @"AFNetworking 3.1 封装demo";
-    [BANetManager ba_startNetWorkMonitoring];
+    
+    /*! 网络状态实时监测可以使用 block 回调，也可以使用单独方法判断 */
+    [self ba_netType];
+    
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+#pragma mark - 一次性网络状态判断
+- (void)ba_getCurrentNetworkStatusUseDefine:(BOOL)useDefine
+{
+    if (useDefine)
+    {
+        if (kIsHaveNetwork)
+        {
+            NSLog(@"有网络");
+            if (kIs3GOr4GNetwork)
+            {
+                NSLog(@"手机网络");
+            }
+            else if (kIsWiFiNetwork)
+            {
+                NSLog(@"WiFi网络");
+            }
+        }
+    }
+    else
+    {
+        /*! 也可以使用单独方法判断 */
+        if ([BANetManager ba_isHaveNetwork])
+        {
+            NSLog(@"当前有网络");
+            if ([BANetManager ba_isWiFiNetwork])
+            {
+                NSLog(@"当前有 wifi 网络");
+            }
+            if ([BANetManager ba_is3GOr4GNetwork])
+            {
+                NSLog(@"当前有 3GOr4G 网络");
+            }
+        }
+    }
+}
+
+#pragma mark - 网络类型判断
+- (void)ba_netType
+{
+    BAWeak;
+    [BANetManager ba_startNetWorkMonitoringWithBlock:^(BANetworkStatus status) {
+//        NSString *netType;
+//        switch (status) {
+//            case 0:
+//                netType = @"未知网络";
+//                [weakSelf alertWithMsg:netType];
+//                break;
+//            case 1:
+//                netType = @"没有网络";
+//                [weakSelf alertWithMsg:netType];
+//                break;
+//            case 2:
+//                netType = @"您的网络类型为：手机 3G/4G 网络";
+//                [weakSelf alertWithMsg:netType];
+//                break;
+//            case 3:
+//                netType = @"您的网络类型为：wifi 网络";
+//                /*! wifi 网络下请求网络：可以在父类写此方法，具体使用demo，详见：https://github.com/boai/BABaseProject */
+//                [weakSelf getData:nil];
+//                break;
+//                
+//            default:
+//                break;
+//        }
+        [weakSelf ba_getCurrentNetworkStatusUseDefine:YES];
+       
+    }];
+}
+
+- (void)alertWithMsg:(NSString *)msg
+{
+    [[[UIAlertView alloc] initWithTitle:@"温馨提示：" message:msg delegate:nil cancelButtonTitle:@"确 定" otherButtonTitles:nil, nil] show];
 }
 
 #pragma mark - ***** get
 - (IBAction)getData:(UIButton *)sender
 {
-    [BANetManager ba_requestWithType:BAHttpRequestTypeGet UrlString:url1 Parameters:nil SuccessBlock:^(id response) {
+    BAWeak;
+    [BANetManager ba_requestWithType:BAHttpRequestTypeGet
+                           urlString:url1
+                          parameters:nil
+                        successBlock:^(id response) {
         
         /*! 新增get请求缓存，飞行模式下开启试试看！ */
         NSLog(@"get请求数据成功： *** %@", response);
-        [[[UIAlertView alloc] initWithTitle:@"温馨提示：" message:@"get请求成功！" delegate:nil cancelButtonTitle:@"确 定" otherButtonTitles:nil, nil] show];
-        return;
-    } FailureBlock:^(NSError *error) {
+        [weakSelf alertWithMsg:@"get请求成功！"];
+
+    } failureBlock:^(NSError *error) {
         
     } progress:^(int64_t bytesProgress, int64_t totalBytesProgress) {
         
@@ -134,16 +224,22 @@ static NSString * const url4 = @"http://www.aomy.com/attach/2012-09/1347583576vg
 #pragma mark - ***** post
 - (IBAction)postData:(UIButton *)sender
 {
+    BAWeak;
     /*! 此处的手机号填写自己的手机号，返回成功，即可收到短信验证码 */
     NSString *url = @"http://api.mncnet.cn/mncApp/common/sendSmsCode";
-    NSDictionary *params = @{@"apiKey":@"A71F631C4788AB35AB1EE0191BD7FBDE", @"mobile":@"", @"sendType":@"1"};
+    NSDictionary *params = @{@"apiKey":@"A71F631C4788AB35AB1EE0191BD7FBDE",
+                             @"mobile":@" ",
+                             @"sendType":@"1"
+                             };
 
-    [BANetManager ba_requestWithType:BAHttpRequestTypePost UrlString:url Parameters:params SuccessBlock:^(id response) {
+    [BANetManager ba_requestWithType:BAHttpRequestTypePost
+                           urlString:url
+                          parameters:params
+                        successBlock:^(id response) {
         
         NSLog(@"post请求数据成功： *** %@", response);
-        [[[UIAlertView alloc] initWithTitle:@"温馨提示：" message:@"post请求成功！" delegate:nil cancelButtonTitle:@"确 定" otherButtonTitles:nil, nil] show];
-        return;
-    } FailureBlock:^(NSError *error) {
+        [weakSelf alertWithMsg:@"post请求成功！"];
+    } failureBlock:^(NSError *error) {
         
     } progress:^(int64_t bytesProgress, int64_t totalBytesProgress) {
         
@@ -174,21 +270,22 @@ static NSString * const url4 = @"http://www.aomy.com/attach/2012-09/1347583576vg
     //        [[[UIAlertView alloc] initWithTitle:@"温馨提示：" message:@"您已经下载该视频！" delegate:nil cancelButtonTitle:@"确 定" otherButtonTitles:nil, nil] show];
     //        return;
     //    }
-    
-    self.tasks = [BANetManager ba_downLoadFileWithUrlString:url3 parameters:nil SavaPath:path1 SuccessBlock:^(id response) {
+    BAWeak;
+    self.tasks = [BANetManager ba_downLoadFileWithUrlString:url3
+                                                 parameters:nil
+                                                   savaPath:path1
+                                               successBlock:^(id response) {
 
         NSLog(@"下载完成，路径为：%@", response);
         self.downloadLabel.text = @"下载完成";
         isFinishDownload = YES;
         [downloadBtn setTitle:@"下载完成" forState:UIControlStateNormal];
         [downloadBtn setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+       [weakSelf alertWithMsg:@"视频下载完成！"];
         
-        [[[UIAlertView alloc] initWithTitle:@"温馨提示：" message:@"视频下载完成！" delegate:nil cancelButtonTitle:@"确 定" otherButtonTitles:nil, nil] show];
-        return;
+    } failureBlock:^(NSError *error) {
         
-    } FailureBlock:^(NSError *error) {
-        
-    } DownLoadProgress:^(int64_t bytesProgress, int64_t totalBytesProgress) {
+    } downLoadProgress:^(int64_t bytesProgress, int64_t totalBytesProgress) {
         /*! 封装方法里已经回到主线程，所有这里不用再调主线程了 */
         self.downloadLabel.text = [NSString stringWithFormat:@"下载进度：%.2lld%%",100 * bytesProgress/totalBytesProgress];
         [downloadBtn setTitle:@"下载中..." forState:UIControlStateNormal];
@@ -221,11 +318,11 @@ static NSString * const url4 = @"http://www.aomy.com/attach/2012-09/1347583576vg
      
      */
 
-    [BANetManager ba_uploadImageWithUrlString:nil parameters:nil ImageArray:nil FileName:nil SuccessBlock:^(id response) {
+    [BANetManager ba_uploadImageWithUrlString:nil parameters:nil imageArray:nil fileName:nil successBlock:^(id response) {
         
-    } FailurBlock:^(NSError *error) {
+    } failurBlock:^(NSError *error) {
         
-    } UpLoadProgress:^(int64_t bytesProgress, int64_t totalBytesProgress) {
+    } upLoadProgress:^(int64_t bytesProgress, int64_t totalBytesProgress) {
         
     }];
 }
@@ -239,20 +336,20 @@ static NSString * const url4 = @"http://www.aomy.com/attach/2012-09/1347583576vg
      2、此处只需要传URL 和 parameters就行了，具体压缩方法都已经做好处理！
 
      */
-    [BANetManager ba_uploadVideoWithUrlString:nil parameters:nil VideoPath:nil SuccessBlock:^(id response) {
+    [BANetManager ba_uploadVideoWithUrlString:nil parameters:nil videoPath:nil successBlock:^(id response) {
         
-    } FailureBlock:^(NSError *error) {
+    } failureBlock:^(NSError *error) {
         
-    } UploadProgress:^(int64_t bytesProgress, int64_t totalBytesProgress) {
+    } uploadProgress:^(int64_t bytesProgress, int64_t totalBytesProgress) {
         
     }];
 }
 
 - (IBAction)putData:(UIButton *)sender
 {
-    [BANetManager ba_requestWithType:BAHttpRequestTypePut UrlString:nil Parameters:nil SuccessBlock:^(id response) {
+    [BANetManager ba_requestWithType:BAHttpRequestTypePut urlString:nil parameters:nil successBlock:^(id response) {
         
-    } FailureBlock:^(NSError *error) {
+    } failureBlock:^(NSError *error) {
         
     } progress:^(int64_t bytesProgress, int64_t totalBytesProgress) {
         
@@ -261,9 +358,9 @@ static NSString * const url4 = @"http://www.aomy.com/attach/2012-09/1347583576vg
 
 - (IBAction)deleteData:(UIButton *)sender
 {
-    [BANetManager ba_requestWithType:BAHttpRequestTypeDelete UrlString:nil Parameters:nil SuccessBlock:^(id response) {
+    [BANetManager ba_requestWithType:BAHttpRequestTypeDelete urlString:nil parameters:nil successBlock:^(id response) {
         
-    } FailureBlock:^(NSError *error) {
+    } failureBlock:^(NSError *error) {
         
     } progress:^(int64_t bytesProgress, int64_t totalBytesProgress) {
         
