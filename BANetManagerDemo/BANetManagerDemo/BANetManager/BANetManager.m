@@ -199,15 +199,6 @@ static NSMutableArray *tasks;
     return tasks;
 }
 
-+ (void)ba_noNet
-{
-    if (![self ba_isHaveNetwork])
-    {
-        NSLog(@"没有网络！");
-        return ;
-    }
-}
-
 #pragma mark - 网络请求的类方法 --- get / post / put / delete
 /*!
  *  网络请求的实例方法
@@ -231,7 +222,6 @@ static NSMutableArray *tasks;
         return nil;
     }
     
-    [self ba_noNet];
     BAWeak;
     /*! 检查地址中是否有中文 */
     NSString *URLString = [NSURL URLWithString:urlString] ? urlString : [self strUTF8Encoding:urlString];
@@ -404,7 +394,6 @@ static NSMutableArray *tasks;
     {
         return nil;
     }
-    [self ba_noNet];
 
     BAWeak;
     /*! 检查地址中是否有中文 */
@@ -515,8 +504,6 @@ static NSMutableArray *tasks;
                        failureBlock:(BAResponseFail)failureBlock
                      uploadProgress:(BAUploadProgress)progress
 {
-    [self ba_noNet];
-
     /*! 获得视频资源 */
     AVURLAsset *avAsset = [AVURLAsset URLAssetWithURL:[NSURL URLWithString:videoPath]  options:nil];
     
@@ -602,7 +589,6 @@ static NSMutableArray *tasks;
     {
         return nil;
     }
-    [self ba_noNet];
 
     NSURLRequest *downloadRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:urlString]];
     
