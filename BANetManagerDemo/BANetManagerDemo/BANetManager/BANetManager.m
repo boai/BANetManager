@@ -138,7 +138,7 @@ static NSMutableArray *tasks;
         /*! 设置返回数据类型为 json, 分别设置请求以及相应的序列化器 */
         /*! 
          根据服务器的设定不同还可以设置：
-         json：[AFHTTPResponseSerializer serializer](常用)
+         json：[AFJSONResponseSerializer serializer](常用)
          http：[AFHTTPResponseSerializer serializer]
          */
         AFJSONResponseSerializer *response = [AFJSONResponseSerializer serializer];
@@ -147,7 +147,7 @@ static NSMutableArray *tasks;
         manager.responseSerializer = response;
         
         /* 设置请求服务器数类型式为 json */
-        /*! 根据服务器的设定不同还可以设置 [AFHTTPRequestSerializer serializer](常用) */
+        /*! 根据服务器的设定不同还可以设置 [AFJSONRequestSerializer serializer](常用) */
         AFJSONRequestSerializer *request = [AFJSONRequestSerializer serializer];
         manager.requestSerializer = request;
         
