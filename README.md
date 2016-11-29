@@ -15,6 +15,7 @@
 
 #### 2、demo展示
 详情demo，请前往[『BABaseProject』](https://github.com/boai/BABaseProject)！
+Code4App 下载链接：[『BANetManager』](http://www.code4app.com/forum.php?mod=viewthread&tid=11787)！
 
 #### 3、图片展示
 
