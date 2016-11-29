@@ -14,7 +14,7 @@
 - 1、集成 get / post / put / delete 等常用请求方式的封装【已经测试通过】
 
 #### 2、demo展示
-详情demo，请前往[『BABaseProject』](https://github.com/boai/BABaseProject)！
+详情demo，请前往[『BABaseProject』](https://github.com/boai/BABaseProject)！<br>
 Code4App 下载链接：[『BANetManager』](http://www.code4app.com/forum.php?mod=viewthread&tid=11787)！
 
 #### 3、图片展示
