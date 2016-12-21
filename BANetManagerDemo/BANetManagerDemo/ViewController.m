@@ -68,6 +68,7 @@ static NSString * const url1 = @"http://c.m.163.com/nc/video/home/1-10.html";
 static NSString * const url2 = @"http://apis.baidu.com/apistore/";
 static NSString * const url3 = @"http://yycloudvod1932283664.bs2dl.yy.com/djMxYTkzNjQzNzNkNmU4ODc1NzY1ODQ3ZmU5ZDJlODkxMTIwMjM2NTE5Nw";
 static NSString * const url4 = @"http://www.aomy.com/attach/2012-09/1347583576vgC6.jpg";
+#define defaultUrl        @"http://zl160528.15.baidusx.com/app/log_mobile.php"
 
 /*！国内天气预报融合版－apikey */
 //#define apikey  @"82428a4618b6aa313be6914d727cb9b7"
@@ -226,14 +227,15 @@ static NSString * const url4 = @"http://www.aomy.com/attach/2012-09/1347583576vg
 {
     BAWeak;
     /*! 此处的手机号填写自己的手机号，返回成功，即可收到短信验证码 */
-    NSString *url = @"http://api.mncnet.cn/mncApp/common/sendSmsCode";
-    NSDictionary *params = @{@"apiKey":@"A71F631C4788AB35AB1EE0191BD7FBDE",
-                             @"mobile":@" ",
-                             @"sendType":@"1"
-                             };
-
+//    NSString *url = @"http://api.mncnet.cn/mncApp/common/sendSmsCode";
+//    NSDictionary *params = @{@"apiKey":@"A71F631C4788AB35AB1EE0191BD7FBDE",
+//                             @"mobile":@" ",
+//                             @"sendType":@"1"
+//                             };
+    NSDictionary *params = @{@"mobile":@""};
+    
     [BANetManager ba_requestWithType:BAHttpRequestTypePost
-                           urlString:url
+                           urlString:@"http://zl160528.15.baidusx.com/app/log_mobile.php"
                           parameters:params
                         successBlock:^(id response) {
         
