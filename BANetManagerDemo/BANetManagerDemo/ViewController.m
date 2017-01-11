@@ -273,7 +273,8 @@ static NSString * const url4 = @"http://www.aomy.com/attach/2012-09/1347583576vg
     //        return;
     //    }
     BAWeak;
-    self.tasks = [BANetManager ba_downLoadFileWithUrlString:url3
+    NSString *url = @"http://static.yizhibo.com/pc_live/static/video.swf?onPlay=YZB.play&onPause=YZB.pause&onSeek=YZB.seek&scid=pALRs7JBtTRU9TWy";
+    self.tasks = [BANetManager ba_downLoadFileWithUrlString:url
                                                  parameters:nil
                                                    savaPath:path1
                                                successBlock:^(id response) {
@@ -349,8 +350,11 @@ static NSString * const url4 = @"http://www.aomy.com/attach/2012-09/1347583576vg
 
 - (IBAction)putData:(UIButton *)sender
 {
-    [BANetManager ba_requestWithType:BAHttpRequestTypePut urlString:nil parameters:nil successBlock:^(id response) {
-        
+    NSString *url = @"http://120.76.245.240:8080/bda/resetPassword/?account=761463699@qq.com&password=q&OTP=634613";
+    NSDictionary *dict = @{@"EquipmentType":@"iPhone", @"EquipmentGUID":@"b61df00d-87db-426f-bc5a-bc8fffa907db"};
+    
+    [BANetManager ba_requestWithType:BAHttpRequestTypePut urlString:url parameters:dict successBlock:^(id response) {
+        NSLog(@"*********00000 : %@", response);
     } failureBlock:^(NSError *error) {
         
     } progress:^(int64_t bytesProgress, int64_t totalBytesProgress) {

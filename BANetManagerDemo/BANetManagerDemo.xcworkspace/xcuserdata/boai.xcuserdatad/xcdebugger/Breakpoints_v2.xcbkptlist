@@ -59,38 +59,22 @@
             endingLineNumber = "290"
             landmarkName = "+ba_requestWithType:urlString:parameters:successBlock:failureBlock:progress:"
             landmarkType = "5">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "+[BANetManager ba_requestWithType:urlString:parameters:successBlock:failureBlock:progress:]"
-                  moduleName = "BANetManagerDemo"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/boai/%E5%8D%9A%E7%88%B1%E8%B5%84%E6%96%99/%E6%9C%89%E4%BA%BA%E5%85%AC%E5%8F%B8%E6%B5%8B%E8%AF%95%E9%A1%B9%E7%9B%AE/%E6%B5%8B%E8%AF%95%E9%A1%B9%E7%9B%AE/BANetManager/BANetManagerDemo/BANetManagerDemo/BANetManager/BANetManager.m"
-                  timestampString = "503994815.255127"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "290"
-                  endingLineNumber = "290"
-                  offsetFromSymbolStart = "1728">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__91+[BANetManager ba_requestWithType:urlString:parameters:successBlock:failureBlock:progress:]_block_invoke124"
-                  moduleName = "BANetManagerDemo"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/boai/%E5%8D%9A%E7%88%B1%E8%B5%84%E6%96%99/%E6%9C%89%E4%BA%BA%E5%85%AC%E5%8F%B8%E6%B5%8B%E8%AF%95%E9%A1%B9%E7%9B%AE/%E6%B5%8B%E8%AF%95%E9%A1%B9%E7%9B%AE/BANetManager/BANetManagerDemo/BANetManagerDemo/BANetManager/BANetManager.m"
-                  timestampString = "503994815.255311"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "290"
-                  endingLineNumber = "290"
-                  offsetFromSymbolStart = "48">
-               </Location>
-            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "BANetManagerDemo/ViewController.m"
+            timestampString = "505790363.589383"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "357"
+            endingLineNumber = "357"
+            landmarkName = "-putData:"
+            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
