@@ -73,6 +73,9 @@ static NSString * const url4 = @"http://www.aomy.com/attach/2012-09/1347583576vg
 /*！国内天气预报融合版－apikey */
 //#define apikey  @"82428a4618b6aa313be6914d727cb9b7"
 
+#define BAKit_ShowAlertWithMsg(msg) [[[UIAlertView alloc] initWithTitle:@"博爱温馨提示" message:(msg) delegate:nil cancelButtonTitle:@"确 定" otherButtonTitles:nil] show];
+
+
 @interface ViewController ()
 {
     BOOL isFinishDownload;
@@ -128,6 +131,39 @@ static NSString * const url4 = @"http://www.aomy.com/attach/2012-09/1347583576vg
     
 }
 
+#pragma mark - 网络类型判断
+- (void)ba_netType
+{
+    BAWeak;
+    [BANetManager ba_startNetWorkMonitoringWithBlock:^(BANetworkStatus status) {
+        //        NSString *netType;
+        //        switch (status) {
+        //            case 0:
+        //                netType = @"未知网络";
+        //                [weakSelf alertWithMsg:netType];
+        //                break;
+        //            case 1:
+        //                netType = @"没有网络";
+        //                [weakSelf alertWithMsg:netType];
+        //                break;
+        //            case 2:
+        //                netType = @"您的网络类型为：手机 3G/4G 网络";
+        //                [weakSelf alertWithMsg:netType];
+        //                break;
+        //            case 3:
+        //                netType = @"您的网络类型为：wifi 网络";
+        //                /*! wifi 网络下请求网络：可以在父类写此方法，具体使用demo，详见：https://github.com/boai/BABaseProject */
+        //                [weakSelf getData:nil];
+        //                break;
+        //
+        //            default:
+        //                break;
+        //        }
+        [weakSelf ba_getCurrentNetworkStatusUseDefine:YES];
+        
+    }];
+}
+
 #pragma mark - 一次性网络状态判断
 - (void)ba_getCurrentNetworkStatusUseDefine:(BOOL)useDefine
 {
@@ -138,11 +174,11 @@ static NSString * const url4 = @"http://www.aomy.com/attach/2012-09/1347583576vg
             NSLog(@"有网络");
             if (kIs3GOr4GNetwork)
             {
-                NSLog(@"手机网络");
+                BAKit_ShowAlertWithMsg(@"手机网络");
             }
             else if (kIsWiFiNetwork)
             {
-                NSLog(@"WiFi网络");
+                BAKit_ShowAlertWithMsg(@"WiFi网络");
             }
         }
     }
@@ -154,47 +190,14 @@ static NSString * const url4 = @"http://www.aomy.com/attach/2012-09/1347583576vg
             NSLog(@"当前有网络");
             if ([BANetManager ba_isWiFiNetwork])
             {
-                NSLog(@"当前有 wifi 网络");
+                BAKit_ShowAlertWithMsg(@"当前有 wifi 网络");
             }
             if ([BANetManager ba_is3GOr4GNetwork])
             {
-                NSLog(@"当前有 3GOr4G 网络");
+                BAKit_ShowAlertWithMsg(@"当前有 3GOr4G 网络");
             }
         }
     }
-}
-
-#pragma mark - 网络类型判断
-- (void)ba_netType
-{
-    BAWeak;
-    [BANetManager ba_startNetWorkMonitoringWithBlock:^(BANetworkStatus status) {
-//        NSString *netType;
-//        switch (status) {
-//            case 0:
-//                netType = @"未知网络";
-//                [weakSelf alertWithMsg:netType];
-//                break;
-//            case 1:
-//                netType = @"没有网络";
-//                [weakSelf alertWithMsg:netType];
-//                break;
-//            case 2:
-//                netType = @"您的网络类型为：手机 3G/4G 网络";
-//                [weakSelf alertWithMsg:netType];
-//                break;
-//            case 3:
-//                netType = @"您的网络类型为：wifi 网络";
-//                /*! wifi 网络下请求网络：可以在父类写此方法，具体使用demo，详见：https://github.com/boai/BABaseProject */
-//                [weakSelf getData:nil];
-//                break;
-//                
-//            default:
-//                break;
-//        }
-        [weakSelf ba_getCurrentNetworkStatusUseDefine:YES];
-       
-    }];
 }
 
 - (void)alertWithMsg:(NSString *)msg
