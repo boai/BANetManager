@@ -74,14 +74,13 @@
 #import <AssetsLibrary/ALAssetRepresentation.h>
 
 
-#import <AFNetworking.h>
+#import "AFNetworking.h"
 #import "AFNetworkActivityIndicatorManager.h"
 
 #import "UIImage+CompressImage.h"
 
 #import "BANetManagerCache.h"
 
-#import <objc/runtime.h>
 
 static NSMutableArray *tasks;
 

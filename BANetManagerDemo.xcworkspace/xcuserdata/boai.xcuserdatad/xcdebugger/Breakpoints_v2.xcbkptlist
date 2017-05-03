@@ -20,11 +20,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BANetManagerDemo/BANetManager/BANetManager.m"
-            timestampString = "515470211.821059"
+            timestampString = "515476444.955101"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "374"
-            endingLineNumber = "374"
+            startingLineNumber = "373"
+            endingLineNumber = "373"
             landmarkName = "+ba_requestWithType:isNeedCache:urlString:parameters:successBlock:failureBlock:progress:"
             landmarkType = "7">
          </BreakpointContent>
@@ -36,11 +36,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BANetManagerDemo/BANetManager/BANetManager.m"
-            timestampString = "515470211.821059"
+            timestampString = "515476444.955101"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "363"
-            endingLineNumber = "363"
+            startingLineNumber = "362"
+            endingLineNumber = "362"
             landmarkName = "+ba_requestWithType:isNeedCache:urlString:parameters:successBlock:failureBlock:progress:"
             landmarkType = "7">
          </BreakpointContent>
@@ -52,11 +52,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BANetManagerDemo/BANetManager/BANetManager.m"
-            timestampString = "515471107.780709"
+            timestampString = "515476444.955101"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "189"
-            endingLineNumber = "189"
+            startingLineNumber = "188"
+            endingLineNumber = "188"
             landmarkName = "+ba_setupSecurityPolicy"
             landmarkType = "7">
          </BreakpointContent>
@@ -68,11 +68,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BANetManagerDemo/BANetManager/BANetManager.m"
-            timestampString = "515471433.687858"
+            timestampString = "515476444.955101"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "351"
-            endingLineNumber = "351"
+            startingLineNumber = "350"
+            endingLineNumber = "350"
             landmarkName = "+ba_requestWithType:isNeedCache:urlString:parameters:successBlock:failureBlock:progress:"
             landmarkType = "7">
          </BreakpointContent>
