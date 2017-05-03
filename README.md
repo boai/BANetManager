@@ -1,7 +1,10 @@
 # BANetManager
-![](https://img.shields.io/badge/platform-iOS-red.svg) ![](https://img.shields.io/badge/language-Objective--C-orange.svg) ![](https://img.shields.io/badge/license-MIT%20License-brightgreen.svg)  [![](https://img.shields.io/badge/微博-博爱1616-red.svg)](http://weibo.com/538298123)
+![](https://img.shields.io/badge/platform-iOS-red.svg) ![](https://img.shields.io/badge/language-Objective--C-orange.svg) 
+![](https://img.shields.io/badge/license-MIT%20License-brightgreen.svg) 
+![](https://img.shields.io/cocoapods/v/BANetManager.svg?style=flat) ![](https://img.shields.io/cocoapods/dt/BANetManager.svg
+)  [![](https://img.shields.io/badge/微博-博爱1616-red.svg)](http://weibo.com/538298123)
 
-### 基于AFNetworking 3.1最新版本的封装
+### 基于AFNetworking 3.X 最新版本的封装
 
 
 ## 1、更新内容
@@ -105,6 +108,19 @@ AFHTTPRequestSerializer：<AFJSONRequestSerializer: 0x1700a2e20>【默认：AFJS
 
 2017-05-03 10:33:07.166472+0800 BANetManagerDemo[1472:479146] ********************************************************
 ```
+
+## 5、install BANetManager
+* 1、pod 安装： 最新版本 2.2.2
+
+```
+pod 'BANetManager'
+```
+* 2、手动导入：最新版本 2.2.2
+
+```
+下载demo，将 BANetManager 文件夹整个拖入项目中
+```
+* 3、导入头文件 `#import "BANetManager.h"` 即可！
 
 ## 5、自定义设置示例：
 ```
