@@ -68,13 +68,18 @@ static NSString * const url1 = @"http://c.m.163.com/nc/video/home/1-10.html";
 static NSString * const url2 = @"http://apis.baidu.com/apistore/";
 static NSString * const url3 = @"http://yycloudvod1932283664.bs2dl.yy.com/djMxYTkzNjQzNzNkNmU4ODc1NzY1ODQ3ZmU5ZDJlODkxMTIwMjM2NTE5Nw";
 static NSString * const url4 = @"http://www.aomy.com/attach/2012-09/1347583576vgC6.jpg";
+static NSString * const url5 = @"http://chanyouji.com/api/users/likes/268717.json";
+
+
 #define defaultUrl        @"http://zl160528.15.baidusx.com/app/log_mobile.php"
 
 /*！国内天气预报融合版－apikey */
 //#define apikey  @"82428a4618b6aa313be6914d727cb9b7"
 
-#define BAKit_ShowAlertWithMsg(msg) [[[UIAlertView alloc] initWithTitle:@"博爱温馨提示" message:(msg) delegate:nil cancelButtonTitle:@"确 定" otherButtonTitles:nil] show];
-
+#define BAKit_ShowAlertWithMsg(msg) UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"温馨提示" message:msg preferredStyle:UIAlertControllerStyleAlert];\
+UIAlertAction *sureAction = [UIAlertAction actionWithTitle:@"确 定" style:UIAlertActionStyleDefault handler:nil];\
+[alert addAction:sureAction];\
+[self presentViewController:alert animated:YES completion:nil];
 
 @interface ViewController ()
 {
@@ -109,15 +114,11 @@ static NSString * const url4 = @"http://www.aomy.com/attach/2012-09/1347583576vg
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
-    
-
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    
 }
 
 - (void)viewDidLoad {
@@ -136,119 +137,79 @@ static NSString * const url4 = @"http://www.aomy.com/attach/2012-09/1347583576vg
 {
     BAWeak;
     [BANetManager ba_startNetWorkMonitoringWithBlock:^(BANetworkStatus status) {
-        //        NSString *netType;
-        //        switch (status) {
-        //            case 0:
-        //                netType = @"未知网络";
-        //                [weakSelf alertWithMsg:netType];
-        //                break;
-        //            case 1:
-        //                netType = @"没有网络";
-        //                [weakSelf alertWithMsg:netType];
-        //                break;
-        //            case 2:
-        //                netType = @"您的网络类型为：手机 3G/4G 网络";
-        //                [weakSelf alertWithMsg:netType];
-        //                break;
-        //            case 3:
-        //                netType = @"您的网络类型为：wifi 网络";
-        //                /*! wifi 网络下请求网络：可以在父类写此方法，具体使用demo，详见：https://github.com/boai/BABaseProject */
-        //                [weakSelf getData:nil];
-        //                break;
-        //
-        //            default:
-        //                break;
-        //        }
-        [weakSelf ba_getCurrentNetworkStatusUseDefine:YES];
-        
+        NSString *msg;
+        switch (status) {
+            case 0:
+            {
+                msg = @"未知网络";
+                BAKit_ShowAlertWithMsg(msg);
+            }
+                break;
+            case 1:
+            {
+                msg = @"没有网络";
+                BAKit_ShowAlertWithMsg(msg);
+            }
+                break;
+            case 2:
+            {
+                msg = @"您的网络类型为：手机 3G/4G 网络";
+                BAKit_ShowAlertWithMsg(msg);
+            }
+                break;
+            case 3:
+            {
+                msg = @"您的网络类型为：wifi 网络";
+                /*! wifi 网络下请求网络：可以在父类写此方法，具体使用demo，详见：https://github.com/boai/BABaseProject */
+                BAKit_ShowAlertWithMsg(msg);
+            }
+                break;
+
+            default:
+                break;
+        }
     }];
-}
-
-#pragma mark - 一次性网络状态判断
-- (void)ba_getCurrentNetworkStatusUseDefine:(BOOL)useDefine
-{
-    if (useDefine)
-    {
-        if (kIsHaveNetwork)
-        {
-            NSLog(@"有网络");
-            if (kIs3GOr4GNetwork)
-            {
-                BAKit_ShowAlertWithMsg(@"手机网络");
-            }
-            else if (kIsWiFiNetwork)
-            {
-                BAKit_ShowAlertWithMsg(@"WiFi网络");
-            }
-        }
-    }
-    else
-    {
-        /*! 也可以使用单独方法判断 */
-        if ([BANetManager ba_isHaveNetwork])
-        {
-            NSLog(@"当前有网络");
-            if ([BANetManager ba_isWiFiNetwork])
-            {
-                BAKit_ShowAlertWithMsg(@"当前有 wifi 网络");
-            }
-            if ([BANetManager ba_is3GOr4GNetwork])
-            {
-                BAKit_ShowAlertWithMsg(@"当前有 3GOr4G 网络");
-            }
-        }
-    }
-}
-
-- (void)alertWithMsg:(NSString *)msg
-{
-    [[[UIAlertView alloc] initWithTitle:@"温馨提示：" message:msg delegate:nil cancelButtonTitle:@"确 定" otherButtonTitles:nil, nil] show];
 }
 
 #pragma mark - ***** get
 - (IBAction)getData:(UIButton *)sender
 {
     BAWeak;
-    [BANetManager ba_requestWithType:BAHttpRequestTypeGet
-                           urlString:url1
-                          parameters:nil
-                        successBlock:^(id response) {
-        
-        /*! 新增get请求缓存，飞行模式下开启试试看！ */
+    // 如果打印数据不完整，是因为 Xcode 8 版本问题，请下断点打印数据
+    [BANetManager ba_request_GETWithUrlString:url5 isNeedCache:YES parameters:nil successBlock:^(id response) {
         NSLog(@"get请求数据成功： *** %@", response);
-        [weakSelf alertWithMsg:@"get请求成功！"];
-
+        
     } failureBlock:^(NSError *error) {
         
-    } progress:^(int64_t bytesProgress, int64_t totalBytesProgress) {
-        
-    }];
+    } progress:nil];
 }
 
 #pragma mark - ***** post
 - (IBAction)postData:(UIButton *)sender
 {
     BAWeak;
-    /*! 此处的手机号填写自己的手机号，返回成功，即可收到短信验证码 */
-//    NSString *url = @"http://api.mncnet.cn/mncApp/common/sendSmsCode";
-//    NSDictionary *params = @{@"apiKey":@"A71F631C4788AB35AB1EE0191BD7FBDE",
-//                             @"mobile":@" ",
-//                             @"sendType":@"1"
-//                             };
-    NSDictionary *params = @{@"mobile":@""};
+    // 自定义超时设置
+    BANetManagerShare.timeoutInterval = 15;
     
-    [BANetManager ba_requestWithType:BAHttpRequestTypePost
-                           urlString:@"http://zl160528.15.baidusx.com/app/log_mobile.php"
-                          parameters:params
-                        successBlock:^(id response) {
-        
+    // 自定义添加请求头
+    NSDictionary *headerDict = @{@"Accept":@"application/json", @"Accept-Encoding":@"gzip"};
+    BANetManagerShare.httpHeaderFieldDictionary = headerDict;
+    
+    // 自定义更改 requestSerializer
+//    BANetManagerShare.requestSerializer = BAHttpRequestSerializerHTTP;
+     // 自定义更改 responseSerializer
+//    BANetManagerShare.responseSerializer = BAHttpRequestSerializerHTTP;
+    
+    int page = 1;
+    NSDictionary *parameters = [NSDictionary dictionaryWithObjectsAndKeys:@(page).stringValue, @"page", @"10", @"per_page", nil];;
+    
+    // 如果打印数据不完整，是因为 Xcode 8 版本问题，请下断点打印数据
+    [BANetManager ba_request_POSTWithUrlString:url5 isNeedCache:YES parameters:parameters successBlock:^(id response) {
         NSLog(@"post请求数据成功： *** %@", response);
-        [weakSelf alertWithMsg:@"post请求成功！"];
+
     } failureBlock:^(NSError *error) {
         
-    } progress:^(int64_t bytesProgress, int64_t totalBytesProgress) {
-        
-    }];
+    } progress:nil];
 }
 
 #pragma mark - ***** 下载视频、图片
@@ -287,7 +248,7 @@ static NSString * const url4 = @"http://www.aomy.com/attach/2012-09/1347583576vg
         isFinishDownload = YES;
         [downloadBtn setTitle:@"下载完成" forState:UIControlStateNormal];
         [downloadBtn setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
-       [weakSelf alertWithMsg:@"视频下载完成！"];
+        BAKit_ShowAlertWithMsg(@"视频下载完成！");
         
     } failureBlock:^(NSError *error) {
         
@@ -356,24 +317,16 @@ static NSString * const url4 = @"http://www.aomy.com/attach/2012-09/1347583576vg
     NSString *url = @"http://120.76.245.240:8080/bda/resetPassword/?account=761463699@qq.com&password=q&OTP=634613";
     NSDictionary *dict = @{@"EquipmentType":@"iPhone", @"EquipmentGUID":@"b61df00d-87db-426f-bc5a-bc8fffa907db"};
     
-    [BANetManager ba_requestWithType:BAHttpRequestTypePut urlString:url parameters:dict successBlock:^(id response) {
+    [BANetManager ba_request_PUTWithUrlString:url parameters:dict successBlock:^(id response) {
         NSLog(@"*********00000 : %@", response);
     } failureBlock:^(NSError *error) {
         
-    } progress:^(int64_t bytesProgress, int64_t totalBytesProgress) {
-        
-    }];
+    } progress:nil];
 }
 
 - (IBAction)deleteData:(UIButton *)sender
 {
-    [BANetManager ba_requestWithType:BAHttpRequestTypeDelete urlString:nil parameters:nil successBlock:^(id response) {
-        
-    } failureBlock:^(NSError *error) {
-        
-    } progress:^(int64_t bytesProgress, int64_t totalBytesProgress) {
-        
-    }];
+    [BANetManager ba_request_DELETEWithUrlString:nil parameters:nil successBlock:nil failureBlock:nil progress:nil];
 }
 
 @end

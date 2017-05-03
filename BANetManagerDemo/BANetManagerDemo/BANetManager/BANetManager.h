@@ -65,6 +65,24 @@
  ************************************ 更新说明 ************************************
  *********************************************************************************
 
+ 最新更新时间：2017-05-03 【倒叙】
+ 最新Version：【Version：2.2】
+ 更新内容：
+ 2.2.1、优化方法名命名规范
+ 2.2.2、优化网络状态实时监测 block 回调，去除多余设置，需要网络判断，直接调用block回调即可
+ 2.2.3、新增 YYCache 缓存处理
+ 2.2.4、新增自定义：超时设置
+ 2.2.5、新增自定义：requestSerializer设置
+ 2.2.6、新增自定义：responseSerializer设置
+ 2.2.7、新增自定义：请求头设置
+ 2.2.8、新增自定义 CA 证书 和 HTTPS 请求配置，只需把证书导入项目目录即可，无需设置
+ 2.2.9、新增史上最全的 AFN 请求 NSLog 打印，详见 demo 控制台打印结果
+ 2.2.10、新增 DEBUG 模式下的 NSLog 判断，release 下不会打印，请放心使用
+ 2.2.11、如果打印数据不完整，是因为 Xcode 8 版本问题，请下断点打印数据
+ 2.2.12、由于新版本改动较大，原有方法命名可能有所改动，希望老用户见谅！
+ 2.2.13、目前版本较稳定，稍后奉上 pod 版本！请大家耐心等待
+
+ 
  最新更新时间：2016-11-24 【倒叙】
  最新Version：【Version：2.1】
  更新内容：
@@ -90,21 +108,6 @@
 
 /*! 过期属性或方法名提醒 */
 #define BANetManagerDeprecated(instead) __deprecated_msg(instead)
-
-/*! 判断是否有网 */
-#ifndef kIsHaveNetwork
-#define kIsHaveNetwork   [BANetManager ba_isHaveNetwork]
-#endif
-
-/*! 判断是否为手机网络 */
-#ifndef kIs3GOr4GNetwork
-#define kIs3GOr4GNetwork [BANetManager ba_is3GOr4GNetwork]
-#endif
-
-/*! 判断是否为WiFi网络 */
-#ifndef kIsWiFiNetwork
-#define kIsWiFiNetwork   [BANetManager ba_isWiFiNetwork]
-#endif
 
 
 /*! 使用枚举NS_ENUM:区别可判断编译器是否支持新式枚举,支持就使用新的,否则使用旧的 */
@@ -133,6 +136,20 @@ typedef NS_ENUM(NSUInteger, BAHttpRequestType)
     BAHttpRequestTypeDelete
 };
 
+typedef NS_ENUM(NSUInteger, BAHttpRequestSerializer) {
+    /** 设置请求数据为JSON格式*/
+    BAHttpRequestSerializerJSON,
+    /** 设置请求数据为HTTP格式*/
+    BAHttpRequestSerializerHTTP,
+};
+
+typedef NS_ENUM(NSUInteger, BAHttpResponseSerializer) {
+    /** 设置响应数据为JSON格式*/
+    BAHttpResponseSerializerJSON,
+    /** 设置响应数据为HTTP格式*/
+    BAHttpResponseSerializerHTTP,
+};
+
 /*! 实时监测网络状态的 block */
 typedef void(^BANetworkStatusBlock)(BANetworkStatus status);
 
@@ -157,36 +174,104 @@ typedef void( ^ BADownloadProgress)(int64_t bytesProgress,
 typedef NSURLSessionTask BAURLSessionTask;
 
 
-
 @interface BANetManager : NSObject
 
-/*! 获取当前网络状态 */
-@property (nonatomic, assign) BANetworkStatus netWorkStatu;
+/**
+ 创建的请求的超时间隔（以秒为单位），此设置为全局统一设置一次即可，默认超时时间间隔为30秒。
+ */
+@property (nonatomic, assign) NSTimeInterval timeoutInterval;
+
+/**
+ 设置网络请求参数的格式，此设置为全局统一设置一次即可，默认：BAHttpRequestSerializerJSON
+ */
+@property (nonatomic, assign) BAHttpRequestSerializer requestSerializer;
+
+/**
+ 设置服务器响应数据格式，此设置为全局统一设置一次即可，默认：BAHttpResponseSerializerJSON
+ */
+@property (nonatomic, assign) BAHttpResponseSerializer responseSerializer;
+
+/**
+ 自定义请求头：httpHeaderField
+ */
+@property(nonatomic, strong) NSDictionary *httpHeaderFieldDictionary;
 
 /*!
  *  获得全局唯一的网络请求实例单例方法
  *
  *  @return 网络请求类BANetManager单例
  */
-+ (BANetManager *)sharedBANetManager;
++ (instancetype)sharedBANetManager;
+
 
 #pragma mark - 网络请求的类方法 --- get / post / put / delete
 /*!
- *  网络请求方法,block回调
+ *  网络请求的实例方法 get
  *
- *  @param type         get / post
+ *  @param type         get
+ *  @param isNeedCache  是否需要缓存，只有 get / post 请求有缓存配置
  *  @param urlString    请求的地址
  *  @param paraments    请求的参数
  *  @param successBlock 请求成功的回调
  *  @param failureBlock 请求失败的回调
  *  @param progress 进度
  */
-+ (BAURLSessionTask *)ba_requestWithType:(BAHttpRequestType)type
-                               urlString:(NSString *)urlString
-                              parameters:(NSDictionary *)parameters
-                            successBlock:(BAResponseSuccess)successBlock
-                            failureBlock:(BAResponseFail)failureBlock
-                                progress:(BADownloadProgress)progress;
++ (BAURLSessionTask *)ba_request_GETWithUrlString:(NSString *)urlString
+                                      isNeedCache:(BOOL)isNeedCache
+                                       parameters:(NSDictionary *)parameters
+                                     successBlock:(BAResponseSuccess)successBlock
+                                     failureBlock:(BAResponseFail)failureBlock
+                                         progress:(BADownloadProgress)progress;
+
+/*!
+ *  网络请求的实例方法 post
+ *
+ *  @param type         post
+ *  @param isNeedCache  是否需要缓存，只有 get / post 请求有缓存配置
+ *  @param urlString    请求的地址
+ *  @param paraments    请求的参数
+ *  @param successBlock 请求成功的回调
+ *  @param failureBlock 请求失败的回调
+ *  @param progress 进度
+ */
++ (BAURLSessionTask *)ba_request_POSTWithUrlString:(NSString *)urlString
+                                       isNeedCache:(BOOL)isNeedCache
+                                        parameters:(NSDictionary *)parameters
+                                      successBlock:(BAResponseSuccess)successBlock
+                                      failureBlock:(BAResponseFail)failureBlock
+                                          progress:(BADownloadProgress)progress;
+
+/*!
+ *  网络请求的实例方法 put
+ *
+ *  @param type         put
+ *  @param urlString    请求的地址
+ *  @param paraments    请求的参数
+ *  @param successBlock 请求成功的回调
+ *  @param failureBlock 请求失败的回调
+ *  @param progress 进度
+ */
++ (BAURLSessionTask *)ba_request_PUTWithUrlString:(NSString *)urlString
+                                       parameters:(NSDictionary *)parameters
+                                     successBlock:(BAResponseSuccess)successBlock
+                                     failureBlock:(BAResponseFail)failureBlock
+                                         progress:(BADownloadProgress)progress;
+
+/*!
+ *  网络请求的实例方法 delete
+ *
+ *  @param type         delete
+ *  @param urlString    请求的地址
+ *  @param paraments    请求的参数
+ *  @param successBlock 请求成功的回调
+ *  @param failureBlock 请求失败的回调
+ *  @param progress 进度
+ */
++ (BAURLSessionTask *)ba_request_DELETEWithUrlString:(NSString *)urlString
+                                          parameters:(NSDictionary *)parameters
+                                        successBlock:(BAResponseSuccess)successBlock
+                                        failureBlock:(BAResponseFail)failureBlock
+                                            progress:(BADownloadProgress)progress;
 
 /*!
  *  上传图片(多图)
@@ -247,26 +332,11 @@ typedef NSURLSessionTask BAURLSessionTask;
  */
 + (void)ba_startNetWorkMonitoringWithBlock:(BANetworkStatusBlock)networkStatus;
 
-/*!
- *  是否有网
- *
- *  @return YES, 反之:NO
+#pragma mark - 自定义请求头
+/**
+ *  自定义请求头
  */
-+ (BOOL)ba_isHaveNetwork;
-
-/*!
- *  是否是手机网络
- *
- *  @return YES, 反之:NO
- */
-+ (BOOL)ba_is3GOr4GNetwork;
-
-/*!
- *  是否是 WiFi 网络
- *
- *  @return YES, 反之:NO
- */
-+ (BOOL)ba_isWiFiNetwork;
++ (void)ba_setValue:(NSString *)value forHTTPHeaderKey:(NSString *)HTTPHeaderKey;
 
 #pragma mark - 取消 Http 请求
 /*!
@@ -282,33 +352,33 @@ typedef NSURLSessionTask BAURLSessionTask;
 
 #pragma mark - 各版本过期方法名
 #pragma mark version 2.0 过期方法名
-+ (BAURLSessionTask *)ba_requestWithType:(BAHttpRequestType)type
-                               UrlString:(NSString *)urlString
-                              Parameters:(NSDictionary *)parameters
-                            SuccessBlock:(BAResponseSuccess)successBlock
-                            FailureBlock:(BAResponseFail)failureBlock
-                                progress:(BADownloadProgress)progress BANetManagerDeprecated("该方法已过期,请使用最新方法：+ (BAURLSessionTask *)ba_requestWithType:(BAHttpRequestType)type urlString:(NSString *)urlString parameters:(NSDictionary *)parameters successBlock:(BAResponseSuccess)successBlock failureBlock:(BAResponseFail)failureBlock progress:(BADownloadProgress)progress");
+//+ (BAURLSessionTask *)ba_requestWithType:(BAHttpRequestType)type
+//                               UrlString:(NSString *)urlString
+//                              Parameters:(NSDictionary *)parameters
+//                            SuccessBlock:(BAResponseSuccess)successBlock
+//                            FailureBlock:(BAResponseFail)failureBlock
+//                                progress:(BADownloadProgress)progress BANetManagerDeprecated("该方法已过期,请使用最新方法：+ (BAURLSessionTask *)ba_requestWithType:(BAHttpRequestType)type urlString:(NSString *)urlString parameters:(NSDictionary *)parameters successBlock:(BAResponseSuccess)successBlock failureBlock:(BAResponseFail)failureBlock progress:(BADownloadProgress)progress");
 
-+ (BAURLSessionTask *)ba_uploadImageWithUrlString:(NSString *)urlString
-                                       parameters:(NSDictionary *)parameters
-                                       ImageArray:(NSArray *)imageArray
-                                         FileName:(NSString *)fileName
-                                     SuccessBlock:(BAResponseSuccess)successBlock
-                                      FailurBlock:(BAResponseFail)failureBlock
-                                   UpLoadProgress:(BAUploadProgress)progress BANetManagerDeprecated("该方法已过期,请使用最新方法：+ (BAURLSessionTask *)ba_uploadImageWithUrlString:(NSString *)urlString parameters:(NSDictionary *)parameters imageArray:(NSArray *)imageArray fileName:(NSString *)fileName successBlock:(BAResponseSuccess)successBlock failurBlock:(BAResponseFail)failureBlock upLoadProgress:(BAUploadProgress)progress");
-
-+ (void)ba_uploadVideoWithUrlString:(NSString *)urlString
-                         parameters:(NSDictionary *)parameters
-                          VideoPath:(NSString *)videoPath
-                       SuccessBlock:(BAResponseSuccess)successBlock
-                       FailureBlock:(BAResponseFail)failureBlock
-                     UploadProgress:(BAUploadProgress)progress BANetManagerDeprecated("该方法已过期,请使用最新方法：+ (void)ba_uploadVideoWithUrlString:(NSString *)urlString parameters:(NSDictionary *)parameters videoPath:(NSString *)videoPath successBlock:(BAResponseSuccess)successBlock failureBlock:(BAResponseFail)failureBlock uploadProgress:(BAUploadProgress)progress");
-
-+ (BAURLSessionTask *)ba_downLoadFileWithUrlString:(NSString *)urlString
-                                        parameters:(NSDictionary *)parameters
-                                          SavaPath:(NSString *)savePath
-                                      SuccessBlock:(BAResponseSuccess)successBlock
-                                      FailureBlock:(BAResponseFail)failureBlock
-                                  DownLoadProgress:(BADownloadProgress)progress BANetManagerDeprecated("该方法已过期,请使用最新方法：+ (BAURLSessionTask *)ba_downLoadFileWithUrlString:(NSString *)urlString parameters:(NSDictionary *)parameters savaPath:(NSString *)savePath successBlock:(BAResponseSuccess)successBlock failureBlock:(BAResponseFail)failureBlock downLoadProgress:(BADownloadProgress)progress");
+//+ (BAURLSessionTask *)ba_uploadImageWithUrlString:(NSString *)urlString
+//                                       parameters:(NSDictionary *)parameters
+//                                       ImageArray:(NSArray *)imageArray
+//                                         FileName:(NSString *)fileName
+//                                     SuccessBlock:(BAResponseSuccess)successBlock
+//                                      FailurBlock:(BAResponseFail)failureBlock
+//                                   UpLoadProgress:(BAUploadProgress)progress BANetManagerDeprecated("该方法已过期,请使用最新方法：+ (BAURLSessionTask *)ba_uploadImageWithUrlString:(NSString *)urlString parameters:(NSDictionary *)parameters imageArray:(NSArray *)imageArray fileName:(NSString *)fileName successBlock:(BAResponseSuccess)successBlock failurBlock:(BAResponseFail)failureBlock upLoadProgress:(BAUploadProgress)progress");
+//
+//+ (void)ba_uploadVideoWithUrlString:(NSString *)urlString
+//                         parameters:(NSDictionary *)parameters
+//                          VideoPath:(NSString *)videoPath
+//                       SuccessBlock:(BAResponseSuccess)successBlock
+//                       FailureBlock:(BAResponseFail)failureBlock
+//                     UploadProgress:(BAUploadProgress)progress BANetManagerDeprecated("该方法已过期,请使用最新方法：+ (void)ba_uploadVideoWithUrlString:(NSString *)urlString parameters:(NSDictionary *)parameters videoPath:(NSString *)videoPath successBlock:(BAResponseSuccess)successBlock failureBlock:(BAResponseFail)failureBlock uploadProgress:(BAUploadProgress)progress");
+//
+//+ (BAURLSessionTask *)ba_downLoadFileWithUrlString:(NSString *)urlString
+//                                        parameters:(NSDictionary *)parameters
+//                                          SavaPath:(NSString *)savePath
+//                                      SuccessBlock:(BAResponseSuccess)successBlock
+//                                      FailureBlock:(BAResponseFail)failureBlock
+//                                  DownLoadProgress:(BADownloadProgress)progress BANetManagerDeprecated("该方法已过期,请使用最新方法：+ (BAURLSessionTask *)ba_downLoadFileWithUrlString:(NSString *)urlString parameters:(NSDictionary *)parameters savaPath:(NSString *)savePath successBlock:(BAResponseSuccess)successBlock failureBlock:(BAResponseFail)failureBlock downLoadProgress:(BADownloadProgress)progress");
 
 @end

@@ -62,6 +62,7 @@
 
 
 #import "BANetManager.h"
+
 #import <AVFoundation/AVAsset.h>
 #import <AVFoundation/AVAssetExportSession.h>
 #import <AVFoundation/AVMediaFormat.h>
@@ -78,22 +79,29 @@
 
 #import "UIImage+CompressImage.h"
 
+#import "BANetManagerCache.h"
 
+#import <objc/runtime.h>
 
 static NSMutableArray *tasks;
 
+//static void *isNeedCacheKey = @"isNeedCacheKey";
+
+#ifndef __OPTIMIZE__
+#define NSLog(...) NSLog(__VA_ARGS__)
+#else
+#define NSLog(...){}
+#endif
+
 @interface BANetManager ()
+
+@property(nonatomic, strong) AFHTTPSessionManager *sessionManager;
 
 @end
 
 @implementation BANetManager
 
-/*!
- *  获得全局唯一的网络请求实例单例方法
- *
- *  @return 网络请求类BANetManager单例
- */
-+ (BANetManager *)sharedBANetManager
++ (instancetype)sharedBANetManager
 {
     /*! 为单例对象创建的静态实例，置为nil，因为对象的唯一性，必须是static类型 */
     static id sharedBANetManager = nil;
@@ -104,103 +112,175 @@ static NSMutableArray *tasks;
     return sharedBANetManager;
 }
 
-+ (instancetype)allocWithZone:(struct _NSZone *)zone
++ (void)initialize
 {
-    return [self sharedBANetManager];
+    [self setupBANetManager];
 }
 
-- (id)copy
++ (void)setupBANetManager
 {
-    return self;
+    BANetManagerShare.sessionManager = [AFHTTPSessionManager manager];
+
+    BANetManagerShare.requestSerializer = BAHttpRequestSerializerJSON;
+    BANetManagerShare.responseSerializer = BAHttpResponseSerializerJSON;
+    
+    /*! 设置请求超时时间，默认：30秒 */
+    BANetManagerShare.timeoutInterval = 30;
+    /*! 打开状态栏的等待菊花 */
+    [AFNetworkActivityIndicatorManager sharedManager].enabled = YES;
+    /*! 设置返回数据类型为 json, 分别设置请求以及相应的序列化器 */
+    /*!
+     根据服务器的设定不同还可以设置：
+     json：[AFJSONResponseSerializer serializer](常用)
+     http：[AFHTTPResponseSerializer serializer]
+     */
+//    AFJSONResponseSerializer *response = [AFJSONResponseSerializer serializer];
+//    /*! 这里是去掉了键值对里空对象的键值 */
+////    response.removesKeysWithNullValues = YES;
+//    BANetManagerShare.sessionManager.responseSerializer = response;
+    
+    /* 设置请求服务器数类型式为 json */
+    /*!
+     根据服务器的设定不同还可以设置：
+     json：[AFJSONRequestSerializer serializer](常用)
+     http：[AFHTTPRequestSerializer serializer]
+     */
+//    AFJSONRequestSerializer *request = [AFJSONRequestSerializer serializer];
+//    BANetManagerShare.sessionManager.requestSerializer = request;
+    /*! 设置apikey ------类似于自己应用中的tokken---此处仅仅作为测试使用*/
+    //        [manager.requestSerializer setValue:apikey forHTTPHeaderField:@"apikey"];
+    
+    /*! 复杂的参数类型 需要使用json传值-设置请求内容的类型*/
+    //        [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    
+    /*! 设置响应数据的基本类型 */
+    BANetManagerShare.sessionManager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript", @"text/html", @"text/css", @"text/xml", @"text/plain", @"application/javascript", @"image/*", nil];
+    
+    // 配置自建证书的Https请求
+    [self ba_setupSecurityPolicy];
 }
 
-+ (id)copyWithZone:(struct _NSZone *)zone
+/**
+ 配置自建证书的Https请求，只需要将CA证书文件放入根目录就行
+ */
++ (void)ba_setupSecurityPolicy
 {
-    return [self sharedBANetManager];
-}
-
-+ (AFHTTPSessionManager *)sharedAFManager
-{
-    static AFHTTPSessionManager *manager = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        manager = [AFHTTPSessionManager manager];
-        
-        /*! 设置请求超时时间 */
-        manager.requestSerializer.timeoutInterval = 30;
-        
-        /*! 打开状态栏的等待菊花 */
-        [AFNetworkActivityIndicatorManager sharedManager].enabled = YES;
-        
-        /*! 设置相应的缓存策略：此处选择不用加载也可以使用自动缓存【注：只有get方法才能用此缓存策略，NSURLRequestReturnCacheDataDontLoad】 */
-        manager.requestSerializer.cachePolicy = NSURLRequestReloadIgnoringLocalCacheData;
-        
-        /*! 设置返回数据类型为 json, 分别设置请求以及相应的序列化器 */
-        /*! 
-         根据服务器的设定不同还可以设置：
-         json：[AFJSONResponseSerializer serializer](常用)
-         http：[AFHTTPResponseSerializer serializer]
-         */
-        AFJSONResponseSerializer *response = [AFJSONResponseSerializer serializer];
-        /*! 这里是去掉了键值对里空对象的键值 */
-        response.removesKeysWithNullValues = YES;
-        manager.responseSerializer = response;
-        
-        /* 设置请求服务器数类型式为 json */
+    //    NSData *cerData = [NSData dataWithContentsOfFile:cerPath];
+    NSSet <NSData *> *cerSet = [AFSecurityPolicy certificatesInBundle:[NSBundle mainBundle]];
+    
+    if (cerSet.count == 0)
+    {
         /*!
-         根据服务器的设定不同还可以设置：
-         json：[AFJSONRequestSerializer serializer](常用)
-         http：[AFHTTPRequestSerializer serializer]
-         */
-        AFJSONRequestSerializer *request = [AFJSONRequestSerializer serializer];
-        manager.requestSerializer = request;
-        
-        /*! 设置apikey ------类似于自己应用中的tokken---此处仅仅作为测试使用*/
-        //        [manager.requestSerializer setValue:apikey forHTTPHeaderField:@"apikey"];
-        
-        /*! 复杂的参数类型 需要使用json传值-设置请求内容的类型*/
-        //        [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-        
-        /*! 设置响应数据的基本类型 */
-        manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html",@"text/css",@"text/xml",@"text/plain", @"application/javascript", @"image/*", nil];
-        
-        /*! https 参数配置 */
-        /*! 
-         采用默认的defaultPolicy就可以了. AFN默认的securityPolicy就是它, 不必另写代码. AFSecurityPolicy类中会调用苹果security.framework的机制去自行验证本次请求服务端放回的证书是否是经过正规签名. 
+         采用默认的defaultPolicy就可以了. AFN默认的securityPolicy就是它, 不必另写代码. AFSecurityPolicy类中会调用苹果security.framework的机制去自行验证本次请求服务端放回的证书是否是经过正规签名.
          */
         AFSecurityPolicy *securityPolicy = [AFSecurityPolicy defaultPolicy];
         securityPolicy.allowInvalidCertificates = YES;
         securityPolicy.validatesDomainName = NO;
-        manager.securityPolicy = securityPolicy;
-        
+        BANetManagerShare.sessionManager.securityPolicy = securityPolicy;
+    }
+    else
+    {
         /*! 自定义的CA证书配置如下： */
         /*! 自定义security policy, 先前确保你的自定义CA证书已放入工程Bundle */
-        /*! 
+        /*!
          https://api.github.com网址的证书实际上是正规CADigiCert签发的, 这里把Charles的CA根证书导入系统并设为信任后, 把Charles设为该网址的SSL Proxy (相当于"中间人"), 这样通过代理访问服务器返回将是由Charles伪CA签发的证书.
-          */
-//        NSSet <NSData *> *cerSet = [AFSecurityPolicy certificatesInBundle:[NSBundle mainBundle]];
-//        AFSecurityPolicy *policy = [AFSecurityPolicy policyWithPinningMode:AFSSLPinningModeCertificate withPinnedCertificates:cerSet];
-//        policy.allowInvalidCertificates = YES;
-//        manager.securityPolicy = policy;
+         */
+        // 使用证书验证模式
+        AFSecurityPolicy *securityPolicy = [AFSecurityPolicy policyWithPinningMode:AFSSLPinningModeCertificate withPinnedCertificates:cerSet];
+        // 如果需要验证自建证书(无效证书)，需要设置为YES
+        securityPolicy.allowInvalidCertificates = YES;
+        // 是否需要验证域名，默认为YES
+        //    securityPolicy.pinnedCertificates = [[NSSet alloc] initWithObjects:cerData, nil];
+        
+        BANetManagerShare.sessionManager.securityPolicy = securityPolicy;
+        
         
         /*! 如果服务端使用的是正规CA签发的证书, 那么以下几行就可去掉: */
-//        NSSet <NSData *> *cerSet = [AFSecurityPolicy certificatesInBundle:[NSBundle mainBundle]];
-//        AFSecurityPolicy *policy = [AFSecurityPolicy policyWithPinningMode:AFSSLPinningModeCertificate withPinnedCertificates:cerSet];
-//        policy.allowInvalidCertificates = YES;
-//        manager.securityPolicy = policy;
-    });
-    
-    return manager;
+        //            NSSet <NSData *> *cerSet = [AFSecurityPolicy certificatesInBundle:[NSBundle mainBundle]];
+        //            AFSecurityPolicy *policy = [AFSecurityPolicy policyWithPinningMode:AFSSLPinningModeCertificate withPinnedCertificates:cerSet];
+        //            policy.allowInvalidCertificates = YES;
+        //            BANetManagerShare.sessionManager.securityPolicy = policy;
+    }
 }
 
-+ (NSMutableArray *)tasks
+/*!
+ *  网络请求的实例方法
+ *
+ *  @param type         get
+ *  @param isNeedCache  是否需要缓存，只有 get / post 请求有缓存配置
+ *  @param urlString    请求的地址
+ *  @param paraments    请求的参数
+ *  @param successBlock 请求成功的回调
+ *  @param failureBlock 请求失败的回调
+ *  @param progress 进度
+ */
++ (BAURLSessionTask *)ba_request_GETWithUrlString:(NSString *)urlString
+                                      isNeedCache:(BOOL)isNeedCache
+                                       parameters:(NSDictionary *)parameters
+                                     successBlock:(BAResponseSuccess)successBlock
+                                        failureBlock:(BAResponseFail)failureBlock
+                                         progress:(BADownloadProgress)progress
 {
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        NSLog(@"创建数组");
-        tasks = [[NSMutableArray alloc] init];
-    });
-    return tasks;
+    return [self ba_requestWithType:BAHttpRequestTypeGet isNeedCache:isNeedCache urlString:urlString parameters:parameters successBlock:successBlock failureBlock:failureBlock progress:progress];
+}
+
+/*!
+ *  网络请求的实例方法
+ *
+ *  @param type         post
+ *  @param isNeedCache  是否需要缓存，只有 get / post 请求有缓存配置
+ *  @param urlString    请求的地址
+ *  @param paraments    请求的参数
+ *  @param successBlock 请求成功的回调
+ *  @param failureBlock 请求失败的回调
+ *  @param progress 进度
+ */
++ (BAURLSessionTask *)ba_request_POSTWithUrlString:(NSString *)urlString
+                                       isNeedCache:(BOOL)isNeedCache
+                                       parameters:(NSDictionary *)parameters
+                                     successBlock:(BAResponseSuccess)successBlock
+                                     failureBlock:(BAResponseFail)failureBlock
+                                         progress:(BADownloadProgress)progress
+{
+    return [self ba_requestWithType:BAHttpRequestTypePost isNeedCache:isNeedCache urlString:urlString parameters:parameters successBlock:successBlock failureBlock:failureBlock progress:progress];
+}
+
+/*!
+ *  网络请求的实例方法
+ *
+ *  @param type         put
+ *  @param urlString    请求的地址
+ *  @param paraments    请求的参数
+ *  @param successBlock 请求成功的回调
+ *  @param failureBlock 请求失败的回调
+ *  @param progress 进度
+ */
++ (BAURLSessionTask *)ba_request_PUTWithUrlString:(NSString *)urlString
+                                        parameters:(NSDictionary *)parameters
+                                      successBlock:(BAResponseSuccess)successBlock
+                                      failureBlock:(BAResponseFail)failureBlock
+                                          progress:(BADownloadProgress)progress
+{
+    return [self ba_requestWithType:BAHttpRequestTypePut isNeedCache:NO urlString:urlString parameters:parameters successBlock:successBlock failureBlock:failureBlock progress:progress];
+}
+
+/*!
+ *  网络请求的实例方法
+ *
+ *  @param type         delete
+ *  @param urlString    请求的地址
+ *  @param paraments    请求的参数
+ *  @param successBlock 请求成功的回调
+ *  @param failureBlock 请求失败的回调
+ *  @param progress 进度
+ */
++ (BAURLSessionTask *)ba_request_DELETEWithUrlString:(NSString *)urlString
+                                       parameters:(NSDictionary *)parameters
+                                     successBlock:(BAResponseSuccess)successBlock
+                                     failureBlock:(BAResponseFail)failureBlock
+                                         progress:(BADownloadProgress)progress
+{
+    return [self ba_requestWithType:BAHttpRequestTypeDelete isNeedCache:NO urlString:urlString parameters:parameters successBlock:successBlock failureBlock:failureBlock progress:progress];
 }
 
 #pragma mark - 网络请求的类方法 --- get / post / put / delete
@@ -208,6 +288,7 @@ static NSMutableArray *tasks;
  *  网络请求的实例方法
  *
  *  @param type         get / post / put / delete
+ *  @param isNeedCache  是否需要缓存，只有 get / post 请求有缓存配置
  *  @param urlString    请求的地址
  *  @param paraments    请求的参数
  *  @param successBlock 请求成功的回调
@@ -215,6 +296,7 @@ static NSMutableArray *tasks;
  *  @param progress 进度
  */
 + (BAURLSessionTask *)ba_requestWithType:(BAHttpRequestType)type
+                             isNeedCache:(BOOL)isNeedCache
                                urlString:(NSString *)urlString
                               parameters:(NSDictionary *)parameters
                             successBlock:(BAResponseSuccess)successBlock
@@ -233,50 +315,64 @@ static NSMutableArray *tasks;
     NSString *requestType;
     switch (type) {
         case 0:
-            requestType = @"Get";
+            requestType = @"GET";
             break;
         case 1:
-            requestType = @"Post";
+            requestType = @"POWT";
             break;
         case 2:
-            requestType = @"Put";
+            requestType = @"PUT";
             break;
         case 3:
-            requestType = @"Delete";
+            requestType = @"DELETE";
             break;
             
         default:
             break;
     }
 
+    AFHTTPSessionManager *scc = BANetManagerShare.sessionManager;
+    AFHTTPResponseSerializer *scc2 = scc.responseSerializer;
+    AFHTTPRequestSerializer *scc3 = scc.requestSerializer;
+    NSTimeInterval timeoutInterval = BANetManagerShare.timeoutInterval;
+    
+    NSString *isCache = isNeedCache ? @"开启":@"关闭";
+    CGFloat allCacheSize = [BANetManagerCache ba_getAllHttpCacheSize];
+    
     NSLog(@"******************** 请求参数 ***************************");
-    NSLog(@"请求头: %@\n请求方式: %@\n请求URL: %@\n请求param: %@\n\n",[self sharedAFManager].requestSerializer.HTTPRequestHeaders, requestType, URLString, parameters);
+    NSLog(@"\n请求头: %@\n超时时间设置：%.1f 秒【默认：30秒】\nAFHTTPResponseSerializer：%@【默认：AFJSONResponseSerializer】\nAFHTTPRequestSerializer：%@【默认：AFJSONRequestSerializer】\n请求方式: %@\n请求URL: %@\n请求param: %@\n是否启用缓存：%@【默认：开启】\n目前总缓存大小：%.6fM\n", BANetManagerShare.sessionManager.requestSerializer.HTTPRequestHeaders, timeoutInterval, scc2, scc3, requestType, URLString, parameters, isCache, allCacheSize);
     NSLog(@"********************************************************");
 
     BAURLSessionTask *sessionTask = nil;
+    
+    // 读取缓存
+    id responseCacheData = [BANetManagerCache ba_httpCacheWithUrlString:urlString parameters:parameters];
+    
+    if (isNeedCache && responseCacheData != nil)
+    {
+        if (successBlock)
+        {
+            successBlock(responseCacheData);
+        }
+        NSLog(@"取用缓存数据成功： *** %@", responseCacheData);
 
+        [[weakSelf tasks] removeObject:sessionTask];
+        return nil;
+    }
+    
     if (type == BAHttpRequestTypeGet)
     {
-        sessionTask = [[self sharedAFManager] GET:URLString parameters:parameters  progress:^(NSProgress * _Nonnull downloadProgress) {
+        sessionTask = [BANetManagerShare.sessionManager GET:URLString parameters:parameters  progress:^(NSProgress * _Nonnull downloadProgress) {
             
         } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-            
-            /****************************************************/
-            // 如果请求成功 , 回调请求到的数据 , 同时 在这里 做本地缓存
-            NSString *path = [NSString stringWithFormat:@"%ld.plist", [URLString hash]];
-            // 存储的沙盒路径
-            NSString *path_doc = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject];
-            // 归档
-            [NSKeyedArchiver archiveRootObject:responseObject toFile:[path_doc stringByAppendingPathComponent:path]];
             
             if (successBlock)
             {
                 successBlock(responseObject);
             }
-            
+            // 对数据进行异步缓存
+            [BANetManagerCache ba_setHttpCache:responseObject urlString:urlString parameters:parameters];
             [[weakSelf tasks] removeObject:sessionTask];
-            
-            //        [self writeInfoWithDict:(NSDictionary *)responseObject];
             
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
             
@@ -291,23 +387,18 @@ static NSMutableArray *tasks;
     }
     else if (type == BAHttpRequestTypePost)
     {
-        sessionTask = [[self sharedAFManager] POST:URLString parameters:parameters progress:^(NSProgress * _Nonnull uploadProgress) {
+        sessionTask = [BANetManagerShare.sessionManager POST:URLString parameters:parameters progress:^(NSProgress * _Nonnull uploadProgress) {
             
         } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-            
-            /* ************************************************** */
-            // 如果请求成功 , 回调请求到的数据 , 同时 在这里 做本地缓存
-            NSString *path = [NSString stringWithFormat:@"%ld.plist", [URLString hash]];
-            // 存储的沙盒路径
-            NSString *path_doc = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject];
-            // 归档
-            [NSKeyedArchiver archiveRootObject:responseObject toFile:[path_doc stringByAppendingPathComponent:path]];
             
             if (successBlock)
             {
                 successBlock(responseObject);
             }
-            
+            NSLog(@"post请求数据成功： *** %@", responseObject);
+
+            // 对数据进行异步缓存
+            [BANetManagerCache ba_setHttpCache:responseObject urlString:urlString parameters:parameters];
             [[weakSelf tasks] removeObject:sessionTask];
             
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
@@ -323,7 +414,7 @@ static NSMutableArray *tasks;
     }
     else if (type == BAHttpRequestTypePut)
     {
-        sessionTask = [[self sharedAFManager] PUT:URLString parameters:parameters success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        sessionTask = [BANetManagerShare.sessionManager PUT:URLString parameters:parameters success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
             
             if (successBlock)
             {
@@ -331,8 +422,6 @@ static NSMutableArray *tasks;
             }
             
             [[weakSelf tasks] removeObject:sessionTask];
-            
-            //        [self writeInfoWithDict:(NSDictionary *)responseObject];
             
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
             
@@ -346,15 +435,13 @@ static NSMutableArray *tasks;
     }
     else if (type == BAHttpRequestTypeDelete)
     {
-        sessionTask = [[self sharedAFManager] DELETE:URLString parameters:parameters success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        sessionTask = [BANetManagerShare.sessionManager DELETE:URLString parameters:parameters success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
             if (successBlock)
             {
                 successBlock(responseObject);
             }
             
             [[weakSelf tasks] removeObject:sessionTask];
-            
-            //        [self writeInfoWithDict:(NSDictionary *)responseObject];
             
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
             
@@ -404,12 +491,11 @@ static NSMutableArray *tasks;
     NSString *URLString = [NSURL URLWithString:urlString] ? urlString : [self strUTF8Encoding:urlString];
     
     NSLog(@"******************** 请求参数 ***************************");
-    NSLog(@"请求头: %@\n请求方式: %@\n请求URL: %@\n请求param: %@\n\n",[self sharedAFManager].requestSerializer.HTTPRequestHeaders, @"POST",URLString, parameters);
+    NSLog(@"请求头: %@\n请求方式: %@\n请求URL: %@\n请求param: %@\n\n",BANetManagerShare.sessionManager.requestSerializer.HTTPRequestHeaders, @"POST",URLString, parameters);
     NSLog(@"******************************************************");
 
-    
     BAURLSessionTask *sessionTask = nil;
-    sessionTask = [[self sharedAFManager] POST:URLString parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
+    sessionTask = [BANetManagerShare.sessionManager POST:URLString parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
         
         /*! 出于性能考虑,将上传图片进行压缩 */
         [imageArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -538,7 +624,7 @@ static NSMutableArray *tasks;
         switch ([avAssetExport status]) {
             case AVAssetExportSessionStatusCompleted:
             {
-                [[self sharedAFManager] POST:urlString parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
+                [BANetManagerShare.sessionManager POST:urlString parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
                     
                     NSURL *filePathURL2 = [NSURL URLWithString:[NSString stringWithFormat:@"file://%@", outfilePath]];
                     // 获得沙盒中的视频内容
@@ -597,13 +683,13 @@ static NSMutableArray *tasks;
     NSURLRequest *downloadRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:urlString]];
     
     NSLog(@"******************** 请求参数 ***************************");
-    NSLog(@"请求头: %@\n请求方式: %@\n请求URL: %@\n请求param: %@\n\n",[self sharedAFManager].requestSerializer.HTTPRequestHeaders, @"download",urlString, parameters);
+    NSLog(@"请求头: %@\n请求方式: %@\n请求URL: %@\n请求param: %@\n\n",BANetManagerShare.sessionManager.requestSerializer.HTTPRequestHeaders, @"download",urlString, parameters);
     NSLog(@"******************************************************");
 
     
     BAURLSessionTask *sessionTask = nil;
     
-    sessionTask = [[self sharedAFManager] downloadTaskWithRequest:downloadRequest progress:^(NSProgress * _Nonnull downloadProgress) {
+    sessionTask = [BANetManagerShare.sessionManager downloadTaskWithRequest:downloadRequest progress:^(NSProgress * _Nonnull downloadProgress) {
         
         NSLog(@"下载进度：%.2lld%%",100 * downloadProgress.completedUnitCount/downloadProgress.totalUnitCount);
         /*! 回到主线程刷新UI */
@@ -679,56 +765,22 @@ static NSMutableArray *tasks;
             case AFNetworkReachabilityStatusUnknown:
                 NSLog(@"未知网络");
                 networkStatus ? networkStatus(BANetworkStatusUnknown) : nil;
-                BANetManagerShare.netWorkStatu = BANetworkStatusUnknown;
                 break;
             case AFNetworkReachabilityStatusNotReachable:
                 NSLog(@"没有网络");
                 networkStatus ? networkStatus(BANetworkStatusNotReachable) : nil;
-                BANetManagerShare.netWorkStatu = BANetworkStatusUnknown;
                 break;
             case AFNetworkReachabilityStatusReachableViaWWAN:
                 NSLog(@"手机自带网络");
                 networkStatus ? networkStatus(BANetworkStatusReachableViaWWAN) : nil;
-                BANetManagerShare.netWorkStatu = BANetworkStatusUnknown;
                 break;
             case AFNetworkReachabilityStatusReachableViaWiFi:
                 NSLog(@"wifi 网络");
                 networkStatus ? networkStatus(BANetworkStatusReachableViaWiFi) : nil;
-                BANetManagerShare.netWorkStatu = BANetworkStatusUnknown;
                 break;
         }
     }];
     [manager startMonitoring];
-}
-
-/*!
- *  是否有网
- *
- *  @return YES, 反之:NO
- */
-+ (BOOL)ba_isHaveNetwork
-{
-    return [AFNetworkReachabilityManager sharedManager].reachable;
-}
-
-/*!
- *  是否是手机网络
- *
- *  @return YES, 反之:NO
- */
-+ (BOOL)ba_is3GOr4GNetwork
-{
-    return [AFNetworkReachabilityManager sharedManager].reachableViaWWAN;
-}
-
-/*!
- *  是否是 WiFi 网络
- *
- *  @return YES, 反之:NO
- */
-+ (BOOL)ba_isWiFiNetwork
-{
-    return [AFNetworkReachabilityManager sharedManager].reachableViaWiFi;
 }
 
 #pragma mark - 取消 Http 请求
@@ -803,5 +855,103 @@ static NSMutableArray *tasks;
         return [str stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     }
 }
+
+#pragma mark - setter / getter
+/**
+ 存储着所有的请求task数组
+ 
+ @return 存储着所有的请求task数组
+ */
++ (NSMutableArray *)tasks
+{
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        NSLog(@"创建数组");
+        tasks = [[NSMutableArray alloc] init];
+    });
+    return tasks;
+}
+
+- (void)setTimeoutInterval:(NSTimeInterval)timeoutInterval
+{
+    _timeoutInterval = timeoutInterval;
+    BANetManagerShare.sessionManager.requestSerializer.timeoutInterval = timeoutInterval;
+}
+
+- (void)setRequestSerializer:(BAHttpRequestSerializer)requestSerializer
+{
+    _requestSerializer = requestSerializer;
+    switch (requestSerializer) {
+        case BAHttpRequestSerializerJSON:
+        {
+            BANetManagerShare.sessionManager.requestSerializer = [AFJSONRequestSerializer serializer] ;
+        }
+            break;
+        case BAHttpRequestSerializerHTTP:
+        {
+            BANetManagerShare.sessionManager.requestSerializer = [AFHTTPRequestSerializer serializer] ;
+        }
+            break;
+            
+        default:
+            break;
+    }
+}
+
+- (void)setResponseSerializer:(BAHttpResponseSerializer)responseSerializer
+{
+    _responseSerializer = responseSerializer;
+    switch (responseSerializer) {
+        case BAHttpResponseSerializerJSON:
+        {
+            BANetManagerShare.sessionManager.responseSerializer = [AFJSONResponseSerializer serializer] ;
+        }
+            break;
+        case BAHttpResponseSerializerHTTP:
+        {
+            BANetManagerShare.sessionManager.responseSerializer = [AFHTTPResponseSerializer serializer] ;
+        }
+            break;
+            
+        default:
+            break;
+    }
+}
+
+- (void)setHttpHeaderFieldDictionary:(NSDictionary *)httpHeaderFieldDictionary
+{
+    _httpHeaderFieldDictionary = httpHeaderFieldDictionary;
+    
+    if (![httpHeaderFieldDictionary isKindOfClass:[NSDictionary class]])
+    {
+        NSLog(@"请求头数据有误，请检查！");
+        return;
+    }
+    NSArray *keyArray = httpHeaderFieldDictionary.allKeys;
+    
+    if (keyArray.count <= 0)
+    {
+        NSLog(@"请求头数据有误，请检查！");
+        return;
+    }
+    
+    for (NSInteger i = 0; i < keyArray.count; i ++)
+    {
+        NSString *keyString = keyArray[i];
+        NSString *valueString = httpHeaderFieldDictionary[keyString];
+        
+        [BANetManager ba_setValue:valueString forHTTPHeaderKey:keyString];
+    }
+}
+
+/**
+ *  自定义请求头
+ */
++ (void)ba_setValue:(NSString *)value forHTTPHeaderKey:(NSString *)HTTPHeaderKey
+{
+    [BANetManagerShare.sessionManager.requestSerializer setValue:value forHTTPHeaderField:HTTPHeaderKey];
+}
+
+
 
 @end
