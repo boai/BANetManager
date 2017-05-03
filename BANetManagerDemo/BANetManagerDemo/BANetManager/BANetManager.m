@@ -339,9 +339,9 @@ static NSMutableArray *tasks;
     NSString *isCache = isNeedCache ? @"开启":@"关闭";
     CGFloat allCacheSize = [BANetManagerCache ba_getAllHttpCacheSize];
     
-    NSLog(@"******************** 请求参数 ***************************");
+    NSLog(@"\n******************** 请求参数 ***************************");
     NSLog(@"\n请求头: %@\n超时时间设置：%.1f 秒【默认：30秒】\nAFHTTPResponseSerializer：%@【默认：AFJSONResponseSerializer】\nAFHTTPRequestSerializer：%@【默认：AFJSONRequestSerializer】\n请求方式: %@\n请求URL: %@\n请求param: %@\n是否启用缓存：%@【默认：开启】\n目前总缓存大小：%.6fM\n", BANetManagerShare.sessionManager.requestSerializer.HTTPRequestHeaders, timeoutInterval, scc2, scc3, requestType, URLString, parameters, isCache, allCacheSize);
-    NSLog(@"********************************************************");
+    NSLog(@"\n********************************************************");
 
     BAURLSessionTask *sessionTask = nil;
     
