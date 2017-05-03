@@ -205,16 +205,16 @@ typedef NSURLSessionTask BAURLSessionTask;
 
 
 #pragma mark - 网络请求的类方法 --- get / post / put / delete
-/*!
- *  网络请求的实例方法 get
- *
- *  @param type         get
- *  @param isNeedCache  是否需要缓存，只有 get / post 请求有缓存配置
- *  @param urlString    请求的地址
- *  @param paraments    请求的参数
- *  @param successBlock 请求成功的回调
- *  @param failureBlock 请求失败的回调
- *  @param progress 进度
+/**
+ 网络请求的实例方法 get
+
+ @param urlString 请求的地址
+ @param isNeedCache 是否需要缓存，只有 get / post 请求有缓存配置
+ @param parameters 请求的参数
+ @param successBlock 请求成功的回调
+ @param failureBlock 请求失败的回调
+ @param progress 进度
+ @return BAURLSessionTask
  */
 + (BAURLSessionTask *)ba_request_GETWithUrlString:(NSString *)urlString
                                       isNeedCache:(BOOL)isNeedCache
@@ -223,16 +223,16 @@ typedef NSURLSessionTask BAURLSessionTask;
                                      failureBlock:(BAResponseFail)failureBlock
                                          progress:(BADownloadProgress)progress;
 
-/*!
- *  网络请求的实例方法 post
- *
- *  @param type         post
- *  @param isNeedCache  是否需要缓存，只有 get / post 请求有缓存配置
- *  @param urlString    请求的地址
- *  @param paraments    请求的参数
- *  @param successBlock 请求成功的回调
- *  @param failureBlock 请求失败的回调
- *  @param progress 进度
+/**
+ 网络请求的实例方法 post
+
+ @param urlString 请求的地址
+ @param isNeedCache 是否需要缓存，只有 get / post 请求有缓存配置
+ @param parameters 请求的参数
+ @param successBlock 请求成功的回调
+ @param failureBlock 请求失败的回调
+ @param progress 进度
+ @return BAURLSessionTask
  */
 + (BAURLSessionTask *)ba_request_POSTWithUrlString:(NSString *)urlString
                                        isNeedCache:(BOOL)isNeedCache
@@ -241,15 +241,15 @@ typedef NSURLSessionTask BAURLSessionTask;
                                       failureBlock:(BAResponseFail)failureBlock
                                           progress:(BADownloadProgress)progress;
 
-/*!
- *  网络请求的实例方法 put
- *
- *  @param type         put
- *  @param urlString    请求的地址
- *  @param paraments    请求的参数
- *  @param successBlock 请求成功的回调
- *  @param failureBlock 请求失败的回调
- *  @param progress 进度
+/**
+ 网络请求的实例方法 put
+
+ @param urlString 请求的地址
+ @param parameters 请求的参数
+ @param successBlock 请求成功的回调
+ @param failureBlock 请求失败的回调
+ @param progress 进度
+ @return BAURLSessionTask
  */
 + (BAURLSessionTask *)ba_request_PUTWithUrlString:(NSString *)urlString
                                        parameters:(NSDictionary *)parameters
@@ -257,15 +257,15 @@ typedef NSURLSessionTask BAURLSessionTask;
                                      failureBlock:(BAResponseFail)failureBlock
                                          progress:(BADownloadProgress)progress;
 
-/*!
- *  网络请求的实例方法 delete
- *
- *  @param type         delete
- *  @param urlString    请求的地址
- *  @param paraments    请求的参数
- *  @param successBlock 请求成功的回调
- *  @param failureBlock 请求失败的回调
- *  @param progress 进度
+/**
+ 网络请求的实例方法 delete
+
+ @param urlString 请求的地址
+ @param parameters 请求的参数
+ @param successBlock 请求成功的回调
+ @param failureBlock 请求失败的回调
+ @param progress 进度
+ @return BAURLSessionTask
  */
 + (BAURLSessionTask *)ba_request_DELETEWithUrlString:(NSString *)urlString
                                           parameters:(NSDictionary *)parameters
@@ -273,16 +273,17 @@ typedef NSURLSessionTask BAURLSessionTask;
                                         failureBlock:(BAResponseFail)failureBlock
                                             progress:(BADownloadProgress)progress;
 
-/*!
- *  上传图片(多图)
- *
- *  @param parameters   上传图片预留参数---视具体情况而定 可移除
- *  @param imageArray   上传的图片数组
- *  @param fileName     上传的图片数组fileName
- *  @param urlString    上传的url
- *  @param successBlock 上传成功的回调
- *  @param failureBlock 上传失败的回调
- *  @param progress     上传进度
+/**
+ 上传图片(多图)
+
+ @param urlString 上传的url
+ @param parameters 上传图片预留参数---视具体情况而定 可移除
+ @param imageArray 上传的图片数组
+ @param fileName 上传的图片数组fileName
+ @param successBlock 上传成功的回调
+ @param failureBlock 上传失败的回调
+ @param progress 上传进度
+ @return BAURLSessionTask
  */
 + (BAURLSessionTask *)ba_uploadImageWithUrlString:(NSString *)urlString
                                        parameters:(NSDictionary *)parameters
@@ -292,15 +293,15 @@ typedef NSURLSessionTask BAURLSessionTask;
                                       failurBlock:(BAResponseFail)failureBlock
                                    upLoadProgress:(BAUploadProgress)progress;
 
-/*!
- *  视频上传
- *
- *  @param operations   上传视频预留参数---视具体情况而定 可移除
- *  @param videoPath    上传视频的本地沙河路径
- *  @param urlString     上传的url
- *  @param successBlock 成功的回调
- *  @param failureBlock 失败的回调
- *  @param progress     上传的进度
+/**
+ 视频上传
+
+ @param urlString 上传的url
+ @param parameters 上传视频预留参数---视具体情况而定 可移除
+ @param videoPath 上传视频的本地沙河路径
+ @param successBlock 成功的回调
+ @param failureBlock 失败的回调
+ @param progress 上传的进度
  */
 + (void)ba_uploadVideoWithUrlString:(NSString *)urlString
                          parameters:(NSDictionary *)parameters
@@ -309,15 +310,16 @@ typedef NSURLSessionTask BAURLSessionTask;
                        failureBlock:(BAResponseFail)failureBlock
                      uploadProgress:(BAUploadProgress)progress;
 
-/*!
- *  文件下载
- *
- *  @param operations   文件下载预留参数---视具体情况而定 可移除
- *  @param savePath     下载文件保存路径
- *  @param urlString        请求的url
- *  @param successBlock 下载文件成功的回调
- *  @param failureBlock 下载文件失败的回调
- *  @param progress     下载文件的进度显示
+/**
+ 文件下载
+
+ @param urlString 请求的url
+ @param parameters 文件下载预留参数---视具体情况而定 可移除
+ @param savePath 下载文件保存路径
+ @param successBlock 下载文件成功的回调
+ @param failureBlock 下载文件失败的回调
+ @param progress 下载文件的进度显示
+ @return BAURLSessionTask
  */
 + (BAURLSessionTask *)ba_downLoadFileWithUrlString:(NSString *)urlString
                                         parameters:(NSDictionary *)parameters
