@@ -1,0 +1,429 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		C492313F1ED0431A00B61C37 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C492313E1ED0431A00B61C37 /* main.m */; };
+		C49231421ED0431A00B61C37 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C49231411ED0431A00B61C37 /* AppDelegate.m */; };
+		C492314A1ED0431A00B61C37 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C49231491ED0431A00B61C37 /* Assets.xcassets */; };
+		C492314D1ED0431A00B61C37 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C492314B1ED0431A00B61C37 /* LaunchScreen.storyboard */; };
+		C492315C1ED0435400B61C37 /* BANetManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C49231561ED0435400B61C37 /* BANetManager.m */; };
+		C492315D1ED0435400B61C37 /* BANetManagerCache.m in Sources */ = {isa = PBXBuildFile; fileRef = C49231581ED0435400B61C37 /* BANetManagerCache.m */; };
+		C492315E1ED0435400B61C37 /* postdynamic.php in Resources */ = {isa = PBXBuildFile; fileRef = C49231591ED0435400B61C37 /* postdynamic.php */; };
+		C492315F1ED0435400B61C37 /* UIImage+CompressImage.m in Sources */ = {isa = PBXBuildFile; fileRef = C492315B1ED0435400B61C37 /* UIImage+CompressImage.m */; };
+		C49231641ED0437C00B61C37 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C49231611ED0437C00B61C37 /* ViewController.m */; };
+		C49231651ED0437C00B61C37 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C49231631ED0437C00B61C37 /* Main.storyboard */; };
+		F852E0031127B2CA28F182FA /* libPods-BANetManager.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E8F4FEA979F0E81B0C453A4 /* libPods-BANetManager.a */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		1534E80A7F0B9F819A7C0076 /* Pods-BANetManager.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BANetManager.release.xcconfig"; path = "Pods/Target Support Files/Pods-BANetManager/Pods-BANetManager.release.xcconfig"; sourceTree = "<group>"; };
+		3A5CFBEBCCE88E55DFFA7211 /* Pods-BANetManager.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BANetManager.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BANetManager/Pods-BANetManager.debug.xcconfig"; sourceTree = "<group>"; };
+		8E8F4FEA979F0E81B0C453A4 /* libPods-BANetManager.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BANetManager.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C492313A1ED0431A00B61C37 /* BANetManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BANetManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C492313E1ED0431A00B61C37 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		C49231401ED0431A00B61C37 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		C49231411ED0431A00B61C37 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		C49231491ED0431A00B61C37 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		C492314C1ED0431A00B61C37 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		C492314E1ED0431A00B61C37 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C49231551ED0435400B61C37 /* BANetManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BANetManager.h; sourceTree = "<group>"; };
+		C49231561ED0435400B61C37 /* BANetManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BANetManager.m; sourceTree = "<group>"; };
+		C49231571ED0435400B61C37 /* BANetManagerCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BANetManagerCache.h; sourceTree = "<group>"; };
+		C49231581ED0435400B61C37 /* BANetManagerCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BANetManagerCache.m; sourceTree = "<group>"; };
+		C49231591ED0435400B61C37 /* postdynamic.php */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.php; name = postdynamic.php; path = BANetManager/postdynamic.php; sourceTree = "<group>"; };
+		C492315A1ED0435400B61C37 /* UIImage+CompressImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+CompressImage.h"; sourceTree = "<group>"; };
+		C492315B1ED0435400B61C37 /* UIImage+CompressImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+CompressImage.m"; sourceTree = "<group>"; };
+		C49231601ED0437C00B61C37 /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ViewController.h; path = "../../../Documents/博爱测试/gitHub/BANetManager/BANetManagerDemo/ViewController.h"; sourceTree = "<group>"; };
+		C49231611ED0437C00B61C37 /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ViewController.m; path = "../../../Documents/博爱测试/gitHub/BANetManager/BANetManagerDemo/ViewController.m"; sourceTree = "<group>"; };
+		C49231621ED0437C00B61C37 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		C49231371ED0431A00B61C37 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F852E0031127B2CA28F182FA /* libPods-BANetManager.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		1EDD0ABE2F68B858EBD30FB8 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				3A5CFBEBCCE88E55DFFA7211 /* Pods-BANetManager.debug.xcconfig */,
+				1534E80A7F0B9F819A7C0076 /* Pods-BANetManager.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		B3573AA6CFD764CB9D84D536 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				8E8F4FEA979F0E81B0C453A4 /* libPods-BANetManager.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		C49231311ED0431A00B61C37 = {
+			isa = PBXGroup;
+			children = (
+				C492313C1ED0431A00B61C37 /* BANetManager */,
+				C492313B1ED0431A00B61C37 /* Products */,
+				1EDD0ABE2F68B858EBD30FB8 /* Pods */,
+				B3573AA6CFD764CB9D84D536 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		C492313B1ED0431A00B61C37 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C492313A1ED0431A00B61C37 /* BANetManager.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		C492313C1ED0431A00B61C37 /* BANetManager */ = {
+			isa = PBXGroup;
+			children = (
+				C49231541ED0434300B61C37 /* BANetManager */,
+				C49231401ED0431A00B61C37 /* AppDelegate.h */,
+				C49231411ED0431A00B61C37 /* AppDelegate.m */,
+				C49231601ED0437C00B61C37 /* ViewController.h */,
+				C49231611ED0437C00B61C37 /* ViewController.m */,
+				C49231631ED0437C00B61C37 /* Main.storyboard */,
+				C49231591ED0435400B61C37 /* postdynamic.php */,
+				C49231491ED0431A00B61C37 /* Assets.xcassets */,
+				C492314B1ED0431A00B61C37 /* LaunchScreen.storyboard */,
+				C492314E1ED0431A00B61C37 /* Info.plist */,
+				C492313D1ED0431A00B61C37 /* Supporting Files */,
+			);
+			path = BANetManager;
+			sourceTree = "<group>";
+		};
+		C492313D1ED0431A00B61C37 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				C492313E1ED0431A00B61C37 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		C49231541ED0434300B61C37 /* BANetManager */ = {
+			isa = PBXGroup;
+			children = (
+				C49231551ED0435400B61C37 /* BANetManager.h */,
+				C49231561ED0435400B61C37 /* BANetManager.m */,
+				C49231571ED0435400B61C37 /* BANetManagerCache.h */,
+				C49231581ED0435400B61C37 /* BANetManagerCache.m */,
+				C492315A1ED0435400B61C37 /* UIImage+CompressImage.h */,
+				C492315B1ED0435400B61C37 /* UIImage+CompressImage.m */,
+			);
+			path = BANetManager;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		C49231391ED0431A00B61C37 /* BANetManager */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C49231511ED0431A00B61C37 /* Build configuration list for PBXNativeTarget "BANetManager" */;
+			buildPhases = (
+				7668767DC31F572540678215 /* [CP] Check Pods Manifest.lock */,
+				C49231361ED0431A00B61C37 /* Sources */,
+				C49231371ED0431A00B61C37 /* Frameworks */,
+				C49231381ED0431A00B61C37 /* Resources */,
+				BF37F19664EB3CF797ACA464 /* [CP] Embed Pods Frameworks */,
+				580CE21AD05B0170ECCD7300 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = BANetManager;
+			productName = BANetManager;
+			productReference = C492313A1ED0431A00B61C37 /* BANetManager.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		C49231321ED0431A00B61C37 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0830;
+				ORGANIZATIONNAME = boai;
+				TargetAttributes = {
+					C49231391ED0431A00B61C37 = {
+						CreatedOnToolsVersion = 8.3.2;
+						DevelopmentTeam = 8JQ2PK6XN8;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = C49231351ED0431A00B61C37 /* Build configuration list for PBXProject "BANetManager" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = C49231311ED0431A00B61C37;
+			productRefGroup = C492313B1ED0431A00B61C37 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				C49231391ED0431A00B61C37 /* BANetManager */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		C49231381ED0431A00B61C37 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C492315E1ED0435400B61C37 /* postdynamic.php in Resources */,
+				C492314D1ED0431A00B61C37 /* LaunchScreen.storyboard in Resources */,
+				C492314A1ED0431A00B61C37 /* Assets.xcassets in Resources */,
+				C49231651ED0437C00B61C37 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		580CE21AD05B0170ECCD7300 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-BANetManager/Pods-BANetManager-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7668767DC31F572540678215 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		BF37F19664EB3CF797ACA464 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-BANetManager/Pods-BANetManager-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		C49231361ED0431A00B61C37 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C49231641ED0437C00B61C37 /* ViewController.m in Sources */,
+				C49231421ED0431A00B61C37 /* AppDelegate.m in Sources */,
+				C492315C1ED0435400B61C37 /* BANetManager.m in Sources */,
+				C492315D1ED0435400B61C37 /* BANetManagerCache.m in Sources */,
+				C492313F1ED0431A00B61C37 /* main.m in Sources */,
+				C492315F1ED0435400B61C37 /* UIImage+CompressImage.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		C492314B1ED0431A00B61C37 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C492314C1ED0431A00B61C37 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		C49231631ED0437C00B61C37 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C49231621ED0437C00B61C37 /* Base */,
+			);
+			name = Main.storyboard;
+			path = "../../../Documents/博爱测试/gitHub/BANetManager/BANetManagerDemo";
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		C492314F1ED0431A00B61C37 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		C49231501ED0431A00B61C37 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		C49231521ED0431A00B61C37 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3A5CFBEBCCE88E55DFFA7211 /* Pods-BANetManager.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 8JQ2PK6XN8;
+				INFOPLIST_FILE = BANetManager/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.boaihome.BANetManager;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		C49231531ED0431A00B61C37 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1534E80A7F0B9F819A7C0076 /* Pods-BANetManager.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 8JQ2PK6XN8;
+				INFOPLIST_FILE = BANetManager/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.boaihome.BANetManager;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		C49231351ED0431A00B61C37 /* Build configuration list for PBXProject "BANetManager" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C492314F1ED0431A00B61C37 /* Debug */,
+				C49231501ED0431A00B61C37 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C49231511ED0431A00B61C37 /* Build configuration list for PBXNativeTarget "BANetManager" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C49231521ED0431A00B61C37 /* Debug */,
+				C49231531ED0431A00B61C37 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = C49231321ED0431A00B61C37 /* Project object */;
+}
