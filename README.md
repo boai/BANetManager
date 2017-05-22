@@ -1,145 +1,351 @@
 # BANetManager
+[![BAHome Team Name](https://img.shields.io/badge/Team-BAHome-brightgreen.svg?style=flat)](https://github.com/BAHome "BAHome Team")
 ![](https://img.shields.io/badge/platform-iOS-red.svg) ![](https://img.shields.io/badge/language-Objective--C-orange.svg) 
 ![](https://img.shields.io/badge/license-MIT%20License-brightgreen.svg) 
 ![](https://img.shields.io/cocoapods/v/BANetManager.svg?style=flat) ![](https://img.shields.io/cocoapods/dt/BANetManager.svg
 )  [![](https://img.shields.io/badge/微博-博爱1616-red.svg)](http://weibo.com/538298123)
 
-### 基于AFNetworking 3.X 最新版本的封装
+## 1、功能及简介
+* 1、集成 get / post / put / delete 等常用请求方式的封装 <br>
+* 2、集成单图/多图上传，让图片上传更简单，自带压缩处理
+* 3、集成视频上传/下载，和文件下载，让视频的上传下载更方便，支持异步下载【已测试多个项目通过】
+* 4、集成网络监测，让你实时监测你的宝贝APP的网络状态【已经测试通过】
+* 5、新增 https 请求参数自定义：requestSerializer、responseSerializer、请求头等的配置
+* 6、自定义 CA 证书 和 HTTPS 请求配置，只需把证书导入项目目录即可
+* 7、如果使用PHP后台，后台不会对接此接口的话，博爱已经为你们量身定做了PHP后台接口，你们只需要把文件夹中的 postdynamic.php 文件发送给你们的PHP后台同事，他们就知道了，里面都有详细说明！
+* 8、新增 YYCache 缓存处理，有缓存开关，随时缓存
+* 9、新增自定义：超时设置，取消单个网络请求和取消所有网络请求
+* 10、史上最全的 AFN 请求 NSLog 打印，详见 demo 控制台打印结果
 
+## 2、图片示例
+![BANetManager2.png](https://github.com/BAHome/BANetManager/blob/master/Images/BANetManager2.png)
 
-## 1、更新内容
+## 3、安装、导入示例和源码地址
+* 1、pod 导入【最新版本：version 2.2.2】： <br>
+ `pod 'BANetManager'`  <br>
+如果发现 `pod search BANetManager` 搜索出来的不是最新版本，需要在终端执行 cd 转换文件路径命令退回到 desktop，然后执行 `pod setup` 命令更新本地spec缓存（可能需要几分钟），然后再搜索就可以了。<br>
+具体步骤：
+  - pod setup : 初始化
+  - pod repo update : 更新仓库
+  - pod search BANetManager
+* 2、文件夹拖入：下载demo，把 BANetManager 文件夹拖入项目即可，<br>
+* 3、导入头文件：<br>
+`  #import "BANetManager.h" `<br>
+* 4、项目源码地址：<br>
+ OC 版 ：[https://github.com/BAHome/BANetManager](https://github.com/BAHome/BANetManager)<br>
 
+## 4、BANetManager 的类结构及 demo 示例
+![BANetManager1.png](https://github.com/BAHome/BANetManager/blob/master/Images/BANetManager1.png)
+
+### BANetManager.h
 ```
-最新更新时间：2017-05-03 【倒叙】
-最新Version：【Version：2.2】
-更新内容：
-2.2.1、优化方法名命名规范
-2.2.2、优化网络状态实时监测 block 回调，去除多余设置，需要网络判断，直接调用block回调即可
-2.2.3、新增 YYCache 缓存处理
-2.2.4、新增自定义：超时设置，取消单个网络请求和取消所有网络请求
-2.2.5、新增自定义：requestSerializer设置
-2.2.6、新增自定义：responseSerializer设置
-2.2.7、新增自定义：请求头设置
-2.2.8、新增自定义 CA 证书 和 HTTPS 请求配置，只需把证书导入项目目录即可，无需设置
-2.2.9、新增史上最全的 AFN 请求 NSLog 打印，详见 demo 控制台打印结果
-2.2.10、新增 DEBUG 模式下的 NSLog 判断，release 下不会打印，请放心使用
-2.2.11、如果打印数据不完整，是因为 Xcode 8 版本问题，请下断点打印数据
-2.2.12、由于新版本改动较大，原有方法命名可能有所改动，希望老用户见谅！
-2.2.13、目前版本较稳定，稍后奉上 pod 版本！请大家耐心等待
+#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 
-最新更新时间：2016-11-24 【倒叙】
-最新Version：【Version：2.1】
-更新内容：
-2.1.1、优化方法名命名规范
-2.1.2、新增网络状态实时监测 block 回调，新增单独网络监测 bool 返回，详见 demo
-2.1.3、新增旧方法更新提示
-2.1.4、优化各种注释
+#define BANetManagerShare [BANetManager sharedBANetManager]
 
-最新更新时间：2016-11-17
-最新Version：【Version：2.0】
-更新内容：
-2.0.1、优化方法名命名规范
-2.0.2、新增部分注释
-2.0.3、视频上传方法对接，目前有很多项目对接成功
+#define BAWeak  __weak __typeof(self) weakSelf = self
+
+/*! 过期属性或方法名提醒 */
+#define BANetManagerDeprecated(instead) __deprecated_msg(instead)
+
+
+/*! 使用枚举NS_ENUM:区别可判断编译器是否支持新式枚举,支持就使用新的,否则使用旧的 */
+typedef NS_ENUM(NSUInteger, BANetworkStatus)
+{
+    /*! 未知网络 */
+    BANetworkStatusUnknown           = 0,
+    /*! 没有网络 */
+    BANetworkStatusNotReachable,
+    /*! 手机 3G/4G 网络 */
+    BANetworkStatusReachableViaWWAN,
+    /*! wifi 网络 */
+    BANetworkStatusReachableViaWiFi
+};
+
+/*！定义请求类型的枚举 */
+typedef NS_ENUM(NSUInteger, BAHttpRequestType)
+{
+    /*! get请求 */
+    BAHttpRequestTypeGet = 0,
+    /*! post请求 */
+    BAHttpRequestTypePost,
+    /*! put请求 */
+    BAHttpRequestTypePut,
+    /*! delete请求 */
+    BAHttpRequestTypeDelete
+};
+
+typedef NS_ENUM(NSUInteger, BAHttpRequestSerializer) {
+    /** 设置请求数据为JSON格式*/
+    BAHttpRequestSerializerJSON,
+    /** 设置请求数据为HTTP格式*/
+    BAHttpRequestSerializerHTTP,
+};
+
+typedef NS_ENUM(NSUInteger, BAHttpResponseSerializer) {
+    /** 设置响应数据为JSON格式*/
+    BAHttpResponseSerializerJSON,
+    /** 设置响应数据为HTTP格式*/
+    BAHttpResponseSerializerHTTP,
+};
+
+/*! 实时监测网络状态的 block */
+typedef void(^BANetworkStatusBlock)(BANetworkStatus status);
+
+/*! 定义请求成功的 block */
+typedef void( ^ BAResponseSuccess)(id response);
+/*! 定义请求失败的 block */
+typedef void( ^ BAResponseFail)(NSError *error);
+
+/*! 定义上传进度 block */
+typedef void( ^ BAUploadProgress)(int64_t bytesProgress,
+                                  int64_t totalBytesProgress);
+/*! 定义下载进度 block */
+typedef void( ^ BADownloadProgress)(int64_t bytesProgress,
+                                    int64_t totalBytesProgress);
+
+/*!
+ *  方便管理请求任务。执行取消，暂停，继续等任务.
+ *  - (void)cancel，取消任务
+ *  - (void)suspend，暂停任务
+ *  - (void)resume，继续任务
+ */
+typedef NSURLSessionTask BAURLSessionTask;
+
+
+@interface BANetManager : NSObject
+
+/**
+ 创建的请求的超时间隔（以秒为单位），此设置为全局统一设置一次即可，默认超时时间间隔为30秒。
+ */
+@property (nonatomic, assign) NSTimeInterval timeoutInterval;
+
+/**
+ 设置网络请求参数的格式，此设置为全局统一设置一次即可，默认：BAHttpRequestSerializerJSON
+ */
+@property (nonatomic, assign) BAHttpRequestSerializer requestSerializer;
+
+/**
+ 设置服务器响应数据格式，此设置为全局统一设置一次即可，默认：BAHttpResponseSerializerJSON
+ */
+@property (nonatomic, assign) BAHttpResponseSerializer responseSerializer;
+
+/**
+ 自定义请求头：httpHeaderField
+ */
+@property(nonatomic, strong) NSDictionary *httpHeaderFieldDictionary;
+
+/*!
+ *  获得全局唯一的网络请求实例单例方法
+ *
+ *  @return 网络请求类BANetManager单例
+ */
++ (instancetype)sharedBANetManager;
+
+
+#pragma mark - 网络请求的类方法 --- get / post / put / delete
+/**
+ 网络请求的实例方法 get
+
+ @param urlString 请求的地址
+ @param isNeedCache 是否需要缓存，只有 get / post 请求有缓存配置
+ @param parameters 请求的参数
+ @param successBlock 请求成功的回调
+ @param failureBlock 请求失败的回调
+ @param progress 进度
+ @return BAURLSessionTask
+ */
++ (BAURLSessionTask *)ba_request_GETWithUrlString:(NSString *)urlString
+                                      isNeedCache:(BOOL)isNeedCache
+                                       parameters:(NSDictionary *)parameters
+                                     successBlock:(BAResponseSuccess)successBlock
+                                     failureBlock:(BAResponseFail)failureBlock
+                                         progress:(BADownloadProgress)progress;
+
+/**
+ 网络请求的实例方法 post
+
+ @param urlString 请求的地址
+ @param isNeedCache 是否需要缓存，只有 get / post 请求有缓存配置
+ @param parameters 请求的参数
+ @param successBlock 请求成功的回调
+ @param failureBlock 请求失败的回调
+ @param progress 进度
+ @return BAURLSessionTask
+ */
++ (BAURLSessionTask *)ba_request_POSTWithUrlString:(NSString *)urlString
+                                       isNeedCache:(BOOL)isNeedCache
+                                        parameters:(NSDictionary *)parameters
+                                      successBlock:(BAResponseSuccess)successBlock
+                                      failureBlock:(BAResponseFail)failureBlock
+                                          progress:(BADownloadProgress)progress;
+
+/**
+ 网络请求的实例方法 put
+
+ @param urlString 请求的地址
+ @param parameters 请求的参数
+ @param successBlock 请求成功的回调
+ @param failureBlock 请求失败的回调
+ @param progress 进度
+ @return BAURLSessionTask
+ */
++ (BAURLSessionTask *)ba_request_PUTWithUrlString:(NSString *)urlString
+                                       parameters:(NSDictionary *)parameters
+                                     successBlock:(BAResponseSuccess)successBlock
+                                     failureBlock:(BAResponseFail)failureBlock
+                                         progress:(BADownloadProgress)progress;
+
+/**
+ 网络请求的实例方法 delete
+
+ @param urlString 请求的地址
+ @param parameters 请求的参数
+ @param successBlock 请求成功的回调
+ @param failureBlock 请求失败的回调
+ @param progress 进度
+ @return BAURLSessionTask
+ */
++ (BAURLSessionTask *)ba_request_DELETEWithUrlString:(NSString *)urlString
+                                          parameters:(NSDictionary *)parameters
+                                        successBlock:(BAResponseSuccess)successBlock
+                                        failureBlock:(BAResponseFail)failureBlock
+                                            progress:(BADownloadProgress)progress;
+
+/**
+ 上传图片(多图)
+
+ @param urlString 上传的url
+ @param parameters 上传图片预留参数---视具体情况而定 可移除
+ @param imageArray 上传的图片数组
+ @param fileName 上传的图片数组fileName
+ @param successBlock 上传成功的回调
+ @param failureBlock 上传失败的回调
+ @param progress 上传进度
+ @return BAURLSessionTask
+ */
++ (BAURLSessionTask *)ba_uploadImageWithUrlString:(NSString *)urlString
+                                       parameters:(NSDictionary *)parameters
+                                       imageArray:(NSArray *)imageArray
+                                         fileName:(NSString *)fileName
+                                     successBlock:(BAResponseSuccess)successBlock
+                                      failurBlock:(BAResponseFail)failureBlock
+                                   upLoadProgress:(BAUploadProgress)progress;
+
+/**
+ 视频上传
+
+ @param urlString 上传的url
+ @param parameters 上传视频预留参数---视具体情况而定 可移除
+ @param videoPath 上传视频的本地沙河路径
+ @param successBlock 成功的回调
+ @param failureBlock 失败的回调
+ @param progress 上传的进度
+ */
++ (void)ba_uploadVideoWithUrlString:(NSString *)urlString
+                         parameters:(NSDictionary *)parameters
+                          videoPath:(NSString *)videoPath
+                       successBlock:(BAResponseSuccess)successBlock
+                       failureBlock:(BAResponseFail)failureBlock
+                     uploadProgress:(BAUploadProgress)progress;
+
+/**
+ 文件下载
+
+ @param urlString 请求的url
+ @param parameters 文件下载预留参数---视具体情况而定 可移除
+ @param savePath 下载文件保存路径
+ @param successBlock 下载文件成功的回调
+ @param failureBlock 下载文件失败的回调
+ @param progress 下载文件的进度显示
+ @return BAURLSessionTask
+ */
++ (BAURLSessionTask *)ba_downLoadFileWithUrlString:(NSString *)urlString
+                                        parameters:(NSDictionary *)parameters
+                                          savaPath:(NSString *)savePath
+                                      successBlock:(BAResponseSuccess)successBlock
+                                      failureBlock:(BAResponseFail)failureBlock
+                                  downLoadProgress:(BADownloadProgress)progress;
+
+#pragma mark - 网络状态监测
+/*!
+ *  开启实时网络状态监测，通过Block回调实时获取(此方法可多次调用)
+ */
++ (void)ba_startNetWorkMonitoringWithBlock:(BANetworkStatusBlock)networkStatus;
+
+#pragma mark - 自定义请求头
+/**
+ *  自定义请求头
+ */
++ (void)ba_setValue:(NSString *)value forHTTPHeaderKey:(NSString *)HTTPHeaderKey;
+
+#pragma mark - 取消 Http 请求
+/*!
+ *  取消所有 Http 请求
+ */
++ (void)ba_cancelAllRequest;
+
+/*!
+ *  取消指定 URL 的 Http 请求
+ */
++ (void)ba_cancelRequestWithURL:(NSString *)URL;
+
+@end
 ```
-
-## 2、功能列表
-- 10、视频上传部分已经亲测可用，目前多个项目检测暂无问题，大家可以放心使用了！
-- 9、如果使用PHP后台，后台不会对接此接口的话，博爱已经为你们量身定做了PHP后台接口，你们只需要把文件夹中的 postdynamic.php 文件发送给你们的PHP后台同事，他们就知道了，里面都有详细说明！
-- 8、优化自定义CA证书的导入配置
-- 7、新增https请求参数设置，新增详细打印参数！
-- 6、优化，新增https请求参数设置，新增详细打印参数！
-- 5、集成网络监测，让你实时监测你的宝贝APP的网络状态【已经测试通过】
-- 3、集成视频上传/下载，和文件下载，让视频的上传下载更方便，支持异步下载【已测试多个项目通过】
-- 2、集成单图/多图上传，让图片上传更简单，自带压缩处理【已经测试通过】
-- 1、集成 get / post / put / delete 等常用请求方式的封装【已经测试通过】
-
-## 3、图片展示
-
-![image](https://github.com/boai/BANetManager/blob/master/images/image.png)
-
-## 4、数据打印展示
-
-get 请求结果打印：
-
+### demo 示例
 ```
-2017-05-03 10:32:38.070372+0800 BANetManagerDemo[1472:479146] ******************** 请求参数 ***************************
-2017-05-03 10:32:38.070784+0800 BANetManagerDemo[1472:479146] 
-请求头: {
-    "Accept-Language" = "zh-Hans-CN;q=1";
-    "User-Agent" = "BANetManagerDemo/1.0 (iPhone; iOS 10.3.2; Scale/2.00)";
-}
-超时时间设置：30.0 秒【默认：30秒】
-AFHTTPResponseSerializer：<AFJSONResponseSerializer: 0x17005e4e0>【默认：AFJSONResponseSerializer】
-AFHTTPRequestSerializer：<AFJSONRequestSerializer: 0x1700a2e20>【默认：AFJSONRequestSerializer】
-请求方式: GET
-请求URL: http://chanyouji.com/api/users/likes/268717.json
-请求param: (null)
-是否启用缓存：开启【默认：开启】
-目前总缓存大小：0.005991M
-
-2017-05-03 10:32:38.070833+0800 BANetManagerDemo[1472:479146] ********************************************************
-
-```
-
-post 请求结果打印：
-
-```
-2017-05-03 10:33:07.165523+0800 BANetManagerDemo[1472:479146] ******************** 请求参数 ***************************
-2017-05-03 10:33:07.166295+0800 BANetManagerDemo[1472:479146] 
-请求头: {
-    Accept = "application/json";
-    "Accept-Encoding" = gzip;
-    "Accept-Language" = "zh-Hans-CN;q=1";
-    "User-Agent" = "BANetManagerDemo/1.0 (iPhone; iOS 10.3.2; Scale/2.00)";
-}
-超时时间设置：15.0 秒【默认：30秒】
-AFHTTPResponseSerializer：<AFJSONResponseSerializer: 0x17005e4e0>【默认：AFJSONResponseSerializer】
-AFHTTPRequestSerializer：<AFJSONRequestSerializer: 0x1700a2e20>【默认：AFJSONRequestSerializer】
-请求方式: POWT
-请求URL: http://chanyouji.com/api/users/likes/268717.json
-请求param: {
-    page = 1;
-    "per_page" = 10;
-}
-是否启用缓存：开启【默认：开启】
-目前总缓存大小：0.008538M
-
-2017-05-03 10:33:07.166472+0800 BANetManagerDemo[1472:479146] ********************************************************
-```
-
-## 5、install BANetManager
-* 1、pod 安装： 最新版本 2.2.2
-
-```
-pod 'BANetManager'
-```
-* 2、手动导入：最新版本 2.2.2
-
-```
-下载demo，将 BANetManager 文件夹整个拖入项目中
-```
-* 3、导入头文件 `#import "BANetManager.h"` 即可！
-
-## 5、自定义设置示例：
-```
-    // 1、自定义超时设置
-    BANetManagerShare.timeoutInterval = 15;
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    // Do any additional setup after loading the view, typically from a nib.
     
-    // 2、自定义添加请求头
-    NSDictionary *headerDict = @{@"Accept":@"application/json", @"Accept-Encoding":@"gzip"};
-    BANetManagerShare.httpHeaderFieldDictionary = headerDict;
+    self.title = @"AFNetworking 3.1 封装demo";
     
-    // 3、自定义更改 requestSerializer
-//    BANetManagerShare.requestSerializer = BAHttpRequestSerializerHTTP;
-     // 4、自定义更改 responseSerializer
-//    BANetManagerShare.responseSerializer = BAHttpRequestSerializerHTTP;
+    /*! 网络状态实时监测可以使用 block 回调，也可以使用单独方法判断 */
+    [self ba_netType];
+    
+}
 
-```
+#pragma mark - 网络类型判断
+- (void)ba_netType
+{
+    BAWeak;
+    [BANetManager ba_startNetWorkMonitoringWithBlock:^(BANetworkStatus status) {
+        NSString *msg;
+        switch (status) {
+            case 0:
+            {
+                msg = @"未知网络";
+                BAKit_ShowAlertWithMsg(msg);
+            }
+                break;
+            case 1:
+            {
+                msg = @"没有网络";
+                BAKit_ShowAlertWithMsg(msg);
+            }
+                break;
+            case 2:
+            {
+                msg = @"您的网络类型为：手机 3G/4G 网络";
+                BAKit_ShowAlertWithMsg(msg);
+            }
+                break;
+            case 3:
+            {
+                msg = @"您的网络类型为：wifi 网络";
+                /*! wifi 网络下请求网络：可以在父类写此方法，具体使用demo，详见：https://github.com/boai/BABaseProject */
+                BAKit_ShowAlertWithMsg(msg);
+            }
+                break;
 
-## 6、请求示例
-```
+            default:
+                break;
+        }
+    }];
+}
+
 #pragma mark - ***** get
 - (IBAction)getData:(UIButton *)sender
 {
@@ -157,16 +363,16 @@ pod 'BANetManager'
 - (IBAction)postData:(UIButton *)sender
 {
     BAWeak;
-    // 1、自定义超时设置
+    // 自定义超时设置
     BANetManagerShare.timeoutInterval = 15;
     
-    // 2、自定义添加请求头
+    // 自定义添加请求头
     NSDictionary *headerDict = @{@"Accept":@"application/json", @"Accept-Encoding":@"gzip"};
     BANetManagerShare.httpHeaderFieldDictionary = headerDict;
     
-    // 3、自定义更改 requestSerializer
+    // 自定义更改 requestSerializer
 //    BANetManagerShare.requestSerializer = BAHttpRequestSerializerHTTP;
-     // 4、自定义更改 responseSerializer
+     // 自定义更改 responseSerializer
 //    BANetManagerShare.responseSerializer = BAHttpRequestSerializerHTTP;
     
     int page = 1;
@@ -180,7 +386,6 @@ pod 'BANetManager'
         
     } progress:nil];
 }
-
 
 #pragma mark - ***** 下载视频、图片
 - (IBAction)downloadData:(UIButton *)sender
@@ -242,7 +447,6 @@ pod 'BANetManager'
     
 }
 
-
 #pragma mark - ***** 上传图片
 - (IBAction)uploadImageData:(UIButton *)sender
 {
@@ -299,9 +503,59 @@ pod 'BANetManager'
 {
     [BANetManager ba_request_DELETEWithUrlString:nil parameters:nil successBlock:nil failureBlock:nil progress:nil];
 }
-
+其他示例可下载demo查看源码！
 ```
 
-## 5、demo 下载
-详情demo，请前往[『BABaseProject』](https://github.com/boai/BABaseProject)！<br>
-Code4App 下载链接：[『BANetManager』](http://www.code4app.com/forum.php?mod=viewthread&tid=11787)！
+## 5、更新记录：【倒叙】
+ 欢迎使用 [【BAHome】](https://github.com/BAHome) 系列开源代码 ！
+ 如有更多需求，请前往：[【https://github.com/BAHome】](https://github.com/BAHome) 
+ 
+ 最新更新时间：2017-05-03 【倒叙】<br>
+ 最新Version：【Version：2.2.2】<br>
+ 更新内容：<br>
+ 2.2.1、优化方法名命名规范<br>
+ 2.2.2、优化网络状态实时监测 block 回调，去除多余设置，需要网络判断，直接调用block回调即可<br>
+ 2.2.3、新增 YYCache 缓存处理<br>
+ 2.2.4、新增自定义：超时设置<br>
+ 2.2.5、新增自定义：requestSerializer设置<br>
+ 2.2.6、新增自定义：responseSerializer设置<br>
+ 2.2.7、新增自定义：请求头设置<br>
+ 2.2.8、新增自定义 CA 证书 和 HTTPS 请求配置，只需把证书导入项目目录即可，无需设置<br>
+ 2.2.9、新增史上最全的 AFN 请求 NSLog 打印，详见 demo 控制台打印结果<br>
+ 2.2.10、新增 DEBUG 模式下的 NSLog 判断，release 下不会打印，请放心使用<br>
+ 2.2.11、如果打印数据不完整，是因为 Xcode 8 版本问题，请下断点打印数据<br>
+ 2.2.12、由于新版本改动较大，原有方法命名可能有所改动，希望老用户见谅！<br>
+ 2.2.13、目前版本较稳定，稍后奉上 pod 版本！请大家耐心等待
+
+ 
+ 最新更新时间：2016-11-24 【倒叙】<br>
+ 最新Version：【Version：2.1】<br>
+ 更新内容：<br>
+ 2.1.1、优化方法名命名规范<br>
+ 2.1.2、新增网络状态实时监测 block 回调，新增单独网络监测 bool 返回，详见 demo<br>
+ 2.1.3、新增旧方法更新提示<br>
+ 2.1.4、优化各种注释<br>
+ 
+ 最新更新时间：2016-11-17<br>
+ 最新Version：【Version：2.0】<br>
+ 更新内容：<br>
+ 2.0.1、优化方法名命名规范<br>
+ 2.0.2、新增部分注释<br>
+ 2.0.3、视频上传方法对接，目前有很多项目对接成功
+
+## 6、bug 反馈 和 联系方式
+> 1、开发中遇到 bug，希望小伙伴儿们能够及时反馈与我们 BAHome 团队，我们必定会认真对待每一个问题！ <br>
+
+> 2、联系方式 <br> 
+QQ群：479663605  【注意：此群为 2 元 付费群，介意的小伙伴儿勿扰！】<br> 
+博爱QQ：137361770 <br> 
+博爱微博：[![](https://img.shields.io/badge/微博-博爱1616-red.svg)](http://weibo.com/538298123) <br> 
+
+## 7、开发环境 和 支持版本
+> 开发使用 Xcode Version 8.3.2 (8E2002) ，理论上支持所有 iOS 版本，如有版本适配问题，请及时反馈！多谢合作！
+
+## 8、感谢
+> 感谢 BAHome 团队成员倾力合作，后期会推出一系列 常用 UI 控件的封装，大家有需求得也可以在 issue 提出，如果合理，我们会尽快推出新版本！<br>
+
+> BAHome 的发展离不开小伙伴儿的信任与推广，再次感谢各位小伙伴儿的支持！
+

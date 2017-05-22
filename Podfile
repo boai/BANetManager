@@ -5,7 +5,7 @@ inhibit_all_warnings!
 
 # pod update --verbose --no-repo-update
 
-target 'BANetManagerDemo' do
+target 'BANetManager' do
 
 	pod 'AFNetworking'
     pod 'YYCache'

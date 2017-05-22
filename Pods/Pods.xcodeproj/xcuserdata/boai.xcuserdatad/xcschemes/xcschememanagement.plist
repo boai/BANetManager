@@ -9,7 +9,7 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>Pods-BANetManagerDemo.xcscheme</key>
+		<key>Pods-BANetManager.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -22,7 +22,7 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>8152BBC39594C6B305375FD904F07BF0</key>
+		<key>0937F32DDD163B5B7176F12EB25C55B7</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -32,7 +32,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>BA12A58E9C776E5333958BC4B9B09197</key>
+		<key>E32FB5EB4C7DA3DA0215FB2D9582BCD8</key>
 		<dict>
 			<key>primary</key>
 			<true/>
