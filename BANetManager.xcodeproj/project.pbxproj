@@ -15,8 +15,8 @@
 		C492315D1ED0435400B61C37 /* BANetManagerCache.m in Sources */ = {isa = PBXBuildFile; fileRef = C49231581ED0435400B61C37 /* BANetManagerCache.m */; };
 		C492315E1ED0435400B61C37 /* postdynamic.php in Resources */ = {isa = PBXBuildFile; fileRef = C49231591ED0435400B61C37 /* postdynamic.php */; };
 		C492315F1ED0435400B61C37 /* UIImage+CompressImage.m in Sources */ = {isa = PBXBuildFile; fileRef = C492315B1ED0435400B61C37 /* UIImage+CompressImage.m */; };
-		C49231641ED0437C00B61C37 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C49231611ED0437C00B61C37 /* ViewController.m */; };
-		C49231651ED0437C00B61C37 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C49231631ED0437C00B61C37 /* Main.storyboard */; };
+		C492316E1ED26D0F00B61C37 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C492316D1ED26D0F00B61C37 /* ViewController.m */; };
+		C49231711ED26D2D00B61C37 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C492316F1ED26D2D00B61C37 /* Main.storyboard */; };
 		F852E0031127B2CA28F182FA /* libPods-BANetManager.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E8F4FEA979F0E81B0C453A4 /* libPods-BANetManager.a */; };
 /* End PBXBuildFile section */
 
@@ -38,9 +38,9 @@
 		C49231591ED0435400B61C37 /* postdynamic.php */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.php; name = postdynamic.php; path = BANetManager/postdynamic.php; sourceTree = "<group>"; };
 		C492315A1ED0435400B61C37 /* UIImage+CompressImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+CompressImage.h"; sourceTree = "<group>"; };
 		C492315B1ED0435400B61C37 /* UIImage+CompressImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+CompressImage.m"; sourceTree = "<group>"; };
-		C49231601ED0437C00B61C37 /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ViewController.h; path = "../../../Documents/博爱测试/gitHub/BANetManager/BANetManagerDemo/ViewController.h"; sourceTree = "<group>"; };
-		C49231611ED0437C00B61C37 /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ViewController.m; path = "../../../Documents/博爱测试/gitHub/BANetManager/BANetManagerDemo/ViewController.m"; sourceTree = "<group>"; };
-		C49231621ED0437C00B61C37 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		C492316C1ED26D0F00B61C37 /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		C492316D1ED26D0F00B61C37 /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		C49231701ED26D2D00B61C37 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,10 +96,10 @@
 				C49231541ED0434300B61C37 /* BANetManager */,
 				C49231401ED0431A00B61C37 /* AppDelegate.h */,
 				C49231411ED0431A00B61C37 /* AppDelegate.m */,
-				C49231601ED0437C00B61C37 /* ViewController.h */,
-				C49231611ED0437C00B61C37 /* ViewController.m */,
-				C49231631ED0437C00B61C37 /* Main.storyboard */,
 				C49231591ED0435400B61C37 /* postdynamic.php */,
+				C492316C1ED26D0F00B61C37 /* ViewController.h */,
+				C492316D1ED26D0F00B61C37 /* ViewController.m */,
+				C492316F1ED26D2D00B61C37 /* Main.storyboard */,
 				C49231491ED0431A00B61C37 /* Assets.xcassets */,
 				C492314B1ED0431A00B61C37 /* LaunchScreen.storyboard */,
 				C492314E1ED0431A00B61C37 /* Info.plist */,
@@ -194,7 +194,7 @@
 				C492315E1ED0435400B61C37 /* postdynamic.php in Resources */,
 				C492314D1ED0431A00B61C37 /* LaunchScreen.storyboard in Resources */,
 				C492314A1ED0431A00B61C37 /* Assets.xcassets in Resources */,
-				C49231651ED0437C00B61C37 /* Main.storyboard in Resources */,
+				C49231711ED26D2D00B61C37 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -253,7 +253,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C49231641ED0437C00B61C37 /* ViewController.m in Sources */,
+				C492316E1ED26D0F00B61C37 /* ViewController.m in Sources */,
 				C49231421ED0431A00B61C37 /* AppDelegate.m in Sources */,
 				C492315C1ED0435400B61C37 /* BANetManager.m in Sources */,
 				C492315D1ED0435400B61C37 /* BANetManagerCache.m in Sources */,
@@ -273,13 +273,12 @@
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
-		C49231631ED0437C00B61C37 /* Main.storyboard */ = {
+		C492316F1ED26D2D00B61C37 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				C49231621ED0437C00B61C37 /* Base */,
+				C49231701ED26D2D00B61C37 /* Base */,
 			);
 			name = Main.storyboard;
-			path = "../../../Documents/博爱测试/gitHub/BANetManager/BANetManagerDemo";
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -422,6 +421,7 @@
 				C49231531ED0431A00B61C37 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
