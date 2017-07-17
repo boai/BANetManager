@@ -1,12 +1,11 @@
 
 /*!
  *  @header BAKit.h
- *          BABaseProject
  *
  *  @brief  BAKit
  *
  *  @author 博爱
- *  @copyright    Copyright © 2016年 博爱. All rights reserved.
+ *  @copyright  Copyright © 2016年 博爱. All rights reserved.
  *  @version    V1.0
  */
 
@@ -45,21 +44,18 @@
  
  *********************************************************************************
  *
- * 在使用BAKit的过程中如果出现bug请及时以以下任意一种方式联系我，我会及时修复bug
+ * 在使用 BAKit 的过程中如果出现 bug 请及时以以下任意一种方式联系我，我会及时修复 bug
  *
  * QQ     : 可以添加ios开发技术群 479663605 在这里找到我(博爱1616【137361770】)
  * 微博    : 博爱1616
  * Email  : 137361770@qq.com
  * GitHub : https://github.com/boai
- * 博客园  : http://www.cnblogs.com/boai/
- * 博客    : http://boai.github.io
- * 简书    : http://www.jianshu.com/users/95c9800fdf47/latest_articles
- * 简书专题 : http://www.jianshu.com/collection/072d578bf782
+ * BAHome : https://github.com/BAHome
+ * 博客    : http://boaihome.com
  
  *********************************************************************************
  
  */
-
 
 #import "BANetManager.h"
 
@@ -70,14 +66,14 @@
 /*! 系统相册 */
 #import <Photos/Photos.h>
 
-#import <AFNetworking.h>
+
+#import "AFNetworking.h"
 #import "AFNetworkActivityIndicatorManager.h"
 
 #import "UIImage+CompressImage.h"
 
 #import "BANetManagerCache.h"
 
-#import <objc/runtime.h>
 
 static NSMutableArray *tasks;
 
@@ -199,16 +195,16 @@ static NSMutableArray *tasks;
     }
 }
 
-/*!
- *  网络请求的实例方法
- *
- *  @param type         get
- *  @param isNeedCache  是否需要缓存，只有 get / post 请求有缓存配置
- *  @param urlString    请求的地址
- *  @param paraments    请求的参数
- *  @param successBlock 请求成功的回调
- *  @param failureBlock 请求失败的回调
- *  @param progress 进度
+/**
+ 网络请求的实例方法 get
+ 
+ @param urlString 请求的地址
+ @param isNeedCache 是否需要缓存，只有 get / post 请求有缓存配置
+ @param parameters 请求的参数
+ @param successBlock 请求成功的回调
+ @param failureBlock 请求失败的回调
+ @param progress 进度
+ @return BAURLSessionTask
  */
 + (BAURLSessionTask *)ba_request_GETWithUrlString:(NSString *)urlString
                                       isNeedCache:(BOOL)isNeedCache
@@ -220,16 +216,16 @@ static NSMutableArray *tasks;
     return [self ba_requestWithType:BAHttpRequestTypeGet isNeedCache:isNeedCache urlString:urlString parameters:parameters successBlock:successBlock failureBlock:failureBlock progress:progress];
 }
 
-/*!
- *  网络请求的实例方法
- *
- *  @param type         post
- *  @param isNeedCache  是否需要缓存，只有 get / post 请求有缓存配置
- *  @param urlString    请求的地址
- *  @param paraments    请求的参数
- *  @param successBlock 请求成功的回调
- *  @param failureBlock 请求失败的回调
- *  @param progress 进度
+/**
+ 网络请求的实例方法 post
+ 
+ @param urlString 请求的地址
+ @param isNeedCache 是否需要缓存，只有 get / post 请求有缓存配置
+ @param parameters 请求的参数
+ @param successBlock 请求成功的回调
+ @param failureBlock 请求失败的回调
+ @param progress 进度
+ @return BAURLSessionTask
  */
 + (BAURLSessionTask *)ba_request_POSTWithUrlString:(NSString *)urlString
                                        isNeedCache:(BOOL)isNeedCache
@@ -241,15 +237,15 @@ static NSMutableArray *tasks;
     return [self ba_requestWithType:BAHttpRequestTypePost isNeedCache:isNeedCache urlString:urlString parameters:parameters successBlock:successBlock failureBlock:failureBlock progress:progress];
 }
 
-/*!
- *  网络请求的实例方法
- *
- *  @param type         put
- *  @param urlString    请求的地址
- *  @param paraments    请求的参数
- *  @param successBlock 请求成功的回调
- *  @param failureBlock 请求失败的回调
- *  @param progress 进度
+/**
+ 网络请求的实例方法 put
+ 
+ @param urlString 请求的地址
+ @param parameters 请求的参数
+ @param successBlock 请求成功的回调
+ @param failureBlock 请求失败的回调
+ @param progress 进度
+ @return BAURLSessionTask
  */
 + (BAURLSessionTask *)ba_request_PUTWithUrlString:(NSString *)urlString
                                        parameters:(NSDictionary *)parameters
@@ -260,15 +256,15 @@ static NSMutableArray *tasks;
     return [self ba_requestWithType:BAHttpRequestTypePut isNeedCache:NO urlString:urlString parameters:parameters successBlock:successBlock failureBlock:failureBlock progress:progress];
 }
 
-/*!
- *  网络请求的实例方法
- *
- *  @param type         delete
- *  @param urlString    请求的地址
- *  @param paraments    请求的参数
- *  @param successBlock 请求成功的回调
- *  @param failureBlock 请求失败的回调
- *  @param progress 进度
+/**
+ 网络请求的实例方法 delete
+ 
+ @param urlString 请求的地址
+ @param parameters 请求的参数
+ @param successBlock 请求成功的回调
+ @param failureBlock 请求失败的回调
+ @param progress 进度
+ @return BAURLSessionTask
  */
 + (BAURLSessionTask *)ba_request_DELETEWithUrlString:(NSString *)urlString
                                           parameters:(NSDictionary *)parameters
@@ -286,7 +282,7 @@ static NSMutableArray *tasks;
  *  @param type         get / post / put / delete
  *  @param isNeedCache  是否需要缓存，只有 get / post 请求有缓存配置
  *  @param urlString    请求的地址
- *  @param paraments    请求的参数
+ *  @param parameters    请求的参数
  *  @param successBlock 请求成功的回调
  *  @param failureBlock 请求失败的回调
  *  @param progress 进度
@@ -560,15 +556,15 @@ static NSMutableArray *tasks;
     return sessionTask;
 }
 
-/*!
- *  视频上传
- *
- *  @param operations   上传视频预留参数---视具体情况而定 可移除
- *  @param videoPath    上传视频的本地沙河路径
- *  @param urlString     上传的url
- *  @param successBlock 成功的回调
- *  @param failureBlock 失败的回调
- *  @param progress     上传的进度
+/**
+ 视频上传
+ 
+ @param urlString 上传的url
+ @param parameters 上传视频预留参数---视具体情况而定 可移除
+ @param videoPath 上传视频的本地沙河路径
+ @param successBlock 成功的回调
+ @param failureBlock 失败的回调
+ @param progress 上传的进度
  */
 + (void)ba_uploadVideoWithUrlString:(NSString *)urlString
                          parameters:(NSDictionary *)parameters
@@ -589,7 +585,9 @@ static NSMutableArray *tasks;
     //    NSString *const AVAssetExportPreset3840x2160;
     
     /*! 创建日期格式化器 */
+    
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    
     [formatter setDateFormat:@"yyyy-MM-dd-HH:mm:ss"];
     
     /*! 转化后直接写入Library---caches */
@@ -639,15 +637,16 @@ static NSMutableArray *tasks;
 }
 
 #pragma mark - ***** 文件下载
-/*!
- *  文件下载
- *
- *  @param operations   文件下载预留参数---视具体情况而定 可移除
- *  @param savePath     下载文件保存路径
- *  @param urlString        请求的url
- *  @param successBlock 下载文件成功的回调
- *  @param failureBlock 下载文件失败的回调
- *  @param progress     下载文件的进度显示
+/**
+ 文件下载
+ 
+ @param urlString 请求的url
+ @param parameters 文件下载预留参数---视具体情况而定 可移除
+ @param savePath 下载文件保存路径
+ @param successBlock 下载文件成功的回调
+ @param failureBlock 下载文件失败的回调
+ @param progress 下载文件的进度显示
+ @return BAURLSessionTask
  */
 + (BAURLSessionTask *)ba_downLoadFileWithUrlString:(NSString *)urlString
                                         parameters:(NSDictionary *)parameters
@@ -802,7 +801,6 @@ static NSMutableArray *tasks;
     }
     return sessionTask;
 }
-
 
 #pragma mark - 网络状态监测
 /*!
@@ -1007,14 +1005,6 @@ static NSMutableArray *tasks;
 + (void)ba_setValue:(NSString *)value forHTTPHeaderKey:(NSString *)HTTPHeaderKey
 {
     [BANetManagerShare.sessionManager.requestSerializer setValue:value forHTTPHeaderField:HTTPHeaderKey];
-}
-
-/**
- 删除所有请求头
- */
-+ (void)ba_clearAuthorizationHeader
-{
-    [BANetManagerShare.sessionManager.requestSerializer clearAuthorizationHeader];
 }
 
 + (void)ba_uploadImageWithFormData:(id<AFMultipartFormData>  _Nonnull )formData
