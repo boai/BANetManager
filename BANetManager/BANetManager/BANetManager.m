@@ -68,19 +68,16 @@
 #import <AVFoundation/AVMediaFormat.h>
 
 /*! 系统相册 */
-#import <AssetsLibrary/ALAsset.h>
-#import <AssetsLibrary/ALAssetsLibrary.h>
-#import <AssetsLibrary/ALAssetsGroup.h>
-#import <AssetsLibrary/ALAssetRepresentation.h>
+#import <Photos/Photos.h>
 
-
-#import "AFNetworking.h"
+#import <AFNetworking.h>
 #import "AFNetworkActivityIndicatorManager.h"
 
 #import "UIImage+CompressImage.h"
 
 #import "BANetManagerCache.h"
 
+#import <objc/runtime.h>
 
 static NSMutableArray *tasks;
 
@@ -119,7 +116,7 @@ static NSMutableArray *tasks;
 + (void)setupBANetManager
 {
     BANetManagerShare.sessionManager = [AFHTTPSessionManager manager];
-
+    
     BANetManagerShare.requestSerializer = BAHttpRequestSerializerJSON;
     BANetManagerShare.responseSerializer = BAHttpResponseSerializerJSON;
     
@@ -133,10 +130,10 @@ static NSMutableArray *tasks;
      json：[AFJSONResponseSerializer serializer](常用)
      http：[AFHTTPResponseSerializer serializer]
      */
-//    AFJSONResponseSerializer *response = [AFJSONResponseSerializer serializer];
-//    /*! 这里是去掉了键值对里空对象的键值 */
-////    response.removesKeysWithNullValues = YES;
-//    BANetManagerShare.sessionManager.responseSerializer = response;
+    //    AFJSONResponseSerializer *response = [AFJSONResponseSerializer serializer];
+    //    /*! 这里是去掉了键值对里空对象的键值 */
+    ////    response.removesKeysWithNullValues = YES;
+    //    BANetManagerShare.sessionManager.responseSerializer = response;
     
     /* 设置请求服务器数类型式为 json */
     /*!
@@ -144,8 +141,8 @@ static NSMutableArray *tasks;
      json：[AFJSONRequestSerializer serializer](常用)
      http：[AFHTTPRequestSerializer serializer]
      */
-//    AFJSONRequestSerializer *request = [AFJSONRequestSerializer serializer];
-//    BANetManagerShare.sessionManager.requestSerializer = request;
+    //    AFJSONRequestSerializer *request = [AFJSONRequestSerializer serializer];
+    //    BANetManagerShare.sessionManager.requestSerializer = request;
     /*! 设置apikey ------类似于自己应用中的tokken---此处仅仅作为测试使用*/
     //        [manager.requestSerializer setValue:apikey forHTTPHeaderField:@"apikey"];
     
@@ -202,82 +199,82 @@ static NSMutableArray *tasks;
     }
 }
 
-/**
- 网络请求的实例方法 get
- 
- @param urlString 请求的地址
- @param isNeedCache 是否需要缓存，只有 get / post 请求有缓存配置
- @param parameters 请求的参数
- @param successBlock 请求成功的回调
- @param failureBlock 请求失败的回调
- @param progress 进度
- @return BAURLSessionTask
+/*!
+ *  网络请求的实例方法
+ *
+ *  @param type         get
+ *  @param isNeedCache  是否需要缓存，只有 get / post 请求有缓存配置
+ *  @param urlString    请求的地址
+ *  @param paraments    请求的参数
+ *  @param successBlock 请求成功的回调
+ *  @param failureBlock 请求失败的回调
+ *  @param progress 进度
  */
 + (BAURLSessionTask *)ba_request_GETWithUrlString:(NSString *)urlString
                                       isNeedCache:(BOOL)isNeedCache
                                        parameters:(NSDictionary *)parameters
                                      successBlock:(BAResponseSuccess)successBlock
-                                        failureBlock:(BAResponseFail)failureBlock
+                                     failureBlock:(BAResponseFail)failureBlock
                                          progress:(BADownloadProgress)progress
 {
     return [self ba_requestWithType:BAHttpRequestTypeGet isNeedCache:isNeedCache urlString:urlString parameters:parameters successBlock:successBlock failureBlock:failureBlock progress:progress];
 }
 
-/**
- 网络请求的实例方法 post
- 
- @param urlString 请求的地址
- @param isNeedCache 是否需要缓存，只有 get / post 请求有缓存配置
- @param parameters 请求的参数
- @param successBlock 请求成功的回调
- @param failureBlock 请求失败的回调
- @param progress 进度
- @return BAURLSessionTask
+/*!
+ *  网络请求的实例方法
+ *
+ *  @param type         post
+ *  @param isNeedCache  是否需要缓存，只有 get / post 请求有缓存配置
+ *  @param urlString    请求的地址
+ *  @param paraments    请求的参数
+ *  @param successBlock 请求成功的回调
+ *  @param failureBlock 请求失败的回调
+ *  @param progress 进度
  */
 + (BAURLSessionTask *)ba_request_POSTWithUrlString:(NSString *)urlString
                                        isNeedCache:(BOOL)isNeedCache
-                                       parameters:(NSDictionary *)parameters
-                                     successBlock:(BAResponseSuccess)successBlock
-                                     failureBlock:(BAResponseFail)failureBlock
-                                         progress:(BADownloadProgress)progress
-{
-    return [self ba_requestWithType:BAHttpRequestTypePost isNeedCache:isNeedCache urlString:urlString parameters:parameters successBlock:successBlock failureBlock:failureBlock progress:progress];
-}
-
-/**
- 网络请求的实例方法 put
- 
- @param urlString 请求的地址
- @param parameters 请求的参数
- @param successBlock 请求成功的回调
- @param failureBlock 请求失败的回调
- @param progress 进度
- @return BAURLSessionTask
- */
-+ (BAURLSessionTask *)ba_request_PUTWithUrlString:(NSString *)urlString
                                         parameters:(NSDictionary *)parameters
                                       successBlock:(BAResponseSuccess)successBlock
                                       failureBlock:(BAResponseFail)failureBlock
                                           progress:(BADownloadProgress)progress
 {
-    return [self ba_requestWithType:BAHttpRequestTypePut isNeedCache:NO urlString:urlString parameters:parameters successBlock:successBlock failureBlock:failureBlock progress:progress];
+    return [self ba_requestWithType:BAHttpRequestTypePost isNeedCache:isNeedCache urlString:urlString parameters:parameters successBlock:successBlock failureBlock:failureBlock progress:progress];
 }
 
-/**
- 网络请求的实例方法 delete
- 
- @param urlString 请求的地址
- @param parameters 请求的参数
- @param successBlock 请求成功的回调
- @param failureBlock 请求失败的回调
- @param progress 进度
- @return BAURLSessionTask
+/*!
+ *  网络请求的实例方法
+ *
+ *  @param type         put
+ *  @param urlString    请求的地址
+ *  @param paraments    请求的参数
+ *  @param successBlock 请求成功的回调
+ *  @param failureBlock 请求失败的回调
+ *  @param progress 进度
  */
-+ (BAURLSessionTask *)ba_request_DELETEWithUrlString:(NSString *)urlString
++ (BAURLSessionTask *)ba_request_PUTWithUrlString:(NSString *)urlString
                                        parameters:(NSDictionary *)parameters
                                      successBlock:(BAResponseSuccess)successBlock
                                      failureBlock:(BAResponseFail)failureBlock
                                          progress:(BADownloadProgress)progress
+{
+    return [self ba_requestWithType:BAHttpRequestTypePut isNeedCache:NO urlString:urlString parameters:parameters successBlock:successBlock failureBlock:failureBlock progress:progress];
+}
+
+/*!
+ *  网络请求的实例方法
+ *
+ *  @param type         delete
+ *  @param urlString    请求的地址
+ *  @param paraments    请求的参数
+ *  @param successBlock 请求成功的回调
+ *  @param failureBlock 请求失败的回调
+ *  @param progress 进度
+ */
++ (BAURLSessionTask *)ba_request_DELETEWithUrlString:(NSString *)urlString
+                                          parameters:(NSDictionary *)parameters
+                                        successBlock:(BAResponseSuccess)successBlock
+                                        failureBlock:(BAResponseFail)failureBlock
+                                            progress:(BADownloadProgress)progress
 {
     return [self ba_requestWithType:BAHttpRequestTypeDelete isNeedCache:NO urlString:urlString parameters:parameters successBlock:successBlock failureBlock:failureBlock progress:progress];
 }
@@ -289,7 +286,7 @@ static NSMutableArray *tasks;
  *  @param type         get / post / put / delete
  *  @param isNeedCache  是否需要缓存，只有 get / post 请求有缓存配置
  *  @param urlString    请求的地址
- *  @param parameters    请求的参数
+ *  @param paraments    请求的参数
  *  @param successBlock 请求成功的回调
  *  @param failureBlock 请求失败的回调
  *  @param progress 进度
@@ -329,7 +326,7 @@ static NSMutableArray *tasks;
         default:
             break;
     }
-
+    
     AFHTTPSessionManager *scc = BANetManagerShare.sessionManager;
     AFHTTPResponseSerializer *scc2 = scc.responseSerializer;
     AFHTTPRequestSerializer *scc3 = scc.requestSerializer;
@@ -341,7 +338,7 @@ static NSMutableArray *tasks;
     NSLog(@"\n******************** 请求参数 ***************************");
     NSLog(@"\n请求头: %@\n超时时间设置：%.1f 秒【默认：30秒】\nAFHTTPResponseSerializer：%@【默认：AFJSONResponseSerializer】\nAFHTTPRequestSerializer：%@【默认：AFJSONRequestSerializer】\n请求方式: %@\n请求URL: %@\n请求param: %@\n是否启用缓存：%@【默认：开启】\n目前总缓存大小：%.6fM\n", BANetManagerShare.sessionManager.requestSerializer.HTTPRequestHeaders, timeoutInterval, scc2, scc3, requestType, URLString, parameters, isCache, allCacheSize);
     NSLog(@"\n********************************************************");
-
+    
     BAURLSessionTask *sessionTask = nil;
     
     // 读取缓存
@@ -354,7 +351,7 @@ static NSMutableArray *tasks;
             successBlock(responseCacheData);
         }
         NSLog(@"取用缓存数据成功： *** %@", responseCacheData);
-
+        
         [[weakSelf tasks] removeObject:sessionTask];
         return nil;
     }
@@ -395,7 +392,7 @@ static NSMutableArray *tasks;
                 successBlock(responseObject);
             }
             NSLog(@"post请求数据成功： *** %@", responseObject);
-
+            
             // 对数据进行异步缓存
             [BANetManagerCache ba_setHttpCache:responseObject urlString:urlString parameters:parameters];
             [[weakSelf tasks] removeObject:sessionTask];
@@ -452,7 +449,7 @@ static NSMutableArray *tasks;
             
         }];
     }
-        
+    
     if (sessionTask)
     {
         [[weakSelf tasks] addObject:sessionTask];
@@ -464,10 +461,12 @@ static NSMutableArray *tasks;
 /**
  上传图片(多图)
  
- @param urlString 上传的url
- @param parameters 上传图片预留参数---视具体情况而定 可移除
+ @param urlString urlString description
+ @param parameters 上传图片预留参数---视具体情况而定 可为空
  @param imageArray 上传的图片数组
- @param fileName 上传的图片数组fileName
+ @param fileNames 上传的图片数组 fileName
+ @param imageType 图片类型，如：png、jpg、gif
+ @param imageScale 图片压缩比率（0~1.0）
  @param successBlock 上传成功的回调
  @param failureBlock 上传失败的回调
  @param progress 上传进度
@@ -476,24 +475,26 @@ static NSMutableArray *tasks;
 + (BAURLSessionTask *)ba_uploadImageWithUrlString:(NSString *)urlString
                                        parameters:(NSDictionary *)parameters
                                        imageArray:(NSArray *)imageArray
-                                         fileName:(NSString *)fileName
+                                        fileNames:(NSArray <NSString *>*)fileNames
+                                        imageType:(NSString *)imageType
+                                       imageScale:(CGFloat)imageScale
                                      successBlock:(BAResponseSuccess)successBlock
                                       failurBlock:(BAResponseFail)failureBlock
-                                   upLoadProgress:(BAUploadProgress)progress
+                                   uploadProgress:(BAUploadProgress)progress
 {
     if (urlString == nil)
     {
         return nil;
     }
-
+    
     BAWeak;
     /*! 检查地址中是否有中文 */
     NSString *URLString = [NSURL URLWithString:urlString] ? urlString : [self strUTF8Encoding:urlString];
     
     NSLog(@"******************** 请求参数 ***************************");
     NSLog(@"请求头: %@\n请求方式: %@\n请求URL: %@\n请求param: %@\n\n",BANetManagerShare.sessionManager.requestSerializer.HTTPRequestHeaders, @"POST",URLString, parameters);
-    NSLog(@"******************************************************");
-
+    NSLog(@"********************************************************");
+    
     BAURLSessionTask *sessionTask = nil;
     sessionTask = [BANetManagerShare.sessionManager POST:URLString parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
         
@@ -503,42 +504,24 @@ static NSMutableArray *tasks;
             /*! image的压缩方法 */
             UIImage *resizedImage;
             /*! 此处是使用原生系统相册 */
-            if([obj isKindOfClass:[ALAsset class]])
+            if ([obj isKindOfClass:[PHAsset class]])
             {
-                // 用ALAsset获取Asset URL  转化为image
-                ALAssetRepresentation *assetRep = [obj defaultRepresentation];
-                
-                CGImageRef imgRef = [assetRep fullResolutionImage];
-                resizedImage = [UIImage imageWithCGImage:imgRef
-                                                   scale:1.0
-                                             orientation:(UIImageOrientation)assetRep.orientation];
-                //                imageWithImage
-                NSLog(@"1111-----size : %@",NSStringFromCGSize(resizedImage.size));
-                
-                resizedImage = [weakSelf imageWithImage:resizedImage scaledToSize:resizedImage.size];
-                NSLog(@"2222-----size : %@",NSStringFromCGSize(resizedImage.size));
+                PHAsset *asset = (PHAsset *)obj;
+                PHCachingImageManager *imageManager = [[PHCachingImageManager alloc] init];
+                [imageManager requestImageForAsset:asset targetSize:CGSizeMake(asset.pixelWidth , asset.pixelHeight) contentMode:PHImageContentModeAspectFit options:nil resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
+                    
+                    NSLog(@" width:%f height:%f",result.size.width,result.size.height);
+                    
+                    [self ba_uploadImageWithFormData:formData resizedImage:result imageType:imageType imageScale:imageScale fileNames:fileNames index:idx];
+                }];
             }
             else
             {
                 /*! 此处是使用其他第三方相册，可以自由定制压缩方法 */
                 resizedImage = obj;
+                [self ba_uploadImageWithFormData:formData resizedImage:resizedImage imageType:imageType imageScale:imageScale fileNames:fileNames index:idx];
             }
             
-            /*! 此处压缩方法是jpeg格式是原图大小的0.8倍，要调整大小的话，就在这里调整就行了还是原图等比压缩 */
-            NSData *imgData = UIImageJPEGRepresentation(resizedImage, 0.8);
-            
-            /*! 拼接data */
-            if (imgData != nil)
-            {   // 图片数据不为空才传递 fileName
-                //                [formData appendPartWithFileData:imgData name:[NSString stringWithFormat:@"picflie%ld",(long)i] fileName:@"image.png" mimeType:@" image/jpeg"];
-                
-                [formData appendPartWithFileData:imgData
-                                            name:[NSString stringWithFormat:@"picflie%ld",(long)idx]
-                                        fileName:fileName
-                                        mimeType:@"image/jpeg"];
-                
-            }
-
         }];
         
     } progress:^(NSProgress * _Nonnull uploadProgress) {
@@ -571,21 +554,21 @@ static NSMutableArray *tasks;
     
     if (sessionTask)
     {
-        [[weakSelf tasks] addObject:sessionTask];
+        [[self tasks] addObject:sessionTask];
     }
     
     return sessionTask;
 }
 
-/**
- 视频上传
- 
- @param urlString 上传的url
- @param parameters 上传视频预留参数---视具体情况而定 可移除
- @param videoPath 上传视频的本地沙河路径
- @param successBlock 成功的回调
- @param failureBlock 失败的回调
- @param progress 上传的进度
+/*!
+ *  视频上传
+ *
+ *  @param operations   上传视频预留参数---视具体情况而定 可移除
+ *  @param videoPath    上传视频的本地沙河路径
+ *  @param urlString     上传的url
+ *  @param successBlock 成功的回调
+ *  @param failureBlock 失败的回调
+ *  @param progress     上传的进度
  */
 + (void)ba_uploadVideoWithUrlString:(NSString *)urlString
                          parameters:(NSDictionary *)parameters
@@ -606,9 +589,7 @@ static NSMutableArray *tasks;
     //    NSString *const AVAssetExportPreset3840x2160;
     
     /*! 创建日期格式化器 */
-    
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    
     [formatter setDateFormat:@"yyyy-MM-dd-HH:mm:ss"];
     
     /*! 转化后直接写入Library---caches */
@@ -658,16 +639,15 @@ static NSMutableArray *tasks;
 }
 
 #pragma mark - ***** 文件下载
-/**
- 文件下载
- 
- @param urlString 请求的url
- @param parameters 文件下载预留参数---视具体情况而定 可移除
- @param savePath 下载文件保存路径
- @param successBlock 下载文件成功的回调
- @param failureBlock 下载文件失败的回调
- @param progress 下载文件的进度显示
- @return BAURLSessionTask
+/*!
+ *  文件下载
+ *
+ *  @param operations   文件下载预留参数---视具体情况而定 可移除
+ *  @param savePath     下载文件保存路径
+ *  @param urlString        请求的url
+ *  @param successBlock 下载文件成功的回调
+ *  @param failureBlock 下载文件失败的回调
+ *  @param progress     下载文件的进度显示
  */
 + (BAURLSessionTask *)ba_downLoadFileWithUrlString:(NSString *)urlString
                                         parameters:(NSDictionary *)parameters
@@ -680,13 +660,13 @@ static NSMutableArray *tasks;
     {
         return nil;
     }
-
+    
     NSURLRequest *downloadRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:urlString]];
     
     NSLog(@"******************** 请求参数 ***************************");
     NSLog(@"请求头: %@\n请求方式: %@\n请求URL: %@\n请求param: %@\n\n",BANetManagerShare.sessionManager.requestSerializer.HTTPRequestHeaders, @"download",urlString, parameters);
     NSLog(@"******************************************************");
-
+    
     
     BAURLSessionTask *sessionTask = nil;
     
@@ -747,6 +727,82 @@ static NSMutableArray *tasks;
     }
     return sessionTask;
 }
+
+/**
+ 文件上传
+ 
+ @param urlString urlString description
+ @param parameters parameters description
+ @param fileName fileName description
+ @param filePath filePath description
+ @param successBlock successBlock description
+ @param failureBlock failureBlock description
+ @param baUploadProgressBlock baUploadProgressBlock description
+ @return BAURLSessionTask
+ */
++ (BAURLSessionTask *)ba_uploadFileWithUrlString:(NSString *)urlString
+                                      parameters:(NSDictionary *)parameters
+                                        fileName:(NSString *)fileName
+                                        filePath:(NSString *)filePath
+                                    successBlock:(BAResponseSuccess)successBlock
+                                    failureBlock:(BAResponseFail)failureBlock
+                           baUploadProgressBlock:(BAUploadProgress)baUploadProgressBlock
+{
+    if (urlString == nil)
+    {
+        return nil;
+    }
+    
+    NSLog(@"******************** 请求参数 ***************************");
+    NSLog(@"请求头: %@\n请求方式: %@\n请求URL: %@\n请求param: %@\n\n",BANetManagerShare.sessionManager.requestSerializer.HTTPRequestHeaders, @"uploadFile", urlString, parameters);
+    NSLog(@"******************************************************");
+    
+    BAURLSessionTask *sessionTask = nil;
+    sessionTask = [BANetManagerShare.sessionManager POST:urlString parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
+        
+        NSError *error = nil;
+        [formData appendPartWithFileURL:[NSURL URLWithString:filePath] name:fileName error:&error];
+        if (failureBlock && error)
+        {
+            failureBlock(error);
+        }
+    } progress:^(NSProgress * _Nonnull uploadProgress) {
+        
+        // 上传进度
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (baUploadProgressBlock)
+            {
+                baUploadProgressBlock(uploadProgress.completedUnitCount, uploadProgress.totalUnitCount);
+            }
+        });
+        
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        
+        [[self tasks] removeObject:sessionTask];
+        if (successBlock)
+        {
+            successBlock(responseObject);
+        }
+        
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        
+        [[self tasks] removeObject:sessionTask];
+        if (failureBlock)
+        {
+            failureBlock(error);
+        }
+    }];
+    
+    /*! 开始启动任务 */
+    [sessionTask resume];
+    
+    if (sessionTask)
+    {
+        [[self tasks] addObject:sessionTask];
+    }
+    return sessionTask;
+}
+
 
 #pragma mark - 网络状态监测
 /*!
@@ -849,7 +905,7 @@ static NSMutableArray *tasks;
     /*! ios9适配的话 打开第一个 */
     if ([[UIDevice currentDevice] systemVersion].floatValue >= 9.0)
     {
-         return [str stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLPathAllowedCharacterSet]];
+        return [str stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLPathAllowedCharacterSet]];
     }
     else
     {
@@ -953,6 +1009,47 @@ static NSMutableArray *tasks;
     [BANetManagerShare.sessionManager.requestSerializer setValue:value forHTTPHeaderField:HTTPHeaderKey];
 }
 
+/**
+ 删除所有请求头
+ */
++ (void)ba_clearAuthorizationHeader
+{
+    [BANetManagerShare.sessionManager.requestSerializer clearAuthorizationHeader];
+}
+
++ (void)ba_uploadImageWithFormData:(id<AFMultipartFormData>  _Nonnull )formData
+                      resizedImage:(UIImage *)resizedImage
+                         imageType:(NSString *)imageType
+                        imageScale:(CGFloat)imageScale
+                         fileNames:(NSArray <NSString *> *)fileNames
+                             index:(NSUInteger)index
+{
+    /*! 此处压缩方法是jpeg格式是原图大小的0.8倍，要调整大小的话，就在这里调整就行了还是原图等比压缩 */
+    if (imageScale == 0)
+    {
+        imageScale = 0.8;
+    }
+    NSData *imageData = UIImageJPEGRepresentation(resizedImage, imageScale ?: 1.f);
+    
+    /*! 拼接data */
+    if (imageData != nil)
+    {   // 图片数据不为空才传递 fileName
+        //                [formData appendPartWithFileData:imgData name:[NSString stringWithFormat:@"picflie%ld",(long)i] fileName:@"image.png" mimeType:@" image/jpeg"];
+        
+        // 默认图片的文件名, 若fileNames为nil就使用
+        
+        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        formatter.dateFormat = @"yyyyMMddHHmmss";
+        NSString *str = [formatter stringFromDate:[NSDate date]];
+        NSString *imageFileName = [NSString stringWithFormat:@"%@%ld.%@",str, index, imageType?:@"jpg"];
+        
+        [formData appendPartWithFileData:imageData
+                                    name:[NSString stringWithFormat:@"picflie%ld", index]
+                                fileName:fileNames ? [NSString stringWithFormat:@"%@.%@",fileNames[index],imageType?:@"jpg"] : imageFileName
+                                mimeType:[NSString stringWithFormat:@"image/%@",imageType ?: @"jpg"]];
+        NSLog(@"上传图片 %lu 成功", (unsigned long)index);
+    }
+}
 
 
 @end

@@ -164,7 +164,7 @@ UIAlertAction *sureAction = [UIAlertAction actionWithTitle:@"确 定" style:UIAl
                 BAKit_ShowAlertWithMsg(msg);
             }
                 break;
-
+                
             default:
                 break;
         }
@@ -174,7 +174,6 @@ UIAlertAction *sureAction = [UIAlertAction actionWithTitle:@"确 定" style:UIAl
 #pragma mark - ***** get
 - (IBAction)getData:(UIButton *)sender
 {
-    BAWeak;
     // 如果打印数据不完整，是因为 Xcode 8 版本问题，请下断点打印数据
     [BANetManager ba_request_GETWithUrlString:url5 isNeedCache:YES parameters:nil successBlock:^(id response) {
         NSLog(@"get请求数据成功： *** %@", response);
@@ -187,18 +186,20 @@ UIAlertAction *sureAction = [UIAlertAction actionWithTitle:@"确 定" style:UIAl
 #pragma mark - ***** post
 - (IBAction)postData:(UIButton *)sender
 {
-    BAWeak;
     // 自定义超时设置
     BANetManagerShare.timeoutInterval = 15;
     
     // 自定义添加请求头
-    NSDictionary *headerDict = @{@"Accept":@"application/json", @"Accept-Encoding":@"gzip"};
-    BANetManagerShare.httpHeaderFieldDictionary = headerDict;
+    //    NSDictionary *headerDict = @{@"Accept":@"application/json", @"Accept-Encoding":@"gzip"};
+    //    BANetManagerShare.httpHeaderFieldDictionary = headerDict;
     
     // 自定义更改 requestSerializer
-//    BANetManagerShare.requestSerializer = BAHttpRequestSerializerHTTP;
-     // 自定义更改 responseSerializer
-//    BANetManagerShare.responseSerializer = BAHttpRequestSerializerHTTP;
+    //    BANetManagerShare.requestSerializer = BAHttpRequestSerializerHTTP;
+    // 自定义更改 responseSerializer
+    //    BANetManagerShare.responseSerializer = BAHttpRequestSerializerHTTP;
+    
+    // 清楚当前所有请求头
+    [BANetManager ba_clearAuthorizationHeader];
     
     int page = 1;
     NSDictionary *parameters = [NSDictionary dictionaryWithObjectsAndKeys:@(page).stringValue, @"page", @"10", @"per_page", nil];;
@@ -206,7 +207,7 @@ UIAlertAction *sureAction = [UIAlertAction actionWithTitle:@"确 定" style:UIAl
     // 如果打印数据不完整，是因为 Xcode 8 版本问题，请下断点打印数据
     [BANetManager ba_request_POSTWithUrlString:url5 isNeedCache:YES parameters:parameters successBlock:^(id response) {
         NSLog(@"post请求数据成功： *** %@", response);
-
+        
     } failureBlock:^(NSError *error) {
         
     } progress:nil];
@@ -242,54 +243,50 @@ UIAlertAction *sureAction = [UIAlertAction actionWithTitle:@"确 定" style:UIAl
                                                  parameters:nil
                                                    savaPath:path1
                                                successBlock:^(id response) {
-
-        NSLog(@"下载完成，路径为：%@", response);
-        self.downloadLabel.text = @"下载完成";
-        isFinishDownload = YES;
-        [downloadBtn setTitle:@"下载完成" forState:UIControlStateNormal];
-        [downloadBtn setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
-        BAKit_ShowAlertWithMsg(@"视频下载完成！");
-        
-    } failureBlock:^(NSError *error) {
-        
-    } downLoadProgress:^(int64_t bytesProgress, int64_t totalBytesProgress) {
-        /*! 封装方法里已经回到主线程，所有这里不用再调主线程了 */
-        self.downloadLabel.text = [NSString stringWithFormat:@"下载进度：%.2lld%%",100 * bytesProgress/totalBytesProgress];
-        [downloadBtn setTitle:@"下载中..." forState:UIControlStateNormal];
-    }];
+                                                   
+                                                   NSLog(@"下载完成，路径为：%@", response);
+                                                   self.downloadLabel.text = @"下载完成";
+                                                   isFinishDownload = YES;
+                                                   [downloadBtn setTitle:@"下载完成" forState:UIControlStateNormal];
+                                                   [downloadBtn setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+                                                   BAKit_ShowAlertWithMsg(@"视频下载完成！");
+                                                   
+                                               } failureBlock:^(NSError *error) {
+                                                   
+                                               } downLoadProgress:^(int64_t bytesProgress, int64_t totalBytesProgress) {
+                                                   /*! 封装方法里已经回到主线程，所有这里不用再调主线程了 */
+                                                   self.downloadLabel.text = [NSString stringWithFormat:@"下载进度：%.2lld%%",100 * bytesProgress/totalBytesProgress];
+                                                   [downloadBtn setTitle:@"下载中..." forState:UIControlStateNormal];
+                                               }];
     
-//    sender.selected = !sender.selected;
-//    if (sender.selected)
-//    {
-//        [self.tasks resume];
-//    }
-//    else
-//    {
-//        [self.tasks suspend];
-//        UIButton *downloadBtn = (UIButton *)sender;
-//        [downloadBtn setTitle:@"暂停下载" forState:UIControlStateNormal];
-//    }
+    //    sender.selected = !sender.selected;
+    //    if (sender.selected)
+    //    {
+    //        [self.tasks resume];
+    //    }
+    //    else
+    //    {
+    //        [self.tasks suspend];
+    //        UIButton *downloadBtn = (UIButton *)sender;
+    //        [downloadBtn setTitle:@"暂停下载" forState:UIControlStateNormal];
+    //    }
     
 }
 
 #pragma mark - ***** 上传图片
 - (IBAction)uploadImageData:(UIButton *)sender
 {
-    /*! 
+    /*!
      
      1、此上传图片单张、多图上传都经过几十个项目亲测可用，大家可以放心使用，使用过程中有问题，请加群：479663605 进行反馈，多谢！
-     2、此处只需要传URL 和 parameters，和你的image数组、FileName就行了，具体压缩方法都已经做好处理！
-     
-     
-     3、注意：如果使用PHP后台，后台不会对接此接口的话，博爱已经为你们量身定做了PHP后台接口，你们只需要把文件夹中的 postdynamic.php 文件发送给你们的PHP后台同事，他们就知道了，里面都有详细说明！
-     
+     2、注意：如果使用PHP后台，后台不会对接此接口的话，博爱已经为你们量身定做了PHP后台接口，你们只需要把文件夹中的 postdynamic.php 文件发送给你们的PHP后台同事，他们就知道了，里面都有详细说明！
      */
-
-    [BANetManager ba_uploadImageWithUrlString:nil parameters:nil imageArray:nil fileName:nil successBlock:^(id response) {
+    // 新版本 待测试，有问题私聊
+    [BANetManager ba_uploadImageWithUrlString:url1 parameters:nil imageArray:nil fileNames:nil imageType:nil imageScale:0 successBlock:^(id response) {
         
     } failurBlock:^(NSError *error) {
         
-    } upLoadProgress:^(int64_t bytesProgress, int64_t totalBytesProgress) {
+    } uploadProgress:^(int64_t bytesProgress, int64_t totalBytesProgress) {
         
     }];
 }
@@ -301,7 +298,7 @@ UIAlertAction *sureAction = [UIAlertAction actionWithTitle:@"确 定" style:UIAl
      
      1、此上传视频都经过几十个项目亲测可用，大家可以放心使用，使用过程中有问题，请加群：479663605 进行反馈，多谢！
      2、此处只需要传URL 和 parameters就行了，具体压缩方法都已经做好处理！
-
+     
      */
     [BANetManager ba_uploadVideoWithUrlString:nil parameters:nil videoPath:nil successBlock:^(id response) {
         
