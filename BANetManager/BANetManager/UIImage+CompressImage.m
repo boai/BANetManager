@@ -96,7 +96,7 @@
 + (JPEGImage *)needCenterImage:(UIImage *)image size:(CGSize )size scale:(CGFloat )scale
 {
     /* 想切中间部分,待解决 */
-#warning area of center image
+//#warning area of center image
     JPEGImage *newImage = nil;
     //创建画板
     UIGraphicsBeginImageContext(size);

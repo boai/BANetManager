@@ -344,6 +344,11 @@ typedef NSURLSessionTask BAURLSessionTask;
  */
 + (void)ba_setValue:(NSString *)value forHTTPHeaderKey:(NSString *)HTTPHeaderKey;
 
+/**
+ 删除所有请求头
+ */
++ (void)ba_clearAuthorizationHeader;
+
 #pragma mark - 取消 Http 请求
 /*!
  *  取消所有 Http 请求

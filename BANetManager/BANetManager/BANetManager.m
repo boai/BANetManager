@@ -1007,6 +1007,15 @@ static NSMutableArray *tasks;
     [BANetManagerShare.sessionManager.requestSerializer setValue:value forHTTPHeaderField:HTTPHeaderKey];
 }
 
+
+/**
+ 删除所有请求头
+ */
++ (void)ba_clearAuthorizationHeader
+{
+    [BANetManagerShare.sessionManager.requestSerializer clearAuthorizationHeader];
+}
+
 + (void)ba_uploadImageWithFormData:(id<AFMultipartFormData>  _Nonnull )formData
                       resizedImage:(UIImage *)resizedImage
                          imageType:(NSString *)imageType

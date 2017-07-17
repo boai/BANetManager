@@ -135,7 +135,7 @@ UIAlertAction *sureAction = [UIAlertAction actionWithTitle:@"确 定" style:UIAl
 #pragma mark - 网络类型判断
 - (void)ba_netType
 {
-    BAWeak;
+//    BAWeak;
     [BANetManager ba_startNetWorkMonitoringWithBlock:^(BANetworkStatus status) {
         NSString *msg;
         switch (status) {
@@ -237,7 +237,7 @@ UIAlertAction *sureAction = [UIAlertAction actionWithTitle:@"确 定" style:UIAl
     //        [[[UIAlertView alloc] initWithTitle:@"温馨提示：" message:@"您已经下载该视频！" delegate:nil cancelButtonTitle:@"确 定" otherButtonTitles:nil, nil] show];
     //        return;
     //    }
-    BAWeak;
+//    BAWeak;
     NSString *url = @"http://static.yizhibo.com/pc_live/static/video.swf?onPlay=YZB.play&onPause=YZB.pause&onSeek=YZB.seek&scid=pALRs7JBtTRU9TWy";
     self.tasks = [BANetManager ba_downLoadFileWithUrlString:url
                                                  parameters:nil
