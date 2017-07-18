@@ -22,7 +22,7 @@
  
 
 ## 2、图片示例
-![BANetManager2.png](https://github.com/BAHome/BANetManager/blob/master/Images/BANetManager2.png)
+![BANetManager1.png](https://github.com/BAHome/BANetManager/blob/master/Images/BANetManager1.png)
 
 ## 3、安装、导入示例和源码地址
 * 1、pod 导入【最新版本：![](https://img.shields.io/cocoapods/v/BANetManager.svg?style=flat)】： <br>
@@ -39,7 +39,7 @@
  OC 版 ：[https://github.com/BAHome/BANetManager](https://github.com/BAHome/BANetManager)<br>
 
 ## 4、BANetManager 的类结构及 demo 示例
-![BANetManager1.png](https://github.com/BAHome/BANetManager/blob/master/Images/BANetManager1.png)
+![BANetManager.png](https://github.com/BAHome/BANetManager/blob/master/Images/BANetManager.png)
 
 ### BANetManager.h
 ```
@@ -540,11 +540,11 @@ typedef NSURLSessionTask BAURLSessionTask;
  
  
  最新更新时间：2017-07-18 【倒叙】<br>
- 最新Version：【Version：2.3.2】<br>
+ 最新Version：【Version：2.3.3】<br>
  更新内容：<br>
- 2.3.2.1、新增 清除 请求头<br>
- 2.3.2.2、新增 文件上传<br>
- 2.3.2.3、优化多图上传<br>
+ 2.3.3.1、新增 清除 请求头<br>
+ 2.3.3.2、新增 文件上传<br>
+ 2.3.3.3、优化多图上传<br>
  
  最新更新时间：2017-05-03 【倒叙】<br>
  最新Version：【Version：2.2.2】<br>

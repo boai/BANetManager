@@ -75,11 +75,11 @@
  OC 版 ：https://github.com/BAHome/BANetManager
  
  最新更新时间：2017-07-17 【倒叙】<br>
- 最新Version：【Version：2.3.2】<br>
+ 最新Version：【Version：2.3.3】<br>
  更新内容：<br>
- 2.3.2.1、新增 清除 请求头<br>
- 2.3.2.2、新增 文件上传<br>
- 2.3.2.3、优化多图上传<br>
+ 2.3.3.1、新增 清除 请求头<br>
+ 2.3.3.2、新增 文件上传<br>
+ 2.3.3.3、优化多图上传<br>
  
  最新更新时间：2017-05-03 【倒叙】<br>
  最新Version：【Version：2.2】<br>
