@@ -103,6 +103,7 @@ UIAlertAction *sureAction = [UIAlertAction actionWithTitle:@"确 定" style:UIAl
 
 - (IBAction)deleteData:(UIButton *)sender;
 
+- (IBAction)uploadFileButtonAction:(UIButton *)sender;
 
 @property (nonatomic, strong) BAURLSessionTask  *tasks;
 
@@ -171,7 +172,7 @@ UIAlertAction *sureAction = [UIAlertAction actionWithTitle:@"确 定" style:UIAl
     }];
 }
 
-#pragma mark - ***** get
+#pragma mark - get
 - (IBAction)getData:(UIButton *)sender
 {
     // 如果打印数据不完整，是因为 Xcode 8 版本问题，请下断点打印数据
@@ -183,7 +184,7 @@ UIAlertAction *sureAction = [UIAlertAction actionWithTitle:@"确 定" style:UIAl
     } progress:nil];
 }
 
-#pragma mark - ***** post
+#pragma mark - post
 - (IBAction)postData:(UIButton *)sender
 {
     // 自定义超时设置
@@ -213,7 +214,7 @@ UIAlertAction *sureAction = [UIAlertAction actionWithTitle:@"确 定" style:UIAl
     } progress:nil];
 }
 
-#pragma mark - ***** 下载视频、图片
+#pragma mark - 下载视频、图片
 - (IBAction)downloadData:(UIButton *)sender
 {
     UIButton *downloadBtn = (UIButton *)sender;
@@ -273,7 +274,7 @@ UIAlertAction *sureAction = [UIAlertAction actionWithTitle:@"确 定" style:UIAl
     
 }
 
-#pragma mark - ***** 上传图片
+#pragma mark - 上传图片
 - (IBAction)uploadImageData:(UIButton *)sender
 {
     /*!
@@ -291,7 +292,7 @@ UIAlertAction *sureAction = [UIAlertAction actionWithTitle:@"确 定" style:UIAl
     }];
 }
 
-#pragma mark - ***** 上传视频
+#pragma mark - 上传视频
 - (IBAction)uploadVideoData:(UIButton *)sender
 {
     /*!
@@ -309,6 +310,7 @@ UIAlertAction *sureAction = [UIAlertAction actionWithTitle:@"确 定" style:UIAl
     }];
 }
 
+#pragma mark - put 请求
 - (IBAction)putData:(UIButton *)sender
 {
     NSString *url = @"http://120.76.245.240:8080/bda/resetPassword/?account=761463699@qq.com&password=q&OTP=634613";
@@ -321,9 +323,22 @@ UIAlertAction *sureAction = [UIAlertAction actionWithTitle:@"确 定" style:UIAl
     } progress:nil];
 }
 
+#pragma mark - delete 请求
 - (IBAction)deleteData:(UIButton *)sender
 {
     [BANetManager ba_request_DELETEWithUrlString:nil parameters:nil successBlock:nil failureBlock:nil progress:nil];
+}
+
+#pragma mark - 上传文件
+- (IBAction)uploadFileButtonAction:(UIButton *)sender
+{
+    [BANetManager ba_uploadFileWithUrlString:nil parameters:nil fileName:nil filePath:nil successBlock:^(id response) {
+        
+    } failureBlock:^(NSError *error) {
+        
+    } baUploadProgressBlock:^(int64_t bytesProgress, int64_t totalBytesProgress) {
+        
+    }];
 }
 
 @end

@@ -7,13 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C401ED061F1DA0FB0001AD40 /* postdynamic.php in Resources */ = {isa = PBXBuildFile; fileRef = C401ED051F1DA0FB0001AD40 /* postdynamic.php */; };
 		C492313F1ED0431A00B61C37 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C492313E1ED0431A00B61C37 /* main.m */; };
 		C49231421ED0431A00B61C37 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C49231411ED0431A00B61C37 /* AppDelegate.m */; };
 		C492314A1ED0431A00B61C37 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C49231491ED0431A00B61C37 /* Assets.xcassets */; };
 		C492314D1ED0431A00B61C37 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C492314B1ED0431A00B61C37 /* LaunchScreen.storyboard */; };
 		C492315C1ED0435400B61C37 /* BANetManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C49231561ED0435400B61C37 /* BANetManager.m */; };
 		C492315D1ED0435400B61C37 /* BANetManagerCache.m in Sources */ = {isa = PBXBuildFile; fileRef = C49231581ED0435400B61C37 /* BANetManagerCache.m */; };
-		C492315E1ED0435400B61C37 /* postdynamic.php in Resources */ = {isa = PBXBuildFile; fileRef = C49231591ED0435400B61C37 /* postdynamic.php */; };
 		C492315F1ED0435400B61C37 /* UIImage+CompressImage.m in Sources */ = {isa = PBXBuildFile; fileRef = C492315B1ED0435400B61C37 /* UIImage+CompressImage.m */; };
 		C492316E1ED26D0F00B61C37 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C492316D1ED26D0F00B61C37 /* ViewController.m */; };
 		C49231711ED26D2D00B61C37 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C492316F1ED26D2D00B61C37 /* Main.storyboard */; };
@@ -24,6 +24,7 @@
 		1534E80A7F0B9F819A7C0076 /* Pods-BANetManager.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BANetManager.release.xcconfig"; path = "Pods/Target Support Files/Pods-BANetManager/Pods-BANetManager.release.xcconfig"; sourceTree = "<group>"; };
 		3A5CFBEBCCE88E55DFFA7211 /* Pods-BANetManager.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BANetManager.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BANetManager/Pods-BANetManager.debug.xcconfig"; sourceTree = "<group>"; };
 		8E8F4FEA979F0E81B0C453A4 /* libPods-BANetManager.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BANetManager.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C401ED051F1DA0FB0001AD40 /* postdynamic.php */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.php; path = postdynamic.php; sourceTree = "<group>"; };
 		C492313A1ED0431A00B61C37 /* BANetManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BANetManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C492313E1ED0431A00B61C37 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		C49231401ED0431A00B61C37 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -35,7 +36,6 @@
 		C49231561ED0435400B61C37 /* BANetManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BANetManager.m; sourceTree = "<group>"; };
 		C49231571ED0435400B61C37 /* BANetManagerCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BANetManagerCache.h; sourceTree = "<group>"; };
 		C49231581ED0435400B61C37 /* BANetManagerCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BANetManagerCache.m; sourceTree = "<group>"; };
-		C49231591ED0435400B61C37 /* postdynamic.php */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.php; name = postdynamic.php; path = BANetManager/postdynamic.php; sourceTree = "<group>"; };
 		C492315A1ED0435400B61C37 /* UIImage+CompressImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+CompressImage.h"; sourceTree = "<group>"; };
 		C492315B1ED0435400B61C37 /* UIImage+CompressImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+CompressImage.m"; sourceTree = "<group>"; };
 		C492316C1ED26D0F00B61C37 /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
@@ -97,9 +97,9 @@
 				C49231541ED0434300B61C37 /* BANetManager */,
 				C49231401ED0431A00B61C37 /* AppDelegate.h */,
 				C49231411ED0431A00B61C37 /* AppDelegate.m */,
-				C49231591ED0435400B61C37 /* postdynamic.php */,
 				C492316C1ED26D0F00B61C37 /* ViewController.h */,
 				C492316D1ED26D0F00B61C37 /* ViewController.m */,
+				C401ED051F1DA0FB0001AD40 /* postdynamic.php */,
 				C492316F1ED26D2D00B61C37 /* Main.storyboard */,
 				C49231491ED0431A00B61C37 /* Assets.xcassets */,
 				C492314B1ED0431A00B61C37 /* LaunchScreen.storyboard */,
@@ -193,7 +193,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C492315E1ED0435400B61C37 /* postdynamic.php in Resources */,
+				C401ED061F1DA0FB0001AD40 /* postdynamic.php in Resources */,
 				C492314D1ED0431A00B61C37 /* LaunchScreen.storyboard in Resources */,
 				C492314A1ED0431A00B61C37 /* Assets.xcassets in Resources */,
 				C49231711ED26D2D00B61C37 /* Main.storyboard in Resources */,

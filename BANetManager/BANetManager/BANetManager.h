@@ -332,6 +332,26 @@ typedef NSURLSessionTask BAURLSessionTask;
                                       failureBlock:(BAResponseFail)failureBlock
                                   downLoadProgress:(BADownloadProgress)progress;
 
+/**
+ 文件上传
+ 
+ @param urlString urlString description
+ @param parameters parameters description
+ @param fileName fileName description
+ @param filePath filePath description
+ @param successBlock successBlock description
+ @param failureBlock failureBlock description
+ @param baUploadProgressBlock baUploadProgressBlock description
+ @return BAURLSessionTask
+ */
++ (BAURLSessionTask *)ba_uploadFileWithUrlString:(NSString *)urlString
+                                      parameters:(NSDictionary *)parameters
+                                        fileName:(NSString *)fileName
+                                        filePath:(NSString *)filePath
+                                    successBlock:(BAResponseSuccess)successBlock
+                                    failureBlock:(BAResponseFail)failureBlock
+                           baUploadProgressBlock:(BAUploadProgress)baUploadProgressBlock;
+
 #pragma mark - 网络状态监测
 /*!
  *  开启实时网络状态监测，通过Block回调实时获取(此方法可多次调用)
