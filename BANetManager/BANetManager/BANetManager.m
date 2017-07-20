@@ -310,7 +310,7 @@ static NSMutableArray *tasks;
             requestType = @"GET";
             break;
         case 1:
-            requestType = @"POWT";
+            requestType = @"POST";
             break;
         case 2:
             requestType = @"PUT";
