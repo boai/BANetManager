@@ -74,6 +74,16 @@
  项目源码地址：
  OC 版 ：https://github.com/BAHome/BANetManager
  
+ 
+ 最新更新时间：2017-08-17 【倒叙】<br>
+ 最新Version：【Version：2.3.4】<br>
+ 更新内容：<br>
+ 2.3.4.1、控制台打印 debug 状态下显示中文<br>
+ 2.3.4.2、移除默认 requestSerializer 和 responseSerializer<br>
+ 2.3.4.3、新增 post 请求的进度提示<br>
+ 2.3.4.4、新增 默认请求头：@"application/x-www-form-urlencoded" <br>
+ 2.3.4.5、优化部分代码规范，给大家带来的不变，敬请谅解！<br>
+
  最新更新时间：2017-07-17 【倒叙】<br>
  最新Version：【Version：2.3.3】<br>
  更新内容：<br>

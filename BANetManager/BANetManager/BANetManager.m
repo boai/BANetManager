@@ -113,9 +113,9 @@ static NSMutableArray *tasks;
 {
     BANetManagerShare.sessionManager = [AFHTTPSessionManager manager];
     
-    BANetManagerShare.requestSerializer = BAHttpRequestSerializerJSON;
-    BANetManagerShare.responseSerializer = BAHttpResponseSerializerJSON;
-    
+//    BANetManagerShare.requestSerializer = BAHttpRequestSerializerJSON;
+//    BANetManagerShare.responseSerializer = BAHttpResponseSerializerJSON;
+
     /*! 设置请求超时时间，默认：30秒 */
     BANetManagerShare.timeoutInterval = 30;
     /*! 打开状态栏的等待菊花 */
@@ -146,8 +146,8 @@ static NSMutableArray *tasks;
     //        [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     
     /*! 设置响应数据的基本类型 */
-    BANetManagerShare.sessionManager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript", @"text/html", @"text/css", @"text/xml", @"text/plain", @"application/javascript", @"image/*", nil];
-    
+    BANetManagerShare.sessionManager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript", @"text/html", @"text/css", @"text/xml", @"text/plain", @"application/javascript", @"application/x-www-form-urlencoded", @"image/*", nil];
+
     // 配置自建证书的Https请求
     [self ba_setupSecurityPolicy];
 }
@@ -203,17 +203,17 @@ static NSMutableArray *tasks;
  @param parameters 请求的参数
  @param successBlock 请求成功的回调
  @param failureBlock 请求失败的回调
- @param progress 进度
+ @param progressBlock 进度
  @return BAURLSessionTask
  */
 + (BAURLSessionTask *)ba_request_GETWithUrlString:(NSString *)urlString
                                       isNeedCache:(BOOL)isNeedCache
                                        parameters:(NSDictionary *)parameters
-                                     successBlock:(BAResponseSuccess)successBlock
-                                     failureBlock:(BAResponseFail)failureBlock
-                                         progress:(BADownloadProgress)progress
+                                     successBlock:(BAResponseSuccessBlock)successBlock
+                                     failureBlock:(BAResponseFailBlock)failureBlock
+                                    progressBlock:(BADownloadProgressBlock)progressBlock
 {
-    return [self ba_requestWithType:BAHttpRequestTypeGet isNeedCache:isNeedCache urlString:urlString parameters:parameters successBlock:successBlock failureBlock:failureBlock progress:progress];
+    return [self ba_requestWithType:BAHttpRequestTypeGet isNeedCache:isNeedCache urlString:urlString parameters:parameters successBlock:successBlock failureBlock:failureBlock progressBlock:progressBlock];
 }
 
 /**
@@ -224,17 +224,17 @@ static NSMutableArray *tasks;
  @param parameters 请求的参数
  @param successBlock 请求成功的回调
  @param failureBlock 请求失败的回调
- @param progress 进度
+ @param progressBlock 进度
  @return BAURLSessionTask
  */
 + (BAURLSessionTask *)ba_request_POSTWithUrlString:(NSString *)urlString
                                        isNeedCache:(BOOL)isNeedCache
                                         parameters:(NSDictionary *)parameters
-                                      successBlock:(BAResponseSuccess)successBlock
-                                      failureBlock:(BAResponseFail)failureBlock
-                                          progress:(BADownloadProgress)progress
+                                      successBlock:(BAResponseSuccessBlock)successBlock
+                                      failureBlock:(BAResponseFailBlock)failureBlock
+                                     progressBlock:(BADownloadProgressBlock)progressBlock
 {
-    return [self ba_requestWithType:BAHttpRequestTypePost isNeedCache:isNeedCache urlString:urlString parameters:parameters successBlock:successBlock failureBlock:failureBlock progress:progress];
+    return [self ba_requestWithType:BAHttpRequestTypePost isNeedCache:isNeedCache urlString:urlString parameters:parameters successBlock:successBlock failureBlock:failureBlock progressBlock:progressBlock];
 }
 
 /**
@@ -244,16 +244,16 @@ static NSMutableArray *tasks;
  @param parameters 请求的参数
  @param successBlock 请求成功的回调
  @param failureBlock 请求失败的回调
- @param progress 进度
+ @param progressBlock 进度
  @return BAURLSessionTask
  */
 + (BAURLSessionTask *)ba_request_PUTWithUrlString:(NSString *)urlString
                                        parameters:(NSDictionary *)parameters
-                                     successBlock:(BAResponseSuccess)successBlock
-                                     failureBlock:(BAResponseFail)failureBlock
-                                         progress:(BADownloadProgress)progress
+                                     successBlock:(BAResponseSuccessBlock)successBlock
+                                     failureBlock:(BAResponseFailBlock)failureBlock
+                                    progressBlock:(BADownloadProgressBlock)progressBlock
 {
-    return [self ba_requestWithType:BAHttpRequestTypePut isNeedCache:NO urlString:urlString parameters:parameters successBlock:successBlock failureBlock:failureBlock progress:progress];
+    return [self ba_requestWithType:BAHttpRequestTypePut isNeedCache:NO urlString:urlString parameters:parameters successBlock:successBlock failureBlock:failureBlock progressBlock:progressBlock];
 }
 
 /**
@@ -263,16 +263,16 @@ static NSMutableArray *tasks;
  @param parameters 请求的参数
  @param successBlock 请求成功的回调
  @param failureBlock 请求失败的回调
- @param progress 进度
+ @param progressBlock 进度
  @return BAURLSessionTask
  */
 + (BAURLSessionTask *)ba_request_DELETEWithUrlString:(NSString *)urlString
                                           parameters:(NSDictionary *)parameters
-                                        successBlock:(BAResponseSuccess)successBlock
-                                        failureBlock:(BAResponseFail)failureBlock
-                                            progress:(BADownloadProgress)progress
+                                        successBlock:(BAResponseSuccessBlock)successBlock
+                                        failureBlock:(BAResponseFailBlock)failureBlock
+                                       progressBlock:(BADownloadProgressBlock)progressBlock
 {
-    return [self ba_requestWithType:BAHttpRequestTypeDelete isNeedCache:NO urlString:urlString parameters:parameters successBlock:successBlock failureBlock:failureBlock progress:progress];
+    return [self ba_requestWithType:BAHttpRequestTypeDelete isNeedCache:NO urlString:urlString parameters:parameters successBlock:successBlock failureBlock:failureBlock progressBlock:progressBlock];
 }
 
 #pragma mark - 网络请求的类方法 --- get / post / put / delete
@@ -285,15 +285,15 @@ static NSMutableArray *tasks;
  *  @param parameters    请求的参数
  *  @param successBlock 请求成功的回调
  *  @param failureBlock 请求失败的回调
- *  @param progress 进度
+ *  @param progressBlock 进度
  */
 + (BAURLSessionTask *)ba_requestWithType:(BAHttpRequestType)type
                              isNeedCache:(BOOL)isNeedCache
                                urlString:(NSString *)urlString
                               parameters:(NSDictionary *)parameters
-                            successBlock:(BAResponseSuccess)successBlock
-                            failureBlock:(BAResponseFail)failureBlock
-                                progress:(BADownloadProgress)progress
+                            successBlock:(BAResponseSuccessBlock)successBlock
+                            failureBlock:(BAResponseFailBlock)failureBlock
+                           progressBlock:(BADownloadProgressBlock)progressBlock
 {
     if (urlString == nil)
     {
@@ -346,7 +346,7 @@ static NSMutableArray *tasks;
         {
             successBlock(responseCacheData);
         }
-        NSLog(@"取用缓存数据成功： *** %@", responseCacheData);
+        NSLog(@"取用缓存数据结果： *** %@", responseCacheData);
         
         [[weakSelf tasks] removeObject:sessionTask];
         return nil;
@@ -380,25 +380,33 @@ static NSMutableArray *tasks;
     else if (type == BAHttpRequestTypePost)
     {
         sessionTask = [BANetManagerShare.sessionManager POST:URLString parameters:parameters progress:^(NSProgress * _Nonnull uploadProgress) {
+            NSLog(@"上传进度--%lld, 总进度---%lld",uploadProgress.completedUnitCount,uploadProgress.totalUnitCount);
             
+            /*! 回到主线程刷新UI */
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (progressBlock)
+                {
+                    progressBlock(uploadProgress.completedUnitCount, uploadProgress.totalUnitCount);
+                }
+            });
         } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-            
+            NSLog(@"post 请求数据结果： *** %@", responseObject);
+
             if (successBlock)
             {
                 successBlock(responseObject);
             }
-            NSLog(@"post请求数据成功： *** %@", responseObject);
             
             // 对数据进行异步缓存
             [BANetManagerCache ba_setHttpCache:responseObject urlString:urlString parameters:parameters];
             [[weakSelf tasks] removeObject:sessionTask];
             
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-            
+            NSLog(@"错误信息：%@",error);
+
             if (failureBlock)
             {
                 failureBlock(error);
-                NSLog(@"错误信息：%@",error);
             }
             [[weakSelf tasks] removeObject:sessionTask];
             
@@ -465,7 +473,7 @@ static NSMutableArray *tasks;
  @param imageScale 图片压缩比率（0~1.0）
  @param successBlock 上传成功的回调
  @param failureBlock 上传失败的回调
- @param progress 上传进度
+ @param progressBlock 上传进度
  @return BAURLSessionTask
  */
 + (BAURLSessionTask *)ba_uploadImageWithUrlString:(NSString *)urlString
@@ -474,9 +482,9 @@ static NSMutableArray *tasks;
                                         fileNames:(NSArray <NSString *>*)fileNames
                                         imageType:(NSString *)imageType
                                        imageScale:(CGFloat)imageScale
-                                     successBlock:(BAResponseSuccess)successBlock
-                                      failurBlock:(BAResponseFail)failureBlock
-                                   uploadProgress:(BAUploadProgress)progress
+                                     successBlock:(BAResponseSuccessBlock)successBlock
+                                      failurBlock:(BAResponseFailBlock)failureBlock
+                                    progressBlock:(BAUploadProgressBlock)progressBlock
 {
     if (urlString == nil)
     {
@@ -522,13 +530,15 @@ static NSMutableArray *tasks;
         
     } progress:^(NSProgress * _Nonnull uploadProgress) {
         
-        NSLog(@"上传进度--%lld,总进度---%lld",uploadProgress.completedUnitCount,uploadProgress.totalUnitCount);
+        NSLog(@"上传进度--%lld, 总进度---%lld",uploadProgress.completedUnitCount,uploadProgress.totalUnitCount);
         
-        if (progress)
-        {
-            progress(uploadProgress.completedUnitCount, uploadProgress.totalUnitCount);
-        }
-        
+        /*! 回到主线程刷新UI */
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (progressBlock)
+            {
+                progressBlock(uploadProgress.completedUnitCount, uploadProgress.totalUnitCount);
+            }
+        });
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         
         NSLog(@"上传图片成功 = %@",responseObject);
@@ -564,14 +574,14 @@ static NSMutableArray *tasks;
  @param videoPath 上传视频的本地沙河路径
  @param successBlock 成功的回调
  @param failureBlock 失败的回调
- @param progress 上传的进度
+ @param progressBlock 上传的进度
  */
 + (void)ba_uploadVideoWithUrlString:(NSString *)urlString
                          parameters:(NSDictionary *)parameters
                           videoPath:(NSString *)videoPath
-                       successBlock:(BAResponseSuccess)successBlock
-                       failureBlock:(BAResponseFail)failureBlock
-                     uploadProgress:(BAUploadProgress)progress
+                       successBlock:(BAResponseSuccessBlock)successBlock
+                       failureBlock:(BAResponseFailBlock)failureBlock
+                      progressBlock:(BAUploadProgressBlock)progressBlock
 {
     /*! 获得视频资源 */
     AVURLAsset *avAsset = [AVURLAsset URLAssetWithURL:[NSURL URLWithString:videoPath]  options:nil];
@@ -610,11 +620,15 @@ static NSMutableArray *tasks;
                     [formData appendPartWithFileURL:filePathURL2 name:@"video" fileName:outfilePath mimeType:@"application/octet-stream" error:nil];
                     
                 } progress:^(NSProgress * _Nonnull uploadProgress) {
-                    NSLog(@"上传进度--%lld,总进度---%lld",uploadProgress.completedUnitCount,uploadProgress.totalUnitCount);
-                    if (progress)
-                    {
-                        progress(uploadProgress.completedUnitCount, uploadProgress.totalUnitCount);
-                    }
+                    NSLog(@"上传进度--%lld, 总进度---%lld",uploadProgress.completedUnitCount,uploadProgress.totalUnitCount);
+                    
+                    /*! 回到主线程刷新UI */
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        if (progressBlock)
+                        {
+                            progressBlock(uploadProgress.completedUnitCount, uploadProgress.totalUnitCount);
+                        }
+                    });
                 } success:^(NSURLSessionDataTask * _Nonnull task, NSDictionary *  _Nullable responseObject) {
                     NSLog(@"上传视频成功 = %@",responseObject);
                     if (successBlock)
@@ -645,15 +659,15 @@ static NSMutableArray *tasks;
  @param savePath 下载文件保存路径
  @param successBlock 下载文件成功的回调
  @param failureBlock 下载文件失败的回调
- @param progress 下载文件的进度显示
+ @param progressBlock 下载文件的进度显示
  @return BAURLSessionTask
  */
 + (BAURLSessionTask *)ba_downLoadFileWithUrlString:(NSString *)urlString
                                         parameters:(NSDictionary *)parameters
                                           savaPath:(NSString *)savePath
-                                      successBlock:(BAResponseSuccess)successBlock
-                                      failureBlock:(BAResponseFail)failureBlock
-                                  downLoadProgress:(BADownloadProgress)progress
+                                      successBlock:(BAResponseSuccessBlock)successBlock
+                                      failureBlock:(BAResponseFailBlock)failureBlock
+                                     progressBlock:(BADownloadProgressBlock)progressBlock
 {
     if (urlString == nil)
     {
@@ -675,9 +689,9 @@ static NSMutableArray *tasks;
         /*! 回到主线程刷新UI */
         dispatch_async(dispatch_get_main_queue(), ^{
             
-            if (progress)
+            if (progressBlock)
             {
-                progress(downloadProgress.completedUnitCount, downloadProgress.totalUnitCount);
+                progressBlock(downloadProgress.completedUnitCount, downloadProgress.totalUnitCount);
             }
             
         });
@@ -736,16 +750,16 @@ static NSMutableArray *tasks;
  @param filePath filePath description
  @param successBlock successBlock description
  @param failureBlock failureBlock description
- @param baUploadProgressBlock baUploadProgressBlock description
+ @param progressBlock progressBlock description
  @return BAURLSessionTask
  */
 + (BAURLSessionTask *)ba_uploadFileWithUrlString:(NSString *)urlString
                                       parameters:(NSDictionary *)parameters
                                         fileName:(NSString *)fileName
                                         filePath:(NSString *)filePath
-                                    successBlock:(BAResponseSuccess)successBlock
-                                    failureBlock:(BAResponseFail)failureBlock
-                           baUploadProgressBlock:(BAUploadProgress)baUploadProgressBlock
+                                    successBlock:(BAResponseSuccessBlock)successBlock
+                                    failureBlock:(BAResponseFailBlock)failureBlock
+                                   progressBlock:(BAUploadProgressBlock)progressBlock
 {
     if (urlString == nil)
     {
@@ -767,11 +781,13 @@ static NSMutableArray *tasks;
         }
     } progress:^(NSProgress * _Nonnull uploadProgress) {
         
-        // 上传进度
+        NSLog(@"上传进度--%lld, 总进度---%lld",uploadProgress.completedUnitCount,uploadProgress.totalUnitCount);
+        
+        /*! 回到主线程刷新UI */
         dispatch_async(dispatch_get_main_queue(), ^{
-            if (baUploadProgressBlock)
+            if (progressBlock)
             {
-                baUploadProgressBlock(uploadProgress.completedUnitCount, uploadProgress.totalUnitCount);
+                progressBlock(uploadProgress.completedUnitCount, uploadProgress.totalUnitCount);
             }
         });
         
@@ -1050,5 +1066,49 @@ static NSMutableArray *tasks;
     }
 }
 
+@end
+
+#pragma mark - NSDictionary,NSArray的分类
+/*
+ ************************************************************************************
+ *新建 NSDictionary 与 NSArray 的分类, 控制台打印 json 数据中的中文
+ ************************************************************************************
+ */
+
+#ifdef DEBUG
+@implementation NSArray (BANetManager)
+
+- (NSString *)descriptionWithLocale:(id)locale
+{
+    NSMutableString *strM = [NSMutableString stringWithString:@"(\n"];
+    
+    [self enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        [strM appendFormat:@"\t%@,\n", obj];
+    }];
+    
+    [strM appendString:@")"];
+    
+    return strM;
+}
 
 @end
+
+@implementation NSDictionary (BANetManager)
+
+- (NSString *)descriptionWithLocale:(id)locale
+{
+    NSMutableString *strM = [NSMutableString stringWithString:@"{\n"];
+    
+    [self enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+        [strM appendFormat:@"\t%@ = %@;\n", key, obj];
+    }];
+    
+    [strM appendString:@"}\n"];
+    
+    return strM;
+}
+@end
+
+#endif
+
+
