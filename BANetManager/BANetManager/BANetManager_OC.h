@@ -75,6 +75,11 @@
  OC 版 ：https://github.com/BAHome/BANetManager
  
  
+ 最新更新时间：2017-08-18 【倒叙】<br>
+ 最新Version：【Version：2.3.5】<br>
+ 更新内容：<br>
+ 2.3.5.1、新增 删除所有缓存的方法，可以自由删除当前的所有缓存！<br>
+ 
  最新更新时间：2017-08-17 【倒叙】<br>
  最新Version：【Version：2.3.4】<br>
  更新内容：<br>

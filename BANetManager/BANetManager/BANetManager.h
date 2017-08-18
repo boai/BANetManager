@@ -342,6 +342,11 @@ typedef NSURLSessionTask BAURLSessionTask;
  */
 + (void)ba_cancelRequestWithURL:(NSString *)URL;
 
+/**
+ 清空缓存：此方法可能会阻止调用线程，直到文件删除完成。
+ */
+- (void)ba_clearAllHttpCache;
+
 
 #pragma mark - 各版本过期方法名
 #pragma mark version 2.0 过期方法名

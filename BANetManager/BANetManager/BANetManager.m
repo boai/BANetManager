@@ -1066,6 +1066,14 @@ static NSMutableArray *tasks;
     }
 }
 
+/**
+ 清空缓存：此方法可能会阻止调用线程，直到文件删除完成。
+ */
+- (void)ba_clearAllHttpCache
+{
+    [BANetManagerCache ba_clearAllHttpCache];
+}
+
 @end
 
 #pragma mark - NSDictionary,NSArray的分类
