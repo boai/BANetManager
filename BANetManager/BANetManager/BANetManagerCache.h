@@ -106,8 +106,7 @@
 + (CGFloat)ba_getAllHttpCacheSize;
 
 /**
- 清空缓存。
-   此方法可能会阻止调用线程，直到文件删除完成。
+ 清空缓存：此方法可能会阻止调用线程，直到文件删除完成。
  */
 + (void)ba_clearAllHttpCache;
 

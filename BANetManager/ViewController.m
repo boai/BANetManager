@@ -134,6 +134,8 @@ UIAlertAction *sureAction = [UIAlertAction actionWithTitle:@"确 定" style:UIAl
     /*! 网络状态实时监测可以使用 block 回调，也可以使用单独方法判断 */
     [self ba_netType];
     
+    // 清楚所有缓存，可以自由定义删除时间
+    [BANetManagerShare ba_clearAllHttpCache];
 }
 
 #pragma mark - 网络类型判断

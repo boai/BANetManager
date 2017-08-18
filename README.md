@@ -21,6 +21,8 @@
 * 13、优化多图上传<br>
 * 14、控制台打印 debug 状态下显示中文<br>
 * 15、新增 默认请求头：@"application/x-www-form-urlencoded" <br>
+* 16、新增 删除所有缓存的方法，可以自由删除当前的所有缓存！<br>
+
  
 ## 2、图片示例
 ![BANetManager1.png](https://github.com/BAHome/BANetManager/blob/master/Images/BANetManager1.png)
@@ -325,6 +327,13 @@ typedef NSURLSessionTask BAURLSessionTask;
  *  取消指定 URL 的 Http 请求
  */
 + (void)ba_cancelRequestWithURL:(NSString *)URL;
+
+/**
+ 清空缓存：此方法可能会阻止调用线程，直到文件删除完成。
+ */
+- (void)ba_clearAllHttpCache;
+
+@end
 ```
 ### demo 示例
 ```
@@ -552,6 +561,12 @@ typedef NSURLSessionTask BAURLSessionTask;
 ## 5、更新记录：【倒叙】
  欢迎使用 [【BAHome】](https://github.com/BAHome) 系列开源代码 ！
  如有更多需求，请前往：[【https://github.com/BAHome】](https://github.com/BAHome) 
+ 
+  
+ 最新更新时间：2017-08-18 【倒叙】<br>
+ 最新Version：【Version：2.3.5】<br>
+ 更新内容：<br>
+ 2.3.5.1、新增 删除所有缓存的方法，可以自由删除当前的所有缓存！<br>
  
  最新更新时间：2017-08-17 【倒叙】<br>
  最新Version：【Version：2.3.4】<br>
