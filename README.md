@@ -166,7 +166,7 @@ typedef NSURLSessionTask BAURLSessionTask;
  */
 + (BAURLSessionTask *)ba_request_GETWithUrlString:(NSString *)urlString
                                       isNeedCache:(BOOL)isNeedCache
-                                       parameters:(NSDictionary *)parameters
+                                       parameters:(id)parameters
                                      successBlock:(BAResponseSuccessBlock)successBlock
                                      failureBlock:(BAResponseFailBlock)failureBlock
                                     progressBlock:(BADownloadProgressBlock)progressBlock;
@@ -184,7 +184,7 @@ typedef NSURLSessionTask BAURLSessionTask;
  */
 + (BAURLSessionTask *)ba_request_POSTWithUrlString:(NSString *)urlString
                                        isNeedCache:(BOOL)isNeedCache
-                                        parameters:(NSDictionary *)parameters
+                                        parameters:(id)parameters
                                       successBlock:(BAResponseSuccessBlock)successBlock
                                       failureBlock:(BAResponseFailBlock)failureBlock
                                      progressBlock:(BADownloadProgressBlock)progressBlock;
@@ -200,7 +200,7 @@ typedef NSURLSessionTask BAURLSessionTask;
  @return BAURLSessionTask
  */
 + (BAURLSessionTask *)ba_request_PUTWithUrlString:(NSString *)urlString
-                                       parameters:(NSDictionary *)parameters
+                                       parameters:(id)parameters
                                      successBlock:(BAResponseSuccessBlock)successBlock
                                      failureBlock:(BAResponseFailBlock)failureBlock
                                     progressBlock:(BADownloadProgressBlock)progressBlock;
@@ -216,7 +216,7 @@ typedef NSURLSessionTask BAURLSessionTask;
  @return BAURLSessionTask
  */
 + (BAURLSessionTask *)ba_request_DELETEWithUrlString:(NSString *)urlString
-                                          parameters:(NSDictionary *)parameters
+                                          parameters:(id)parameters
                                         successBlock:(BAResponseSuccessBlock)successBlock
                                         failureBlock:(BAResponseFailBlock)failureBlock
                                        progressBlock:(BADownloadProgressBlock)progressBlock;
@@ -236,7 +236,7 @@ typedef NSURLSessionTask BAURLSessionTask;
  @return BAURLSessionTask
  */
 + (BAURLSessionTask *)ba_uploadImageWithUrlString:(NSString *)urlString
-                                       parameters:(NSDictionary *)parameters
+                                       parameters:(id)parameters
                                        imageArray:(NSArray *)imageArray
                                         fileNames:(NSArray <NSString *>*)fileNames
                                         imageType:(NSString *)imageType
@@ -256,7 +256,7 @@ typedef NSURLSessionTask BAURLSessionTask;
  @param progressBlock 上传的进度
  */
 + (void)ba_uploadVideoWithUrlString:(NSString *)urlString
-                         parameters:(NSDictionary *)parameters
+                         parameters:(id)parameters
                           videoPath:(NSString *)videoPath
                        successBlock:(BAResponseSuccessBlock)successBlock
                        failureBlock:(BAResponseFailBlock)failureBlock
@@ -274,7 +274,7 @@ typedef NSURLSessionTask BAURLSessionTask;
  @return BAURLSessionTask
  */
 + (BAURLSessionTask *)ba_downLoadFileWithUrlString:(NSString *)urlString
-                                        parameters:(NSDictionary *)parameters
+                                        parameters:(id)parameters
                                           savaPath:(NSString *)savePath
                                       successBlock:(BAResponseSuccessBlock)successBlock
                                       failureBlock:(BAResponseFailBlock)failureBlock
@@ -293,7 +293,7 @@ typedef NSURLSessionTask BAURLSessionTask;
  @return BAURLSessionTask
  */
 + (BAURLSessionTask *)ba_uploadFileWithUrlString:(NSString *)urlString
-                                      parameters:(NSDictionary *)parameters
+                                      parameters:(id)parameters
                                         fileName:(NSString *)fileName
                                         filePath:(NSString *)filePath
                                     successBlock:(BAResponseSuccessBlock)successBlock
@@ -332,8 +332,6 @@ typedef NSURLSessionTask BAURLSessionTask;
  清空缓存：此方法可能会阻止调用线程，直到文件删除完成。
  */
 - (void)ba_clearAllHttpCache;
-
-@end
 ```
 ### demo 示例
 ```
@@ -496,7 +494,6 @@ typedef NSURLSessionTask BAURLSessionTask;
      1、此上传图片单张、多图上传都经过几十个项目亲测可用，大家可以放心使用，使用过程中有问题，请加群：479663605 进行反馈，多谢！
      2、注意：如果使用PHP后台，后台不会对接此接口的话，博爱已经为你们量身定做了PHP后台接口，你们只需要把文件夹中的 postdynamic.php 文件发送给你们的PHP后台同事，他们就知道了，里面都有详细说明！
      */
-    // 新版本 待测试，有问题私聊
     [BANetManager ba_uploadImageWithUrlString:nil parameters:nil imageArray:nil fileNames:nil imageType:nil imageScale:0 successBlock:^(id response) {
         
     } failurBlock:^(NSError *error) {
@@ -562,7 +559,11 @@ typedef NSURLSessionTask BAURLSessionTask;
  欢迎使用 [【BAHome】](https://github.com/BAHome) 系列开源代码 ！
  如有更多需求，请前往：[【https://github.com/BAHome】](https://github.com/BAHome) 
  
-  
+ 最新更新时间：2017-09-09 【倒叙】<br>
+ 最新Version：【Version：2.3.6】<br>
+ 更新内容：<br>
+ 2.3.6.1、更换 传参 类型为 id 类型，传参更自由！<br>
+ 
  最新更新时间：2017-08-18 【倒叙】<br>
  最新Version：【Version：2.3.5】<br>
  更新内容：<br>
