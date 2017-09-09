@@ -208,7 +208,7 @@ static NSMutableArray *tasks;
  */
 + (BAURLSessionTask *)ba_request_GETWithUrlString:(NSString *)urlString
                                       isNeedCache:(BOOL)isNeedCache
-                                       parameters:(NSDictionary *)parameters
+                                       parameters:(id)parameters
                                      successBlock:(BAResponseSuccessBlock)successBlock
                                      failureBlock:(BAResponseFailBlock)failureBlock
                                     progressBlock:(BADownloadProgressBlock)progressBlock
@@ -229,7 +229,7 @@ static NSMutableArray *tasks;
  */
 + (BAURLSessionTask *)ba_request_POSTWithUrlString:(NSString *)urlString
                                        isNeedCache:(BOOL)isNeedCache
-                                        parameters:(NSDictionary *)parameters
+                                        parameters:(id)parameters
                                       successBlock:(BAResponseSuccessBlock)successBlock
                                       failureBlock:(BAResponseFailBlock)failureBlock
                                      progressBlock:(BADownloadProgressBlock)progressBlock
@@ -248,7 +248,7 @@ static NSMutableArray *tasks;
  @return BAURLSessionTask
  */
 + (BAURLSessionTask *)ba_request_PUTWithUrlString:(NSString *)urlString
-                                       parameters:(NSDictionary *)parameters
+                                       parameters:(id)parameters
                                      successBlock:(BAResponseSuccessBlock)successBlock
                                      failureBlock:(BAResponseFailBlock)failureBlock
                                     progressBlock:(BADownloadProgressBlock)progressBlock
@@ -267,7 +267,7 @@ static NSMutableArray *tasks;
  @return BAURLSessionTask
  */
 + (BAURLSessionTask *)ba_request_DELETEWithUrlString:(NSString *)urlString
-                                          parameters:(NSDictionary *)parameters
+                                          parameters:(id)parameters
                                         successBlock:(BAResponseSuccessBlock)successBlock
                                         failureBlock:(BAResponseFailBlock)failureBlock
                                        progressBlock:(BADownloadProgressBlock)progressBlock
@@ -290,7 +290,7 @@ static NSMutableArray *tasks;
 + (BAURLSessionTask *)ba_requestWithType:(BAHttpRequestType)type
                              isNeedCache:(BOOL)isNeedCache
                                urlString:(NSString *)urlString
-                              parameters:(NSDictionary *)parameters
+                              parameters:(id)parameters
                             successBlock:(BAResponseSuccessBlock)successBlock
                             failureBlock:(BAResponseFailBlock)failureBlock
                            progressBlock:(BADownloadProgressBlock)progressBlock
@@ -375,7 +375,6 @@ static NSMutableArray *tasks;
             [[weakSelf tasks] removeObject:sessionTask];
             
         }];
-        
     }
     else if (type == BAHttpRequestTypePost)
     {
@@ -477,7 +476,7 @@ static NSMutableArray *tasks;
  @return BAURLSessionTask
  */
 + (BAURLSessionTask *)ba_uploadImageWithUrlString:(NSString *)urlString
-                                       parameters:(NSDictionary *)parameters
+                                       parameters:(id)parameters
                                        imageArray:(NSArray *)imageArray
                                         fileNames:(NSArray <NSString *>*)fileNames
                                         imageType:(NSString *)imageType
@@ -577,7 +576,7 @@ static NSMutableArray *tasks;
  @param progressBlock 上传的进度
  */
 + (void)ba_uploadVideoWithUrlString:(NSString *)urlString
-                         parameters:(NSDictionary *)parameters
+                         parameters:(id)parameters
                           videoPath:(NSString *)videoPath
                        successBlock:(BAResponseSuccessBlock)successBlock
                        failureBlock:(BAResponseFailBlock)failureBlock
@@ -663,7 +662,7 @@ static NSMutableArray *tasks;
  @return BAURLSessionTask
  */
 + (BAURLSessionTask *)ba_downLoadFileWithUrlString:(NSString *)urlString
-                                        parameters:(NSDictionary *)parameters
+                                        parameters:(id)parameters
                                           savaPath:(NSString *)savePath
                                       successBlock:(BAResponseSuccessBlock)successBlock
                                       failureBlock:(BAResponseFailBlock)failureBlock
@@ -754,7 +753,7 @@ static NSMutableArray *tasks;
  @return BAURLSessionTask
  */
 + (BAURLSessionTask *)ba_uploadFileWithUrlString:(NSString *)urlString
-                                      parameters:(NSDictionary *)parameters
+                                      parameters:(id)parameters
                                         fileName:(NSString *)fileName
                                         filePath:(NSString *)filePath
                                     successBlock:(BAResponseSuccessBlock)successBlock

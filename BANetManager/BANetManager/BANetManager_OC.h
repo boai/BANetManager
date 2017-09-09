@@ -75,6 +75,11 @@
  OC 版 ：https://github.com/BAHome/BANetManager
  
  
+ 最新更新时间：2017-09-09 【倒叙】<br>
+ 最新Version：【Version：2.3.6】<br>
+ 更新内容：<br>
+ 2.3.6.1、更换 传参 类型为 id 类型，传参更自由！<br>
+ 
  最新更新时间：2017-08-18 【倒叙】<br>
  最新Version：【Version：2.3.5】<br>
  更新内容：<br>

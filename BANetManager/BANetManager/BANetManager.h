@@ -180,7 +180,7 @@ typedef NSURLSessionTask BAURLSessionTask;
  */
 + (BAURLSessionTask *)ba_request_GETWithUrlString:(NSString *)urlString
                                       isNeedCache:(BOOL)isNeedCache
-                                       parameters:(NSDictionary *)parameters
+                                       parameters:(id)parameters
                                      successBlock:(BAResponseSuccessBlock)successBlock
                                      failureBlock:(BAResponseFailBlock)failureBlock
                                     progressBlock:(BADownloadProgressBlock)progressBlock;
@@ -198,7 +198,7 @@ typedef NSURLSessionTask BAURLSessionTask;
  */
 + (BAURLSessionTask *)ba_request_POSTWithUrlString:(NSString *)urlString
                                        isNeedCache:(BOOL)isNeedCache
-                                        parameters:(NSDictionary *)parameters
+                                        parameters:(id)parameters
                                       successBlock:(BAResponseSuccessBlock)successBlock
                                       failureBlock:(BAResponseFailBlock)failureBlock
                                      progressBlock:(BADownloadProgressBlock)progressBlock;
@@ -214,7 +214,7 @@ typedef NSURLSessionTask BAURLSessionTask;
  @return BAURLSessionTask
  */
 + (BAURLSessionTask *)ba_request_PUTWithUrlString:(NSString *)urlString
-                                       parameters:(NSDictionary *)parameters
+                                       parameters:(id)parameters
                                      successBlock:(BAResponseSuccessBlock)successBlock
                                      failureBlock:(BAResponseFailBlock)failureBlock
                                     progressBlock:(BADownloadProgressBlock)progressBlock;
@@ -230,7 +230,7 @@ typedef NSURLSessionTask BAURLSessionTask;
  @return BAURLSessionTask
  */
 + (BAURLSessionTask *)ba_request_DELETEWithUrlString:(NSString *)urlString
-                                          parameters:(NSDictionary *)parameters
+                                          parameters:(id)parameters
                                         successBlock:(BAResponseSuccessBlock)successBlock
                                         failureBlock:(BAResponseFailBlock)failureBlock
                                        progressBlock:(BADownloadProgressBlock)progressBlock;
@@ -250,7 +250,7 @@ typedef NSURLSessionTask BAURLSessionTask;
  @return BAURLSessionTask
  */
 + (BAURLSessionTask *)ba_uploadImageWithUrlString:(NSString *)urlString
-                                       parameters:(NSDictionary *)parameters
+                                       parameters:(id)parameters
                                        imageArray:(NSArray *)imageArray
                                         fileNames:(NSArray <NSString *>*)fileNames
                                         imageType:(NSString *)imageType
@@ -270,7 +270,7 @@ typedef NSURLSessionTask BAURLSessionTask;
  @param progressBlock 上传的进度
  */
 + (void)ba_uploadVideoWithUrlString:(NSString *)urlString
-                         parameters:(NSDictionary *)parameters
+                         parameters:(id)parameters
                           videoPath:(NSString *)videoPath
                        successBlock:(BAResponseSuccessBlock)successBlock
                        failureBlock:(BAResponseFailBlock)failureBlock
@@ -288,7 +288,7 @@ typedef NSURLSessionTask BAURLSessionTask;
  @return BAURLSessionTask
  */
 + (BAURLSessionTask *)ba_downLoadFileWithUrlString:(NSString *)urlString
-                                        parameters:(NSDictionary *)parameters
+                                        parameters:(id)parameters
                                           savaPath:(NSString *)savePath
                                       successBlock:(BAResponseSuccessBlock)successBlock
                                       failureBlock:(BAResponseFailBlock)failureBlock
@@ -307,7 +307,7 @@ typedef NSURLSessionTask BAURLSessionTask;
  @return BAURLSessionTask
  */
 + (BAURLSessionTask *)ba_uploadFileWithUrlString:(NSString *)urlString
-                                      parameters:(NSDictionary *)parameters
+                                      parameters:(id)parameters
                                         fileName:(NSString *)fileName
                                         filePath:(NSString *)filePath
                                     successBlock:(BAResponseSuccessBlock)successBlock
@@ -352,31 +352,31 @@ typedef NSURLSessionTask BAURLSessionTask;
 #pragma mark version 2.0 过期方法名
 //+ (BAURLSessionTask *)ba_requestWithType:(BAHttpRequestType)type
 //                               UrlString:(NSString *)urlString
-//                              Parameters:(NSDictionary *)parameters
+//                              Parameters:(id)parameters
 //                            SuccessBlock:(BAResponseSuccessBlock)successBlock
 //                            FailureBlock:(BAResponseFailBlock)failureBlock
-//                                progress:(BADownloadProgressBlock)progress BANetManagerDeprecated("该方法已过期,请使用最新方法：+ (BAURLSessionTask *)ba_requestWithType:(BAHttpRequestType)type urlString:(NSString *)urlString parameters:(NSDictionary *)parameters successBlock:(BAResponseSuccessBlock)successBlock failureBlock:(BAResponseFailBlock)failureBlock progress:(BADownloadProgressBlock)progress");
+//                                progress:(BADownloadProgressBlock)progress BANetManagerDeprecated("该方法已过期,请使用最新方法：+ (BAURLSessionTask *)ba_requestWithType:(BAHttpRequestType)type urlString:(NSString *)urlString parameters:(id)parameters successBlock:(BAResponseSuccessBlock)successBlock failureBlock:(BAResponseFailBlock)failureBlock progress:(BADownloadProgressBlock)progress");
 
 //+ (BAURLSessionTask *)ba_uploadImageWithUrlString:(NSString *)urlString
-//                                       parameters:(NSDictionary *)parameters
+//                                       parameters:(id)parameters
 //                                       ImageArray:(NSArray *)imageArray
 //                                         FileName:(NSString *)fileName
 //                                     SuccessBlock:(BAResponseSuccessBlock)successBlock
 //                                      FailurBlock:(BAResponseFailBlock)failureBlock
-//                                   UpLoadProgress:(BAUploadProgressBlock)progress BANetManagerDeprecated("该方法已过期,请使用最新方法：+ (BAURLSessionTask *)ba_uploadImageWithUrlString:(NSString *)urlString parameters:(NSDictionary *)parameters imageArray:(NSArray *)imageArray fileName:(NSString *)fileName successBlock:(BAResponseSuccessBlock)successBlock failurBlock:(BAResponseFailBlock)failureBlock upLoadProgress:(BAUploadProgressBlock)progress");
+//                                   UpLoadProgress:(BAUploadProgressBlock)progress BANetManagerDeprecated("该方法已过期,请使用最新方法：+ (BAURLSessionTask *)ba_uploadImageWithUrlString:(NSString *)urlString parameters:(id)parameters imageArray:(NSArray *)imageArray fileName:(NSString *)fileName successBlock:(BAResponseSuccessBlock)successBlock failurBlock:(BAResponseFailBlock)failureBlock upLoadProgress:(BAUploadProgressBlock)progress");
 //
 //+ (void)ba_uploadVideoWithUrlString:(NSString *)urlString
-//                         parameters:(NSDictionary *)parameters
+//                         parameters:(id)parameters
 //                          VideoPath:(NSString *)videoPath
 //                       SuccessBlock:(BAResponseSuccessBlock)successBlock
 //                       FailureBlock:(BAResponseFailBlock)failureBlock
-//                     UploadProgress:(BAUploadProgressBlock)progress BANetManagerDeprecated("该方法已过期,请使用最新方法：+ (void)ba_uploadVideoWithUrlString:(NSString *)urlString parameters:(NSDictionary *)parameters videoPath:(NSString *)videoPath successBlock:(BAResponseSuccessBlock)successBlock failureBlock:(BAResponseFailBlock)failureBlock uploadProgress:(BAUploadProgressBlock)progress");
+//                     UploadProgress:(BAUploadProgressBlock)progress BANetManagerDeprecated("该方法已过期,请使用最新方法：+ (void)ba_uploadVideoWithUrlString:(NSString *)urlString parameters:(id)parameters videoPath:(NSString *)videoPath successBlock:(BAResponseSuccessBlock)successBlock failureBlock:(BAResponseFailBlock)failureBlock uploadProgress:(BAUploadProgressBlock)progress");
 //
 //+ (BAURLSessionTask *)ba_downLoadFileWithUrlString:(NSString *)urlString
-//                                        parameters:(NSDictionary *)parameters
+//                                        parameters:(id)parameters
 //                                          SavaPath:(NSString *)savePath
 //                                      SuccessBlock:(BAResponseSuccessBlock)successBlock
 //                                      FailureBlock:(BAResponseFailBlock)failureBlock
-//                                  DownLoadProgress:(BADownloadProgressBlock)progress BANetManagerDeprecated("该方法已过期,请使用最新方法：+ (BAURLSessionTask *)ba_downLoadFileWithUrlString:(NSString *)urlString parameters:(NSDictionary *)parameters savaPath:(NSString *)savePath successBlock:(BAResponseSuccessBlock)successBlock failureBlock:(BAResponseFailBlock)failureBlock downLoadProgress:(BADownloadProgressBlock)progress");
+//                                  DownLoadProgress:(BADownloadProgressBlock)progress BANetManagerDeprecated("该方法已过期,请使用最新方法：+ (BAURLSessionTask *)ba_downLoadFileWithUrlString:(NSString *)urlString parameters:(id)parameters savaPath:(NSString *)savePath successBlock:(BAResponseSuccessBlock)successBlock failureBlock:(BAResponseFailBlock)failureBlock downLoadProgress:(BADownloadProgressBlock)progress");
 
 @end
