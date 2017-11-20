@@ -121,6 +121,7 @@ int64_t totalBytesProgress);
  */
 typedef NSURLSessionTask BAURLSessionTask;
 
+@class BADataEntity;
 
 @interface BANetManager : NSObject
 
@@ -153,152 +154,118 @@ typedef NSURLSessionTask BAURLSessionTask;
 
 
 #pragma mark - 网络请求的类方法 --- get / post / put / delete
+
 /**
  网络请求的实例方法 get
- 
- @param urlString 请求的地址
- @param isNeedCache 是否需要缓存，只有 get / post 请求有缓存配置
- @param parameters 请求的参数
+
+ @param entity 请求信息载体
  @param successBlock 请求成功的回调
  @param failureBlock 请求失败的回调
- @param progressBlock 进度
+ @param progressBlock 进度回调
  @return BAURLSessionTask
  */
-+ (BAURLSessionTask *)ba_request_GETWithUrlString:(NSString *)urlString
-                                      isNeedCache:(BOOL)isNeedCache
-                                       parameters:(id)parameters
-                                     successBlock:(BAResponseSuccessBlock)successBlock
-                                     failureBlock:(BAResponseFailBlock)failureBlock
-                                    progressBlock:(BADownloadProgressBlock)progressBlock;
++ (BAURLSessionTask *)ba_request_GETWithEntity:(BADataEntity *)entity
+                                  successBlock:(BAResponseSuccessBlock)successBlock
+                                  failureBlock:(BAResponseFailBlock)failureBlock
+                                 progressBlock:(BADownloadProgressBlock)progressBlock;
 
 /**
  网络请求的实例方法 post
- 
- @param urlString 请求的地址
- @param isNeedCache 是否需要缓存，只有 get / post 请求有缓存配置
- @param parameters 请求的参数
+
+ @param entity 请求信息载体
  @param successBlock 请求成功的回调
  @param failureBlock 请求失败的回调
  @param progressBlock 进度
  @return BAURLSessionTask
  */
-+ (BAURLSessionTask *)ba_request_POSTWithUrlString:(NSString *)urlString
-                                       isNeedCache:(BOOL)isNeedCache
-                                        parameters:(id)parameters
-                                      successBlock:(BAResponseSuccessBlock)successBlock
-                                      failureBlock:(BAResponseFailBlock)failureBlock
-                                     progressBlock:(BADownloadProgressBlock)progressBlock;
++ (BAURLSessionTask *)ba_request_POSTWithEntity:(BADataEntity *)entity
+                                   successBlock:(BAResponseSuccessBlock)successBlock
+                                   failureBlock:(BAResponseFailBlock)failureBlock
+                                  progressBlock:(BADownloadProgressBlock)progressBlock;
 
 /**
  网络请求的实例方法 put
  
- @param urlString 请求的地址
- @param parameters 请求的参数
+ @param entity 请求信息载体
  @param successBlock 请求成功的回调
  @param failureBlock 请求失败的回调
  @param progressBlock 进度
  @return BAURLSessionTask
  */
-+ (BAURLSessionTask *)ba_request_PUTWithUrlString:(NSString *)urlString
-                                       parameters:(id)parameters
++ (BAURLSessionTask *)ba_request_PUTWithEntity:(BADataEntity *)entity
+                                  successBlock:(BAResponseSuccessBlock)successBlock
+                                  failureBlock:(BAResponseFailBlock)failureBlock
+                                 progressBlock:(BADownloadProgressBlock)progressBlock;
+
+/**
+ 网络请求的实例方法 delete
+ 
+ @param entity 请求信息载体
+ @param successBlock 请求成功的回调
+ @param failureBlock 请求失败的回调
+ @param progressBlock 进度
+ @return BAURLSessionTask
+ */
++ (BAURLSessionTask *)ba_request_DELETEWithEntity:(BADataEntity *)entity
                                      successBlock:(BAResponseSuccessBlock)successBlock
                                      failureBlock:(BAResponseFailBlock)failureBlock
                                     progressBlock:(BADownloadProgressBlock)progressBlock;
 
 /**
- 网络请求的实例方法 delete
- 
- @param urlString 请求的地址
- @param parameters 请求的参数
- @param successBlock 请求成功的回调
- @param failureBlock 请求失败的回调
- @param progressBlock 进度
- @return BAURLSessionTask
- */
-+ (BAURLSessionTask *)ba_request_DELETEWithUrlString:(NSString *)urlString
-                                          parameters:(id)parameters
-                                        successBlock:(BAResponseSuccessBlock)successBlock
-                                        failureBlock:(BAResponseFailBlock)failureBlock
-                                       progressBlock:(BADownloadProgressBlock)progressBlock;
-
-/**
  上传图片(多图)
  
- @param urlString urlString description
- @param parameters 上传图片预留参数---视具体情况而定 可为空
- @param imageArray 上传的图片数组
- @param fileNames 上传的图片数组 fileName
- @param imageType 图片类型，如：png、jpg、gif
- @param imageScale 图片压缩比率（0~1.0）
+ @param entity 请求信息载体
  @param successBlock 上传成功的回调
  @param failureBlock 上传失败的回调
  @param progressBlock 上传进度
  @return BAURLSessionTask
  */
-+ (BAURLSessionTask *)ba_uploadImageWithUrlString:(NSString *)urlString
-                                       parameters:(id)parameters
-                                       imageArray:(NSArray *)imageArray
-                                        fileNames:(NSArray <NSString *>*)fileNames
-                                        imageType:(NSString *)imageType
-                                       imageScale:(CGFloat)imageScale
-                                     successBlock:(BAResponseSuccessBlock)successBlock
-                                      failurBlock:(BAResponseFailBlock)failureBlock
-                                    progressBlock:(BAUploadProgressBlock)progressBlock;
++ (BAURLSessionTask *)ba_uploadImageWithEntity:(BADataEntity *)entity
+                                  successBlock:(BAResponseSuccessBlock)successBlock
+                                   failurBlock:(BAResponseFailBlock)failureBlock
+                                 progressBlock:(BAUploadProgressBlock)progressBlock;
 
 /**
  视频上传
  
- @param urlString 上传的url
- @param parameters 上传视频预留参数---视具体情况而定 可移除
- @param videoPath 上传视频的本地沙河路径
+ @param entity 请求信息载体
  @param successBlock 成功的回调
  @param failureBlock 失败的回调
  @param progressBlock 上传的进度
  */
-+ (void)ba_uploadVideoWithUrlString:(NSString *)urlString
-                         parameters:(id)parameters
-                          videoPath:(NSString *)videoPath
-                       successBlock:(BAResponseSuccessBlock)successBlock
-                       failureBlock:(BAResponseFailBlock)failureBlock
-                      progressBlock:(BAUploadProgressBlock)progressBlock;
++ (void)ba_uploadVideoWithEntity:(BADataEntity *)entity
+                    successBlock:(BAResponseSuccessBlock)successBlock
+                    failureBlock:(BAResponseFailBlock)failureBlock
+                   progressBlock:(BAUploadProgressBlock)progressBlock;
 
 /**
  文件下载
  
- @param urlString 请求的url
- @param parameters 文件下载预留参数---视具体情况而定 可移除
- @param savePath 下载文件保存路径
+ @param entity 请求信息载体
  @param successBlock 下载文件成功的回调
  @param failureBlock 下载文件失败的回调
  @param progressBlock 下载文件的进度显示
  @return BAURLSessionTask
  */
-+ (BAURLSessionTask *)ba_downLoadFileWithUrlString:(NSString *)urlString
-                                        parameters:(id)parameters
-                                          savaPath:(NSString *)savePath
-                                      successBlock:(BAResponseSuccessBlock)successBlock
-                                      failureBlock:(BAResponseFailBlock)failureBlock
-                                     progressBlock:(BADownloadProgressBlock)progressBlock;
++ (BAURLSessionTask *)ba_downLoadFileWithEntity:(BADataEntity *)entity
+                                   successBlock:(BAResponseSuccessBlock)successBlock
+                                   failureBlock:(BAResponseFailBlock)failureBlock
+                                  progressBlock:(BADownloadProgressBlock)progressBlock;
 
 /**
  文件上传
  
- @param urlString urlString description
- @param parameters parameters description
- @param fileName fileName description
- @param filePath filePath description
+ @param entity 请求信息载体
  @param successBlock successBlock description
  @param failureBlock failureBlock description
  @param progressBlock progressBlock description
  @return BAURLSessionTask
  */
-+ (BAURLSessionTask *)ba_uploadFileWithUrlString:(NSString *)urlString
-                                      parameters:(id)parameters
-                                        fileName:(NSString *)fileName
-                                        filePath:(NSString *)filePath
-                                    successBlock:(BAResponseSuccessBlock)successBlock
-                                    failureBlock:(BAResponseFailBlock)failureBlock
-                                   progressBlock:(BAUploadProgressBlock)progressBlock;
++ (BAURLSessionTask *)ba_uploadFileWithWithEntity:(BADataEntity *)entity
+                                     successBlock:(BAResponseSuccessBlock)successBlock
+                                     failureBlock:(BAResponseFailBlock)failureBlock
+                                    progressBlock:(BAUploadProgressBlock)progressBlock;
+
 
 #pragma mark - 网络状态监测
 /*!
@@ -332,6 +299,8 @@ typedef NSURLSessionTask BAURLSessionTask;
  清空缓存：此方法可能会阻止调用线程，直到文件删除完成。
  */
 - (void)ba_clearAllHttpCache;
+
+@end
 ```
 ### demo 示例
 ```
@@ -389,7 +358,10 @@ typedef NSURLSessionTask BAURLSessionTask;
 - (IBAction)getData:(UIButton *)sender
 {
     // 如果打印数据不完整，是因为 Xcode 8 版本问题，请下断点打印数据
-    [BANetManager ba_request_GETWithUrlString:url5 isNeedCache:YES parameters:nil successBlock:^(id response) {
+    BADataEntity *entity = [BADataEntity new];
+    entity.urlString = url5;
+    entity.needCache = YES;
+    [BANetManager ba_request_GETWithEntity:entity successBlock:^(id response) {
         NSLog(@"get 请求数据结果： *** %@", response);
         NSString *msg = [NSString stringWithFormat:@"get 请求数据结果：%@", response];
         BAKit_ShowAlertWithMsg(msg);
@@ -417,6 +389,9 @@ typedef NSURLSessionTask BAURLSessionTask;
     // 清楚当前所有请求头
 //    [BANetManager ba_clearAuthorizationHeader];
     
+    
+//    NSString *url = @"http://115.29.201.135/mobile/mobileapi.php";
+//    NSString *parameters = @"sAp3OxNlYMZZa7OlRi2TwguoTtwNwwFwOo5k8LL3ERtcTbAvGPhZ5yUWiiIJeXx2WjYlnMU1nFOoi2JSKJDINW62lcM9DB9XDdZQACnY60g=";
 //    int page = 1;
     NSDictionary *parameters = @{
                            @"txtusername":@"13651789999",
@@ -424,14 +399,16 @@ typedef NSURLSessionTask BAURLSessionTask;
                            };
 //    NSDictionary *parameters = [NSDictionary dictionaryWithObjectsAndKeys:@(page).stringValue, @"page", @"10", @"per_page", nil];;
     
+    BADataEntity *entity = [BADataEntity new];
+    entity.urlString = url6;
+    entity.needCache = NO;
+    entity.parameters = parameters;
+    
     // 如果打印数据不完整，是因为 Xcode 8 版本问题，请下断点打印数据
-    [BANetManager ba_request_POSTWithUrlString:url6 isNeedCache:NO parameters:parameters successBlock:^(id response) {
+    [BANetManager ba_request_POSTWithEntity:entity successBlock:^(id response) {
         NSLog(@"post 请求数据结果： *** %@", response);
         self.uploadLabel.text = @"上传完成";
         [sender setTitle:@"上传完成" forState:UIControlStateNormal];
-
-//        NSString *msg = [NSString stringWithFormat:@"post 请求数据结果：%@", response];
-//        BAKit_ShowAlertWithMsg(msg);
     } failureBlock:^(NSError *error) {
         
     } progressBlock:^(int64_t bytesProgress, int64_t totalBytesProgress) {
@@ -466,24 +443,25 @@ typedef NSURLSessionTask BAURLSessionTask;
     //        return;
     //    }
 //    BAWeak;
-    NSString *url = @"http://static.yizhibo.com/pc_live/static/video.swf?onPlay=YZB.play&onPause=YZB.pause&onSeek=YZB.seek&scid=pALRs7JBtTRU9TWy";
-    self.tasks = [BANetManager ba_downLoadFileWithUrlString:url parameters:nil savaPath:path1 successBlock:^(id response) {
-                                                   
-       NSLog(@"下载完成，路径为：%@", response);
-       self.downloadLabel.text = @"下载完成";
-       isFinishDownload = YES;
-       [downloadBtn setTitle:@"下载完成" forState:UIControlStateNormal];
-       [downloadBtn setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
-       BAKit_ShowAlertWithMsg(@"视频下载完成！");
-                                                   
+    
+    BAFileDataEntity *fileEntity = [BAFileDataEntity new];
+    fileEntity.urlString = @"http://static.yizhibo.com/pc_live/static/video.swf?onPlay=YZB.play&onPause=YZB.pause&onSeek=YZB.seek&scid=pALRs7JBtTRU9TWy";
+    fileEntity.filePath = path1;
+    
+    [BANetManager ba_downLoadFileWithEntity:fileEntity successBlock:^(id response) {
+        NSLog(@"下载完成，路径为：%@", response);
+        self.downloadLabel.text = @"下载完成";
+        isFinishDownload = YES;
+        [downloadBtn setTitle:@"下载完成" forState:UIControlStateNormal];
+        [downloadBtn setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+        BAKit_ShowAlertWithMsg(@"视频下载完成！");
     } failureBlock:^(NSError *error) {
-
+        
     } progressBlock:^(int64_t bytesProgress, int64_t totalBytesProgress) {
-    /*! 封装方法里已经回到主线程，所有这里不用再调主线程了 */
+        /*! 封装方法里已经回到主线程，所有这里不用再调主线程了 */
         self.downloadLabel.text = [NSString stringWithFormat:@"下载进度：%.2lld%%",100 * bytesProgress/totalBytesProgress];
         [downloadBtn setTitle:@"下载中..." forState:UIControlStateNormal];
     }];
-    
 }
 
 #pragma mark - 上传图片
@@ -494,7 +472,10 @@ typedef NSURLSessionTask BAURLSessionTask;
      1、此上传图片单张、多图上传都经过几十个项目亲测可用，大家可以放心使用，使用过程中有问题，请加群：479663605 进行反馈，多谢！
      2、注意：如果使用PHP后台，后台不会对接此接口的话，博爱已经为你们量身定做了PHP后台接口，你们只需要把文件夹中的 postdynamic.php 文件发送给你们的PHP后台同事，他们就知道了，里面都有详细说明！
      */
-    [BANetManager ba_uploadImageWithUrlString:nil parameters:nil imageArray:nil fileNames:nil imageType:nil imageScale:0 successBlock:^(id response) {
+    
+    BAImageDataEntity *imageEntity = [BAImageDataEntity new];
+    
+    [BANetManager ba_uploadImageWithEntity:imageEntity successBlock:^(id response) {
         
     } failurBlock:^(NSError *error) {
         
@@ -512,7 +493,9 @@ typedef NSURLSessionTask BAURLSessionTask;
      2、此处只需要传URL 和 parameters就行了，具体压缩方法都已经做好处理！
      
      */
-    [BANetManager ba_uploadVideoWithUrlString:nil parameters:nil videoPath:nil successBlock:^(id response) {
+    BAFileDataEntity *videoEntity = [BAFileDataEntity new];
+    
+    [BANetManager ba_uploadVideoWithEntity:videoEntity successBlock:^(id response) {
         
     } failureBlock:^(NSError *error) {
         
@@ -524,10 +507,12 @@ typedef NSURLSessionTask BAURLSessionTask;
 #pragma mark - put 请求
 - (IBAction)putData:(UIButton *)sender
 {
-    NSString *url = @"http://120.76.245.240:8080/bda/resetPassword/?account=761463699@qq.com&password=q&OTP=634613";
     NSDictionary *dict = @{@"EquipmentType":@"iPhone", @"EquipmentGUID":@"b61df00d-87db-426f-bc5a-bc8fffa907db"};
+    BADataEntity *entity = [BADataEntity new];
+    entity.urlString = @"http://120.76.245.240:8080/bda/resetPassword/?account=761463699@qq.com&password=q&OTP=634613";
+    entity.parameters = dict;
     
-    [BANetManager ba_request_PUTWithUrlString:url parameters:dict successBlock:^(id response) {
+    [BANetManager ba_request_PUTWithEntity:entity successBlock:^(id response) {
         NSLog(@"*********00000 : %@", response);
     } failureBlock:^(NSError *error) {
         
@@ -537,13 +522,15 @@ typedef NSURLSessionTask BAURLSessionTask;
 #pragma mark - delete 请求
 - (IBAction)deleteData:(UIButton *)sender
 {
-    [BANetManager ba_request_DELETEWithUrlString:nil parameters:nil successBlock:nil failureBlock:nil progressBlock:nil];
+    BADataEntity *entity = [BADataEntity new];
+    [BANetManager ba_request_DELETEWithEntity:entity successBlock:nil failureBlock:nil progressBlock:nil];
 }
 
 #pragma mark - 上传文件
 - (IBAction)uploadFileButtonAction:(UIButton *)sender
 {
-    [BANetManager ba_uploadFileWithUrlString:nil parameters:nil fileName:nil filePath:nil successBlock:^(id response) {
+    BAFileDataEntity *fileEntity = [BAFileDataEntity new];
+    [BANetManager ba_uploadFileWithWithEntity:fileEntity successBlock:^(id response) {
         
     } failureBlock:^(NSError *error) {
         
@@ -559,6 +546,15 @@ typedef NSURLSessionTask BAURLSessionTask;
  欢迎使用 [【BAHome】](https://github.com/BAHome) 系列开源代码 ！
  如有更多需求，请前往：[【https://github.com/BAHome】](https://github.com/BAHome) 
  
+ 最新更新时间：2017-11-20 【倒叙】<br>
+ 最新Version：【Version：2.3.7】<br>
+ 更新内容：<br>
+ 2.3.7.1、【方法替换】原传参方式为 id 类型，现在统一改为 BADataEntity 类型，具体参考 BADataEntity 类，如果更新发现较多错误，敬请谅解，可以恢复至上一版本【Version：2.3.6】，感谢[@北京-晋登科 大神](http://www.jianshu.com/u/1fc1bd217dc5) 的亲自操刀改版！<br>
+ 2.3.7.2、【方法替换】原图像上传方法传参 精简为 BADataEntity 类下的 BAImageDataEntity 类，具体参考 BAImageDataEntity 类，如果更新发现较多错误，敬请谅解，可以恢复至上一版本【Version：2.3.6】<br>
+ 2.3.7.3、【方法替换】原文件上传、下载方法传参 精简为 BADataEntity 类下的 BAFileDataEntity 类，具体参考 BAFileDataEntity 类，如果更新发现较多错误，敬请谅解，可以恢复至上一版本【Version：2.3.6】<br>
+ 2.3.7.4、【新增文件】新增 BAParameterEntity 文件夹，主要处理所有上传所需的参数等信息 <br>
+ 2.3.7.4、【新增文件】新增 BANetManager_Version.h 文件，主要处理所有版本更新内容等信息 <br>
+
  最新更新时间：2017-09-09 【倒叙】<br>
  最新Version：【Version：2.3.6】<br>
  更新内容：<br>
@@ -618,7 +614,7 @@ typedef NSURLSessionTask BAURLSessionTask;
  2.0.3、视频上传方法对接，目前有很多项目对接成功
 
 ## 6、bug 反馈
-> 1、开发中遇到 bug，希望小伙伴儿们能够及时反馈与我们 BAHome 团队，我们必定会认真对待每一个问题！ <br>
+> 1、开发中遇到 bug，希望小伙伴儿们能够及时反馈与我们 [BAHome](https://github.com/BAHome) 团队，我们必定会认真对待每一个问题！ <br>
 
 > 2、以后提需求和 bug 的同学，记得把 git 或者博客链接给我们，我直接超链到你们那里！希望大家积极参与测试！<br> 
 
@@ -659,7 +655,7 @@ git：[https://github.com/CrazyCoderShi](https://github.com/CrazyCoderShi) <br>
 简书：[http://www.jianshu.com/u/0726f4d689a3](http://www.jianshu.com/u/0726f4d689a3)
 
 ## 8、开发环境 和 支持版本
-> 开发使用 最新版本 Xcode，理论上支持 iOS 8 及以上版本，如有版本适配问题，请及时反馈！多谢合作！
+> 开发使用 最新版本 Xcode，理论上支持 iOS 9 及以上版本，如有版本适配问题，请及时反馈！多谢合作！
 
 ## 9、感谢
 > 感谢 [BAHome](https://github.com/BAHome) 团队成员倾力合作，后期会推出一系列 常用 UI 控件的封装，大家有需求得也可以在 issue 提出，如果合理，我们会尽快推出新版本！<br>

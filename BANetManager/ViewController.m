@@ -62,7 +62,8 @@
 
 
 #import "ViewController.h"
-#import "BANetManager.h"
+#import "BANetManager_OC.h"
+
 
 static NSString * const url1 = @"http://c.m.163.com/nc/video/home/1-10.html";
 static NSString * const url2 = @"http://apis.baidu.com/apistore/";
@@ -181,7 +182,10 @@ UIAlertAction *sureAction = [UIAlertAction actionWithTitle:@"确 定" style:UIAl
 - (IBAction)getData:(UIButton *)sender
 {
     // 如果打印数据不完整，是因为 Xcode 8 版本问题，请下断点打印数据
-    [BANetManager ba_request_GETWithUrlString:url5 isNeedCache:YES parameters:nil successBlock:^(id response) {
+    BADataEntity *entity = [BADataEntity new];
+    entity.urlString = url5;
+    entity.needCache = YES;
+    [BANetManager ba_request_GETWithEntity:entity successBlock:^(id response) {
         NSLog(@"get 请求数据结果： *** %@", response);
         NSString *msg = [NSString stringWithFormat:@"get 请求数据结果：%@", response];
         BAKit_ShowAlertWithMsg(msg);
@@ -219,14 +223,16 @@ UIAlertAction *sureAction = [UIAlertAction actionWithTitle:@"确 定" style:UIAl
                            };
 //    NSDictionary *parameters = [NSDictionary dictionaryWithObjectsAndKeys:@(page).stringValue, @"page", @"10", @"per_page", nil];;
     
+    BADataEntity *entity = [BADataEntity new];
+    entity.urlString = url6;
+    entity.needCache = NO;
+    entity.parameters = parameters;
+    
     // 如果打印数据不完整，是因为 Xcode 8 版本问题，请下断点打印数据
-    [BANetManager ba_request_POSTWithUrlString:url6 isNeedCache:NO parameters:parameters successBlock:^(id response) {
+    [BANetManager ba_request_POSTWithEntity:entity successBlock:^(id response) {
         NSLog(@"post 请求数据结果： *** %@", response);
         self.uploadLabel.text = @"上传完成";
         [sender setTitle:@"上传完成" forState:UIControlStateNormal];
-
-//        NSString *msg = [NSString stringWithFormat:@"post 请求数据结果：%@", response];
-//        BAKit_ShowAlertWithMsg(msg);
     } failureBlock:^(NSError *error) {
         
     } progressBlock:^(int64_t bytesProgress, int64_t totalBytesProgress) {
@@ -261,24 +267,25 @@ UIAlertAction *sureAction = [UIAlertAction actionWithTitle:@"确 定" style:UIAl
     //        return;
     //    }
 //    BAWeak;
-    NSString *url = @"http://static.yizhibo.com/pc_live/static/video.swf?onPlay=YZB.play&onPause=YZB.pause&onSeek=YZB.seek&scid=pALRs7JBtTRU9TWy";
-    self.tasks = [BANetManager ba_downLoadFileWithUrlString:url parameters:nil savaPath:path1 successBlock:^(id response) {
-                                                   
-       NSLog(@"下载完成，路径为：%@", response);
-       self.downloadLabel.text = @"下载完成";
-       isFinishDownload = YES;
-       [downloadBtn setTitle:@"下载完成" forState:UIControlStateNormal];
-       [downloadBtn setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
-       BAKit_ShowAlertWithMsg(@"视频下载完成！");
-                                                   
+    
+    BAFileDataEntity *fileEntity = [BAFileDataEntity new];
+    fileEntity.urlString = @"http://static.yizhibo.com/pc_live/static/video.swf?onPlay=YZB.play&onPause=YZB.pause&onSeek=YZB.seek&scid=pALRs7JBtTRU9TWy";
+    fileEntity.filePath = path1;
+    
+    [BANetManager ba_downLoadFileWithEntity:fileEntity successBlock:^(id response) {
+        NSLog(@"下载完成，路径为：%@", response);
+        self.downloadLabel.text = @"下载完成";
+        isFinishDownload = YES;
+        [downloadBtn setTitle:@"下载完成" forState:UIControlStateNormal];
+        [downloadBtn setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+        BAKit_ShowAlertWithMsg(@"视频下载完成！");
     } failureBlock:^(NSError *error) {
-
+        
     } progressBlock:^(int64_t bytesProgress, int64_t totalBytesProgress) {
-    /*! 封装方法里已经回到主线程，所有这里不用再调主线程了 */
+        /*! 封装方法里已经回到主线程，所有这里不用再调主线程了 */
         self.downloadLabel.text = [NSString stringWithFormat:@"下载进度：%.2lld%%",100 * bytesProgress/totalBytesProgress];
         [downloadBtn setTitle:@"下载中..." forState:UIControlStateNormal];
     }];
-    
 }
 
 #pragma mark - 上传图片
@@ -289,7 +296,10 @@ UIAlertAction *sureAction = [UIAlertAction actionWithTitle:@"确 定" style:UIAl
      1、此上传图片单张、多图上传都经过几十个项目亲测可用，大家可以放心使用，使用过程中有问题，请加群：479663605 进行反馈，多谢！
      2、注意：如果使用PHP后台，后台不会对接此接口的话，博爱已经为你们量身定做了PHP后台接口，你们只需要把文件夹中的 postdynamic.php 文件发送给你们的PHP后台同事，他们就知道了，里面都有详细说明！
      */
-    [BANetManager ba_uploadImageWithUrlString:nil parameters:nil imageArray:nil fileNames:nil imageType:nil imageScale:0 successBlock:^(id response) {
+    
+    BAImageDataEntity *imageEntity = [BAImageDataEntity new];
+    
+    [BANetManager ba_uploadImageWithEntity:imageEntity successBlock:^(id response) {
         
     } failurBlock:^(NSError *error) {
         
@@ -307,7 +317,9 @@ UIAlertAction *sureAction = [UIAlertAction actionWithTitle:@"确 定" style:UIAl
      2、此处只需要传URL 和 parameters就行了，具体压缩方法都已经做好处理！
      
      */
-    [BANetManager ba_uploadVideoWithUrlString:nil parameters:nil videoPath:nil successBlock:^(id response) {
+    BAFileDataEntity *videoEntity = [BAFileDataEntity new];
+    
+    [BANetManager ba_uploadVideoWithEntity:videoEntity successBlock:^(id response) {
         
     } failureBlock:^(NSError *error) {
         
@@ -319,10 +331,12 @@ UIAlertAction *sureAction = [UIAlertAction actionWithTitle:@"确 定" style:UIAl
 #pragma mark - put 请求
 - (IBAction)putData:(UIButton *)sender
 {
-    NSString *url = @"http://120.76.245.240:8080/bda/resetPassword/?account=761463699@qq.com&password=q&OTP=634613";
     NSDictionary *dict = @{@"EquipmentType":@"iPhone", @"EquipmentGUID":@"b61df00d-87db-426f-bc5a-bc8fffa907db"};
+    BADataEntity *entity = [BADataEntity new];
+    entity.urlString = @"http://120.76.245.240:8080/bda/resetPassword/?account=761463699@qq.com&password=q&OTP=634613";
+    entity.parameters = dict;
     
-    [BANetManager ba_request_PUTWithUrlString:url parameters:dict successBlock:^(id response) {
+    [BANetManager ba_request_PUTWithEntity:entity successBlock:^(id response) {
         NSLog(@"*********00000 : %@", response);
     } failureBlock:^(NSError *error) {
         
@@ -332,13 +346,15 @@ UIAlertAction *sureAction = [UIAlertAction actionWithTitle:@"确 定" style:UIAl
 #pragma mark - delete 请求
 - (IBAction)deleteData:(UIButton *)sender
 {
-    [BANetManager ba_request_DELETEWithUrlString:nil parameters:nil successBlock:nil failureBlock:nil progressBlock:nil];
+    BADataEntity *entity = [BADataEntity new];
+    [BANetManager ba_request_DELETEWithEntity:entity successBlock:nil failureBlock:nil progressBlock:nil];
 }
 
 #pragma mark - 上传文件
 - (IBAction)uploadFileButtonAction:(UIButton *)sender
 {
-    [BANetManager ba_uploadFileWithUrlString:nil parameters:nil fileName:nil filePath:nil successBlock:^(id response) {
+    BAFileDataEntity *fileEntity = [BAFileDataEntity new];
+    [BANetManager ba_uploadFileWithWithEntity:fileEntity successBlock:^(id response) {
         
     } failureBlock:^(NSError *error) {
         
