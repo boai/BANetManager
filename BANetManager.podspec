@@ -11,7 +11,7 @@ Pod::Spec.new do |s|
   s.source       = { :git => "https://github.com/boai/BANetManager.git", :tag => s.version.to_s }
 
   s.requires_arc = true
-  s.source_files = "BANetManager/BANetManager/*.{h,m}"
+  s.source_files = "BANetManager/BANetManager/**/*"
   s.frameworks   = 'UIKit'
   s.dependency   "AFNetworking"
   s.dependency   "YYCache"
