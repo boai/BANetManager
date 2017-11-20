@@ -135,6 +135,7 @@ int64_t totalBytesProgress);
  */
 typedef NSURLSessionTask BAURLSessionTask;
 
+@class BADataEntity;
 
 @interface BANetManager : NSObject
 
@@ -167,152 +168,118 @@ typedef NSURLSessionTask BAURLSessionTask;
 
 
 #pragma mark - 网络请求的类方法 --- get / post / put / delete
+
 /**
  网络请求的实例方法 get
- 
- @param urlString 请求的地址
- @param isNeedCache 是否需要缓存，只有 get / post 请求有缓存配置
- @param parameters 请求的参数
+
+ @param entity 请求信息载体
  @param successBlock 请求成功的回调
  @param failureBlock 请求失败的回调
- @param progressBlock 进度
+ @param progressBlock 进度回调
  @return BAURLSessionTask
  */
-+ (BAURLSessionTask *)ba_request_GETWithUrlString:(NSString *)urlString
-                                      isNeedCache:(BOOL)isNeedCache
-                                       parameters:(id)parameters
-                                     successBlock:(BAResponseSuccessBlock)successBlock
-                                     failureBlock:(BAResponseFailBlock)failureBlock
-                                    progressBlock:(BADownloadProgressBlock)progressBlock;
++ (BAURLSessionTask *)ba_request_GETWithEntity:(BADataEntity *)entity
+                                  successBlock:(BAResponseSuccessBlock)successBlock
+                                  failureBlock:(BAResponseFailBlock)failureBlock
+                                 progressBlock:(BADownloadProgressBlock)progressBlock;
 
 /**
  网络请求的实例方法 post
- 
- @param urlString 请求的地址
- @param isNeedCache 是否需要缓存，只有 get / post 请求有缓存配置
- @param parameters 请求的参数
+
+ @param entity 请求信息载体
  @param successBlock 请求成功的回调
  @param failureBlock 请求失败的回调
  @param progressBlock 进度
  @return BAURLSessionTask
  */
-+ (BAURLSessionTask *)ba_request_POSTWithUrlString:(NSString *)urlString
-                                       isNeedCache:(BOOL)isNeedCache
-                                        parameters:(id)parameters
-                                      successBlock:(BAResponseSuccessBlock)successBlock
-                                      failureBlock:(BAResponseFailBlock)failureBlock
-                                     progressBlock:(BADownloadProgressBlock)progressBlock;
++ (BAURLSessionTask *)ba_request_POSTWithEntity:(BADataEntity *)entity
+                                   successBlock:(BAResponseSuccessBlock)successBlock
+                                   failureBlock:(BAResponseFailBlock)failureBlock
+                                  progressBlock:(BADownloadProgressBlock)progressBlock;
 
 /**
  网络请求的实例方法 put
  
- @param urlString 请求的地址
- @param parameters 请求的参数
+ @param entity 请求信息载体
  @param successBlock 请求成功的回调
  @param failureBlock 请求失败的回调
  @param progressBlock 进度
  @return BAURLSessionTask
  */
-+ (BAURLSessionTask *)ba_request_PUTWithUrlString:(NSString *)urlString
-                                       parameters:(id)parameters
++ (BAURLSessionTask *)ba_request_PUTWithEntity:(BADataEntity *)entity
+                                  successBlock:(BAResponseSuccessBlock)successBlock
+                                  failureBlock:(BAResponseFailBlock)failureBlock
+                                 progressBlock:(BADownloadProgressBlock)progressBlock;
+
+/**
+ 网络请求的实例方法 delete
+ 
+ @param entity 请求信息载体
+ @param successBlock 请求成功的回调
+ @param failureBlock 请求失败的回调
+ @param progressBlock 进度
+ @return BAURLSessionTask
+ */
++ (BAURLSessionTask *)ba_request_DELETEWithEntity:(BADataEntity *)entity
                                      successBlock:(BAResponseSuccessBlock)successBlock
                                      failureBlock:(BAResponseFailBlock)failureBlock
                                     progressBlock:(BADownloadProgressBlock)progressBlock;
 
 /**
- 网络请求的实例方法 delete
- 
- @param urlString 请求的地址
- @param parameters 请求的参数
- @param successBlock 请求成功的回调
- @param failureBlock 请求失败的回调
- @param progressBlock 进度
- @return BAURLSessionTask
- */
-+ (BAURLSessionTask *)ba_request_DELETEWithUrlString:(NSString *)urlString
-                                          parameters:(id)parameters
-                                        successBlock:(BAResponseSuccessBlock)successBlock
-                                        failureBlock:(BAResponseFailBlock)failureBlock
-                                       progressBlock:(BADownloadProgressBlock)progressBlock;
-
-/**
  上传图片(多图)
  
- @param urlString urlString description
- @param parameters 上传图片预留参数---视具体情况而定 可为空
- @param imageArray 上传的图片数组
- @param fileNames 上传的图片数组 fileName
- @param imageType 图片类型，如：png、jpg、gif
- @param imageScale 图片压缩比率（0~1.0）
+ @param entity 请求信息载体
  @param successBlock 上传成功的回调
  @param failureBlock 上传失败的回调
  @param progressBlock 上传进度
  @return BAURLSessionTask
  */
-+ (BAURLSessionTask *)ba_uploadImageWithUrlString:(NSString *)urlString
-                                       parameters:(id)parameters
-                                       imageArray:(NSArray *)imageArray
-                                        fileNames:(NSArray <NSString *>*)fileNames
-                                        imageType:(NSString *)imageType
-                                       imageScale:(CGFloat)imageScale
-                                     successBlock:(BAResponseSuccessBlock)successBlock
-                                      failurBlock:(BAResponseFailBlock)failureBlock
-                                    progressBlock:(BAUploadProgressBlock)progressBlock;
++ (BAURLSessionTask *)ba_uploadImageWithEntity:(BADataEntity *)entity
+                                  successBlock:(BAResponseSuccessBlock)successBlock
+                                   failurBlock:(BAResponseFailBlock)failureBlock
+                                 progressBlock:(BAUploadProgressBlock)progressBlock;
 
 /**
  视频上传
  
- @param urlString 上传的url
- @param parameters 上传视频预留参数---视具体情况而定 可移除
- @param videoPath 上传视频的本地沙河路径
+ @param entity 请求信息载体
  @param successBlock 成功的回调
  @param failureBlock 失败的回调
  @param progressBlock 上传的进度
  */
-+ (void)ba_uploadVideoWithUrlString:(NSString *)urlString
-                         parameters:(id)parameters
-                          videoPath:(NSString *)videoPath
-                       successBlock:(BAResponseSuccessBlock)successBlock
-                       failureBlock:(BAResponseFailBlock)failureBlock
-                      progressBlock:(BAUploadProgressBlock)progressBlock;
++ (void)ba_uploadVideoWithEntity:(BADataEntity *)entity
+                    successBlock:(BAResponseSuccessBlock)successBlock
+                    failureBlock:(BAResponseFailBlock)failureBlock
+                   progressBlock:(BAUploadProgressBlock)progressBlock;
 
 /**
  文件下载
  
- @param urlString 请求的url
- @param parameters 文件下载预留参数---视具体情况而定 可移除
- @param savePath 下载文件保存路径
+ @param entity 请求信息载体
  @param successBlock 下载文件成功的回调
  @param failureBlock 下载文件失败的回调
  @param progressBlock 下载文件的进度显示
  @return BAURLSessionTask
  */
-+ (BAURLSessionTask *)ba_downLoadFileWithUrlString:(NSString *)urlString
-                                        parameters:(id)parameters
-                                          savaPath:(NSString *)savePath
-                                      successBlock:(BAResponseSuccessBlock)successBlock
-                                      failureBlock:(BAResponseFailBlock)failureBlock
-                                     progressBlock:(BADownloadProgressBlock)progressBlock;
++ (BAURLSessionTask *)ba_downLoadFileWithEntity:(BADataEntity *)entity
+                                   successBlock:(BAResponseSuccessBlock)successBlock
+                                   failureBlock:(BAResponseFailBlock)failureBlock
+                                  progressBlock:(BADownloadProgressBlock)progressBlock;
 
 /**
  文件上传
  
- @param urlString urlString description
- @param parameters parameters description
- @param fileName fileName description
- @param filePath filePath description
+ @param entity 请求信息载体
  @param successBlock successBlock description
  @param failureBlock failureBlock description
  @param progressBlock progressBlock description
  @return BAURLSessionTask
  */
-+ (BAURLSessionTask *)ba_uploadFileWithUrlString:(NSString *)urlString
-                                      parameters:(id)parameters
-                                        fileName:(NSString *)fileName
-                                        filePath:(NSString *)filePath
-                                    successBlock:(BAResponseSuccessBlock)successBlock
-                                    failureBlock:(BAResponseFailBlock)failureBlock
-                                   progressBlock:(BAUploadProgressBlock)progressBlock;
++ (BAURLSessionTask *)ba_uploadFileWithWithEntity:(BADataEntity *)entity
+                                     successBlock:(BAResponseSuccessBlock)successBlock
+                                     failureBlock:(BAResponseFailBlock)failureBlock
+                                    progressBlock:(BAUploadProgressBlock)progressBlock;
+
 
 #pragma mark - 网络状态监测
 /*!
@@ -347,36 +314,155 @@ typedef NSURLSessionTask BAURLSessionTask;
  */
 - (void)ba_clearAllHttpCache;
 
-
-#pragma mark - 各版本过期方法名
-#pragma mark version 2.0 过期方法名
-//+ (BAURLSessionTask *)ba_requestWithType:(BAHttpRequestType)type
-//                               UrlString:(NSString *)urlString
-//                              Parameters:(id)parameters
-//                            SuccessBlock:(BAResponseSuccessBlock)successBlock
-//                            FailureBlock:(BAResponseFailBlock)failureBlock
-//                                progress:(BADownloadProgressBlock)progress BANetManagerDeprecated("该方法已过期,请使用最新方法：+ (BAURLSessionTask *)ba_requestWithType:(BAHttpRequestType)type urlString:(NSString *)urlString parameters:(id)parameters successBlock:(BAResponseSuccessBlock)successBlock failureBlock:(BAResponseFailBlock)failureBlock progress:(BADownloadProgressBlock)progress");
-
-//+ (BAURLSessionTask *)ba_uploadImageWithUrlString:(NSString *)urlString
-//                                       parameters:(id)parameters
-//                                       ImageArray:(NSArray *)imageArray
-//                                         FileName:(NSString *)fileName
-//                                     SuccessBlock:(BAResponseSuccessBlock)successBlock
-//                                      FailurBlock:(BAResponseFailBlock)failureBlock
-//                                   UpLoadProgress:(BAUploadProgressBlock)progress BANetManagerDeprecated("该方法已过期,请使用最新方法：+ (BAURLSessionTask *)ba_uploadImageWithUrlString:(NSString *)urlString parameters:(id)parameters imageArray:(NSArray *)imageArray fileName:(NSString *)fileName successBlock:(BAResponseSuccessBlock)successBlock failurBlock:(BAResponseFailBlock)failureBlock upLoadProgress:(BAUploadProgressBlock)progress");
-//
-//+ (void)ba_uploadVideoWithUrlString:(NSString *)urlString
-//                         parameters:(id)parameters
-//                          VideoPath:(NSString *)videoPath
-//                       SuccessBlock:(BAResponseSuccessBlock)successBlock
-//                       FailureBlock:(BAResponseFailBlock)failureBlock
-//                     UploadProgress:(BAUploadProgressBlock)progress BANetManagerDeprecated("该方法已过期,请使用最新方法：+ (void)ba_uploadVideoWithUrlString:(NSString *)urlString parameters:(id)parameters videoPath:(NSString *)videoPath successBlock:(BAResponseSuccessBlock)successBlock failureBlock:(BAResponseFailBlock)failureBlock uploadProgress:(BAUploadProgressBlock)progress");
-//
-//+ (BAURLSessionTask *)ba_downLoadFileWithUrlString:(NSString *)urlString
-//                                        parameters:(id)parameters
-//                                          SavaPath:(NSString *)savePath
-//                                      SuccessBlock:(BAResponseSuccessBlock)successBlock
-//                                      FailureBlock:(BAResponseFailBlock)failureBlock
-//                                  DownLoadProgress:(BADownloadProgressBlock)progress BANetManagerDeprecated("该方法已过期,请使用最新方法：+ (BAURLSessionTask *)ba_downLoadFileWithUrlString:(NSString *)urlString parameters:(id)parameters savaPath:(NSString *)savePath successBlock:(BAResponseSuccessBlock)successBlock failureBlock:(BAResponseFailBlock)failureBlock downLoadProgress:(BADownloadProgressBlock)progress");
-
 @end
+
+#pragma mark - 过期方法 网络请求的类方法 --- get / post / put / delete
+// /**
+// 网络请求的实例方法 get
+//
+// @param urlString 请求的地址
+// @param isNeedCache 是否需要缓存，只有 get / post 请求有缓存配置
+// @param parameters 请求的参数
+// @param successBlock 请求成功的回调
+// @param failureBlock 请求失败的回调
+// @param progressBlock 进度
+// @return BAURLSessionTask
+// */
+//+ (BAURLSessionTask *)ba_request_GETWithUrlString:(NSString *)urlString
+//isNeedCache:(BOOL)isNeedCache
+//parameters:(id)parameters
+//successBlock:(BAResponseSuccessBlock)successBlock
+//failureBlock:(BAResponseFailBlock)failureBlock
+//progressBlock:(BADownloadProgressBlock)progressBlock;
+//
+///**
+// 网络请求的实例方法 post
+//
+// @param urlString 请求的地址
+// @param isNeedCache 是否需要缓存，只有 get / post 请求有缓存配置
+// @param parameters 请求的参数
+// @param successBlock 请求成功的回调
+// @param failureBlock 请求失败的回调
+// @param progressBlock 进度
+// @return BAURLSessionTask
+// */
+//+ (BAURLSessionTask *)ba_request_POSTWithUrlString:(NSString *)urlString
+//isNeedCache:(BOOL)isNeedCache
+//parameters:(id)parameters
+//successBlock:(BAResponseSuccessBlock)successBlock
+//failureBlock:(BAResponseFailBlock)failureBlock
+//progressBlock:(BADownloadProgressBlock)progressBlock;
+//
+///**
+// 网络请求的实例方法 put
+//
+// @param urlString 请求的地址
+// @param parameters 请求的参数
+// @param successBlock 请求成功的回调
+// @param failureBlock 请求失败的回调
+// @param progressBlock 进度
+// @return BAURLSessionTask
+// */
+//+ (BAURLSessionTask *)ba_request_PUTWithUrlString:(NSString *)urlString
+//parameters:(id)parameters
+//successBlock:(BAResponseSuccessBlock)successBlock
+//failureBlock:(BAResponseFailBlock)failureBlock
+//progressBlock:(BADownloadProgressBlock)progressBlock;
+//
+///**
+// 网络请求的实例方法 delete
+//
+// @param urlString 请求的地址
+// @param parameters 请求的参数
+// @param successBlock 请求成功的回调
+// @param failureBlock 请求失败的回调
+// @param progressBlock 进度
+// @return BAURLSessionTask
+// */
+//+ (BAURLSessionTask *)ba_request_DELETEWithUrlString:(NSString *)urlString
+//parameters:(id)parameters
+//successBlock:(BAResponseSuccessBlock)successBlock
+//failureBlock:(BAResponseFailBlock)failureBlock
+//progressBlock:(BADownloadProgressBlock)progressBlock;
+//
+///**
+// 上传图片(多图)
+//
+// @param urlString urlString description
+// @param parameters 上传图片预留参数---视具体情况而定 可为空
+// @param imageArray 上传的图片数组
+// @param fileNames 上传的图片数组 fileName
+// @param imageType 图片类型，如：png、jpg、gif
+// @param imageScale 图片压缩比率（0~1.0）
+// @param successBlock 上传成功的回调
+// @param failureBlock 上传失败的回调
+// @param progressBlock 上传进度
+// @return BAURLSessionTask
+// */
+//+ (BAURLSessionTask *)ba_uploadImageWithUrlString:(NSString *)urlString
+//parameters:(id)parameters
+//imageArray:(NSArray *)imageArray
+//fileNames:(NSArray <NSString *>*)fileNames
+//imageType:(NSString *)imageType
+//imageScale:(CGFloat)imageScale
+//successBlock:(BAResponseSuccessBlock)successBlock
+//failurBlock:(BAResponseFailBlock)failureBlock
+//progressBlock:(BAUploadProgressBlock)progressBlock;
+//
+///**
+// 视频上传
+//
+// @param urlString 上传的url
+// @param parameters 上传视频预留参数---视具体情况而定 可移除
+// @param videoPath 上传视频的本地沙河路径
+// @param successBlock 成功的回调
+// @param failureBlock 失败的回调
+// @param progressBlock 上传的进度
+// */
+//+ (void)ba_uploadVideoWithUrlString:(NSString *)urlString
+//parameters:(id)parameters
+//videoPath:(NSString *)videoPath
+//successBlock:(BAResponseSuccessBlock)successBlock
+//failureBlock:(BAResponseFailBlock)failureBlock
+//progressBlock:(BAUploadProgressBlock)progressBlock;
+//
+///**
+// 文件下载
+//
+// @param urlString 请求的url
+// @param parameters 文件下载预留参数---视具体情况而定 可移除
+// @param savePath 下载文件保存路径
+// @param successBlock 下载文件成功的回调
+// @param failureBlock 下载文件失败的回调
+// @param progressBlock 下载文件的进度显示
+// @return BAURLSessionTask
+// */
+//+ (BAURLSessionTask *)ba_downLoadFileWithUrlString:(NSString *)urlString
+//parameters:(id)parameters
+//savaPath:(NSString *)savePath
+//successBlock:(BAResponseSuccessBlock)successBlock
+//failureBlock:(BAResponseFailBlock)failureBlock
+//progressBlock:(BADownloadProgressBlock)progressBlock;
+//
+///**
+// 文件上传
+//
+// @param urlString urlString description
+// @param parameters parameters description
+// @param fileName fileName description
+// @param filePath filePath description
+// @param successBlock successBlock description
+// @param failureBlock failureBlock description
+// @param progressBlock progressBlock description
+// @return BAURLSessionTask
+// */
+//+ (BAURLSessionTask *)ba_uploadFileWithUrlString:(NSString *)urlString
+//parameters:(id)parameters
+//fileName:(NSString *)fileName
+//filePath:(NSString *)filePath
+//successBlock:(BAResponseSuccessBlock)successBlock
+//failureBlock:(BAResponseFailBlock)failureBlock
+//progressBlock:(BAUploadProgressBlock)progressBlock;
+
+
+
