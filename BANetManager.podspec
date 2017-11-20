@@ -11,9 +11,13 @@ Pod::Spec.new do |s|
   s.source       = { :git => "https://github.com/boai/BANetManager.git", :tag => s.version.to_s }
 
   s.requires_arc = true
-  s.source_files = "BANetManager/BANetManager/**/*.{h,m}"
+# s.source_files = "BANetManager/BANetManager/**/*.{h,m}"
   s.subspec 'BAParameterEntity' do |dataModel|
     dataModel.source_files = 'BANetManager/BANetManager/BAParameterEntity/**/*.{h,m}'
+  end
+
+  s.subspec 'Core' do |core|
+    core.source_files = 'BANetManager/BANetManager/Core/**/*.{h,m}'
   end
 
   s.frameworks   = 'UIKit'
