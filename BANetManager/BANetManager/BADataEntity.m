@@ -15,3 +15,12 @@
 }
 
 @end
+
+@implementation BAFileDataEntity
+
+@end
+
+@implementation BAImageDataEntity
+
+@end
+

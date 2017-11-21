@@ -70,8 +70,6 @@
 #import "BANetManagerCache.h"
 
 #import "BADataEntity.h"
-#import "BAImageDataEntity.h"
-#import "BAFileDataEntity.h"
 
 
 static NSMutableArray *tasks;
