@@ -21,13 +21,13 @@
  OC 版 ：https://github.com/BAHome/BANetManager
  
  最新更新时间：2017-11-20 【倒叙】<br>
- 最新Version：【Version：2.3.7】<br>
+ 最新Version：【Version：2.3.8】<br>
  更新内容：<br>
- 2.3.7.1、【方法替换】原传参方式为 id 类型，现在统一改为 BADataEntity 类型，具体参考 BADataEntity 类，如果更新发现较多错误，敬请谅解，可以恢复至上一版本【Version：2.3.6】，感谢[@北京-晋登科 大神](http://www.jianshu.com/u/1fc1bd217dc5) 的亲自操刀改版！<br>
- 2.3.7.2、【方法替换】原图像上传方法传参 精简为 BADataEntity 类下的 BAImageDataEntity 类，具体参考 BAImageDataEntity 类，如果更新发现较多错误，敬请谅解，可以恢复至上一版本【Version：2.3.6】<br>
- 2.3.7.3、【方法替换】原文件上传、下载方法传参 精简为 BADataEntity 类下的 BAFileDataEntity 类，具体参考 BAFileDataEntity 类，如果更新发现较多错误，敬请谅解，可以恢复至上一版本【Version：2.3.6】<br>
- 2.3.7.4、【新增文件】新增 BAParameterEntity 文件夹，主要处理所有上传所需的参数等信息 <br>
- 2.3.7.4、【新增文件】新增 BANetManager_Version.h 文件，主要处理所有版本更新内容等信息 <br>
+ 2.3.8.1、【方法替换】原传参方式为 id 类型，现在统一改为 BADataEntity 类型，具体参考 BADataEntity 类，如果更新发现较多错误，敬请谅解，可以恢复至上一版本【Version：2.3.6】，感谢[@北京-晋登科 大神](http://www.jianshu.com/u/1fc1bd217dc5) 的亲自操刀改版！<br>
+ 2.3.8.2、【方法替换】原图像上传方法传参 精简为 BADataEntity 类下的 BAImageDataEntity 类，具体参考 BAImageDataEntity 类，如果更新发现较多错误，敬请谅解，可以恢复至上一版本【Version：2.3.6】<br>
+ 2.3.8.3、【方法替换】原文件上传、下载方法传参 精简为 BADataEntity 类下的 BAFileDataEntity 类，具体参考 BAFileDataEntity 类，如果更新发现较多错误，敬请谅解，可以恢复至上一版本【Version：2.3.6】<br>
+ 2.3.8.4、【新增文件】新增 BAParameterEntity 文件夹，主要处理所有上传所需的参数等信息 <br>
+ 2.3.8.4、【新增文件】新增 BANetManager_Version.h 文件，主要处理所有版本更新内容等信息 <br>
 
  最新更新时间：2017-09-09 【倒叙】<br>
  最新Version：【Version：2.3.6】<br>
