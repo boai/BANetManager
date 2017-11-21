@@ -63,7 +63,5 @@
 
 #import "BANetManager.h"
 #import "BADataEntity.h"
-#import "BAImageDataEntity.h"
-#import "BAFileDataEntity.h"
 
 #endif /* BANetManager_OC_h */

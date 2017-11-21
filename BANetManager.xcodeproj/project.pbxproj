@@ -8,12 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		C401ED061F1DA0FB0001AD40 /* postdynamic.php in Resources */ = {isa = PBXBuildFile; fileRef = C401ED051F1DA0FB0001AD40 /* postdynamic.php */; };
-		C424BBB81FC267F9009B7F6C /* BAFileDataEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = C424BBB41FC267F9009B7F6C /* BAFileDataEntity.m */; };
-		C424BBB91FC267F9009B7F6C /* BAImageDataEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = C424BBB51FC267F9009B7F6C /* BAImageDataEntity.m */; };
-		C424BBBA1FC267F9009B7F6C /* BADataEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = C424BBB61FC267F9009B7F6C /* BADataEntity.m */; };
-		C424BBC41FC2AA9B009B7F6C /* BANetManagerCache.m in Sources */ = {isa = PBXBuildFile; fileRef = C424BBBC1FC2AA9B009B7F6C /* BANetManagerCache.m */; };
-		C424BBC51FC2AA9B009B7F6C /* BANetManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C424BBBD1FC2AA9B009B7F6C /* BANetManager.m */; };
-		C424BBC61FC2AA9B009B7F6C /* UIImage+CompressImage.m in Sources */ = {isa = PBXBuildFile; fileRef = C424BBBE1FC2AA9B009B7F6C /* UIImage+CompressImage.m */; };
+		C424BBDD1FC3D6A4009B7F6C /* BANetManagerCache.m in Sources */ = {isa = PBXBuildFile; fileRef = C424BBD31FC3D6A3009B7F6C /* BANetManagerCache.m */; };
+		C424BBDE1FC3D6A4009B7F6C /* BANetManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C424BBD41FC3D6A3009B7F6C /* BANetManager.m */; };
+		C424BBDF1FC3D6A4009B7F6C /* BADataEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = C424BBD71FC3D6A3009B7F6C /* BADataEntity.m */; };
+		C424BBE01FC3D6A4009B7F6C /* UIImage+CompressImage.m in Sources */ = {isa = PBXBuildFile; fileRef = C424BBDA1FC3D6A3009B7F6C /* UIImage+CompressImage.m */; };
 		C492313F1ED0431A00B61C37 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C492313E1ED0431A00B61C37 /* main.m */; };
 		C49231421ED0431A00B61C37 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C49231411ED0431A00B61C37 /* AppDelegate.m */; };
 		C492314A1ED0431A00B61C37 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C49231491ED0431A00B61C37 /* Assets.xcassets */; };
@@ -28,20 +26,16 @@
 		3A5CFBEBCCE88E55DFFA7211 /* Pods-BANetManager.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BANetManager.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BANetManager/Pods-BANetManager.debug.xcconfig"; sourceTree = "<group>"; };
 		8E8F4FEA979F0E81B0C453A4 /* libPods-BANetManager.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BANetManager.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C401ED051F1DA0FB0001AD40 /* postdynamic.php */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.php; path = postdynamic.php; sourceTree = "<group>"; };
-		C424BBB21FC267F9009B7F6C /* BAImageDataEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BAImageDataEntity.h; sourceTree = "<group>"; };
-		C424BBB31FC267F9009B7F6C /* BADataEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BADataEntity.h; sourceTree = "<group>"; };
-		C424BBB41FC267F9009B7F6C /* BAFileDataEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BAFileDataEntity.m; sourceTree = "<group>"; };
-		C424BBB51FC267F9009B7F6C /* BAImageDataEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BAImageDataEntity.m; sourceTree = "<group>"; };
-		C424BBB61FC267F9009B7F6C /* BADataEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BADataEntity.m; sourceTree = "<group>"; };
-		C424BBB71FC267F9009B7F6C /* BAFileDataEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BAFileDataEntity.h; sourceTree = "<group>"; };
-		C424BBBC1FC2AA9B009B7F6C /* BANetManagerCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BANetManagerCache.m; sourceTree = "<group>"; };
-		C424BBBD1FC2AA9B009B7F6C /* BANetManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BANetManager.m; sourceTree = "<group>"; };
-		C424BBBE1FC2AA9B009B7F6C /* UIImage+CompressImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+CompressImage.m"; sourceTree = "<group>"; };
-		C424BBBF1FC2AA9B009B7F6C /* BANetManager_Version.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BANetManager_Version.h; sourceTree = "<group>"; };
-		C424BBC01FC2AA9B009B7F6C /* BANetManagerCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BANetManagerCache.h; sourceTree = "<group>"; };
-		C424BBC11FC2AA9B009B7F6C /* UIImage+CompressImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+CompressImage.h"; sourceTree = "<group>"; };
-		C424BBC21FC2AA9B009B7F6C /* BANetManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BANetManager.h; sourceTree = "<group>"; };
-		C424BBC31FC2AA9B009B7F6C /* BANetManager_OC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BANetManager_OC.h; sourceTree = "<group>"; };
+		C424BBD31FC3D6A3009B7F6C /* BANetManagerCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BANetManagerCache.m; sourceTree = "<group>"; };
+		C424BBD41FC3D6A3009B7F6C /* BANetManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BANetManager.m; sourceTree = "<group>"; };
+		C424BBD51FC3D6A3009B7F6C /* BANetManager_OC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BANetManager_OC.h; sourceTree = "<group>"; };
+		C424BBD61FC3D6A3009B7F6C /* BADataEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BADataEntity.h; sourceTree = "<group>"; };
+		C424BBD71FC3D6A3009B7F6C /* BADataEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BADataEntity.m; sourceTree = "<group>"; };
+		C424BBD81FC3D6A3009B7F6C /* BANetManager_Version.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BANetManager_Version.h; sourceTree = "<group>"; };
+		C424BBD91FC3D6A3009B7F6C /* UIImage+CompressImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+CompressImage.h"; sourceTree = "<group>"; };
+		C424BBDA1FC3D6A3009B7F6C /* UIImage+CompressImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+CompressImage.m"; sourceTree = "<group>"; };
+		C424BBDB1FC3D6A4009B7F6C /* BANetManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BANetManager.h; sourceTree = "<group>"; };
+		C424BBDC1FC3D6A4009B7F6C /* BANetManagerCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BANetManagerCache.h; sourceTree = "<group>"; };
 		C492313A1ED0431A00B61C37 /* BANetManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BANetManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C492313E1ED0431A00B61C37 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		C49231401ED0431A00B61C37 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -81,34 +75,6 @@
 				8E8F4FEA979F0E81B0C453A4 /* libPods-BANetManager.a */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		C424BBB11FC267F9009B7F6C /* BAParameterEntity */ = {
-			isa = PBXGroup;
-			children = (
-				C424BBB31FC267F9009B7F6C /* BADataEntity.h */,
-				C424BBB61FC267F9009B7F6C /* BADataEntity.m */,
-				C424BBB71FC267F9009B7F6C /* BAFileDataEntity.h */,
-				C424BBB41FC267F9009B7F6C /* BAFileDataEntity.m */,
-				C424BBB21FC267F9009B7F6C /* BAImageDataEntity.h */,
-				C424BBB51FC267F9009B7F6C /* BAImageDataEntity.m */,
-			);
-			path = BAParameterEntity;
-			sourceTree = "<group>";
-		};
-		C424BBBB1FC2AA9B009B7F6C /* Core */ = {
-			isa = PBXGroup;
-			children = (
-				C424BBC31FC2AA9B009B7F6C /* BANetManager_OC.h */,
-				C424BBBF1FC2AA9B009B7F6C /* BANetManager_Version.h */,
-				C424BBC11FC2AA9B009B7F6C /* UIImage+CompressImage.h */,
-				C424BBBE1FC2AA9B009B7F6C /* UIImage+CompressImage.m */,
-				C424BBC21FC2AA9B009B7F6C /* BANetManager.h */,
-				C424BBBD1FC2AA9B009B7F6C /* BANetManager.m */,
-				C424BBC01FC2AA9B009B7F6C /* BANetManagerCache.h */,
-				C424BBBC1FC2AA9B009B7F6C /* BANetManagerCache.m */,
-			);
-			path = Core;
 			sourceTree = "<group>";
 		};
 		C49231311ED0431A00B61C37 = {
@@ -158,8 +124,16 @@
 		C49231541ED0434300B61C37 /* BANetManager */ = {
 			isa = PBXGroup;
 			children = (
-				C424BBBB1FC2AA9B009B7F6C /* Core */,
-				C424BBB11FC267F9009B7F6C /* BAParameterEntity */,
+				C424BBD61FC3D6A3009B7F6C /* BADataEntity.h */,
+				C424BBD71FC3D6A3009B7F6C /* BADataEntity.m */,
+				C424BBD51FC3D6A3009B7F6C /* BANetManager_OC.h */,
+				C424BBD81FC3D6A3009B7F6C /* BANetManager_Version.h */,
+				C424BBDB1FC3D6A4009B7F6C /* BANetManager.h */,
+				C424BBD41FC3D6A3009B7F6C /* BANetManager.m */,
+				C424BBDC1FC3D6A4009B7F6C /* BANetManagerCache.h */,
+				C424BBD31FC3D6A3009B7F6C /* BANetManagerCache.m */,
+				C424BBD91FC3D6A3009B7F6C /* UIImage+CompressImage.h */,
+				C424BBDA1FC3D6A3009B7F6C /* UIImage+CompressImage.m */,
 			);
 			path = BANetManager;
 			sourceTree = "<group>";
@@ -193,7 +167,7 @@
 		C49231321ED0431A00B61C37 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0910;
+				LastUpgradeCheck = 0830;
 				ORGANIZATIONNAME = boai;
 				TargetAttributes = {
 					C49231391ED0431A00B61C37 = {
@@ -257,13 +231,16 @@
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-BANetManager-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		BF37F19664EB3CF797ACA464 /* [CP] Embed Pods Frameworks */ = {
@@ -289,14 +266,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				C492316E1ED26D0F00B61C37 /* ViewController.m in Sources */,
-				C424BBC41FC2AA9B009B7F6C /* BANetManagerCache.m in Sources */,
-				C424BBB81FC267F9009B7F6C /* BAFileDataEntity.m in Sources */,
-				C424BBBA1FC267F9009B7F6C /* BADataEntity.m in Sources */,
+				C424BBDE1FC3D6A4009B7F6C /* BANetManager.m in Sources */,
 				C49231421ED0431A00B61C37 /* AppDelegate.m in Sources */,
-				C424BBB91FC267F9009B7F6C /* BAImageDataEntity.m in Sources */,
-				C424BBC51FC2AA9B009B7F6C /* BANetManager.m in Sources */,
 				C492313F1ED0431A00B61C37 /* main.m in Sources */,
-				C424BBC61FC2AA9B009B7F6C /* UIImage+CompressImage.m in Sources */,
+				C424BBE01FC3D6A4009B7F6C /* UIImage+CompressImage.m in Sources */,
+				C424BBDD1FC3D6A4009B7F6C /* BANetManagerCache.m in Sources */,
+				C424BBDF1FC3D6A4009B7F6C /* BADataEntity.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -332,9 +307,7 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -342,11 +315,7 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
-				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
-				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -386,9 +355,7 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -396,11 +363,7 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
-				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
-				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
