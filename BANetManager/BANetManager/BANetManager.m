@@ -269,6 +269,15 @@ static NSMutableArray *tasks;
         return nil;
     }
     
+    if (BANetManagerShare.isSetQueryStringSerialization)
+    {
+        [BANetManagerShare.sessionManager.requestSerializer setQueryStringSerializationWithBlock:^NSString * _Nonnull(NSURLRequest * _Nonnull request, id  _Nonnull parameters, NSError * _Nullable __autoreleasing * _Nullable error) {
+            
+            return parameters;
+            
+        }];
+    }
+    
     if (type == BAHttpRequestTypeGet)
     {
         sessionTask = [BANetManagerShare.sessionManager GET:URLString parameters:parameters  progress:^(NSProgress * _Nonnull downloadProgress) {

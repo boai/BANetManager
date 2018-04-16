@@ -2,4 +2,54 @@
 <Bucket
    type = "0"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "BANetManager/BANetManager/BANetManager.m"
+            timestampString = "545558645.335937"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "274"
+            endingLineNumber = "274"
+            landmarkName = "+ba_requestWithType:isNeedCache:urlString:parameters:successBlock:failureBlock:progressBlock:"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "+[BANetManager ba_requestWithType:isNeedCache:urlString:parameters:successBlock:failureBlock:progressBlock:]"
+                  moduleName = "BANetManager"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/boai/Documents/%E5%8D%9A%E7%88%B1%E6%B5%8B%E8%AF%95/gitHub/BANetManager%E3%80%90MY%E3%80%91/BANetManager/BANetManager/BANetManager.m"
+                  timestampString = "545558645.433901"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "274"
+                  endingLineNumber = "274"
+                  offsetFromSymbolStart = "1724">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__108+[BANetManager ba_requestWithType:isNeedCache:urlString:parameters:successBlock:failureBlock:progressBlock:]_block_invoke"
+                  moduleName = "BANetManager"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/boai/Documents/%E5%8D%9A%E7%88%B1%E6%B5%8B%E8%AF%95/gitHub/BANetManager%E3%80%90MY%E3%80%91/BANetManager/BANetManager/BANetManager.m"
+                  timestampString = "545558645.437627"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "276"
+                  endingLineNumber = "276"
+                  offsetFromSymbolStart = "100">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>
