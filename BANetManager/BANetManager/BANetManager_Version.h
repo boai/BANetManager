@@ -20,6 +20,12 @@
  项目源码地址：
  OC 版 ：https://github.com/BAHome/BANetManager
  
+ 最新更新时间：2018-04-16 【倒叙】<br>
+ 最新Version：【Version：2.3.9】<br>
+ 更新内容：<br>
+ 2.3.9.1、新增 isSetQueryStringSerialization 配置参数，可以将传入 的 string 参数序列化，使用方式：BANetManagerShare.isSetQueryStringSerialization = YES，详见【BANetManager.h】文件;
+ 2.3.9.1、修复 【BANetManagerCache.m】文件中，【+ (NSString *)ba_cacheWithUrlString:(NSString *)urlString parameters:(NSDictionary *)parameters】方法中 parameters 增加了字典的容错判断。
+ 
  最新更新时间：2017-11-20 【倒叙】<br>
  最新Version：【Version：2.3.8】<br>
  更新内容：<br>

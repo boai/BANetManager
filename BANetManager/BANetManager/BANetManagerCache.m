@@ -75,11 +75,15 @@ static  YYCache *_dataCache;
     {
         return urlString;
     }
-    NSData *cacheData = [NSJSONSerialization dataWithJSONObject:parameters options:0 error:nil];
-    NSString *cacheString = [[NSString alloc] initWithData:cacheData encoding:NSUTF8StringEncoding];
-    
-    NSString *cacheKey = [NSString stringWithFormat:@"%@%@", urlString, cacheString];
-    return cacheKey;
+    if ([parameters isKindOfClass:[NSDictionary class]])
+    {
+        NSData *cacheData = [NSJSONSerialization dataWithJSONObject:parameters options:0 error:nil];
+        NSString *cacheString = [[NSString alloc] initWithData:cacheData encoding:NSUTF8StringEncoding];
+        
+        NSString *cacheKey = [NSString stringWithFormat:@"%@%@", urlString, cacheString];
+        return cacheKey;
+    }
+    return nil;
 }
 
 /**

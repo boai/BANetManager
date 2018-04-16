@@ -159,6 +159,11 @@ typedef NSURLSessionTask BAURLSessionTask;
  */
 @property(nonatomic, strong) NSDictionary *httpHeaderFieldDictionary;
 
+/**
+ 将传入 的 string 参数序列化
+ */
+@property(nonatomic, assign) BOOL isSetQueryStringSerialization;
+
 /*!
  *  获得全局唯一的网络请求实例单例方法
  *
