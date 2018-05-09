@@ -4,6 +4,8 @@
 ![](https://img.shields.io/badge/license-MIT%20License-brightgreen.svg) 
 ![](https://img.shields.io/cocoapods/v/BANetManager.svg?style=flat) ![](https://img.shields.io/cocoapods/dt/BANetManager.svg
 )  [![](https://img.shields.io/badge/微博-博爱1616-red.svg)](http://weibo.com/538298123)
+[![codecov.io](https://codecov.io/github/BANetManager/BANetManager/coverage.svg?branch=master)](https://codecov.io/github/BANetManager/BANetManager?branch=master)
+
 
 ## 1、功能及简介
 * 1、集成 get / post / put / delete 等常用请求方式的封装 <br>
