@@ -4,6 +4,8 @@
 ![](https://img.shields.io/badge/license-MIT%20License-brightgreen.svg) 
 ![](https://img.shields.io/cocoapods/v/BANetManager.svg?style=flat) ![](https://img.shields.io/cocoapods/dt/BANetManager.svg
 )  [![](https://img.shields.io/badge/微博-博爱1616-red.svg)](http://weibo.com/538298123)
+[![codecov.io](https://codecov.io/github/BAHome/BANetManager/coverage.svg?branch=master)](https://codecov.io/github/BAHome/BANetManager?branch=master)
+
 
 ## 1、功能及简介
 * 1、集成 get / post / put / delete 等常用请求方式的封装 <br>
@@ -22,6 +24,7 @@
 * 14、控制台打印 debug 状态下显示中文<br>
 * 15、新增 默认请求头：@"application/x-www-form-urlencoded" <br>
 * 16、新增 删除所有缓存的方法，可以自由删除当前的所有缓存！<br>
+* 17、新增单元测试
 
  
 ## 2、图片示例

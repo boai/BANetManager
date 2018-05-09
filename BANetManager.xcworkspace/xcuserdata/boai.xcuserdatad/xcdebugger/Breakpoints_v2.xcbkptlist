@@ -25,8 +25,8 @@
                   symbolName = "+[BANetManager ba_requestWithType:isNeedCache:urlString:parameters:successBlock:failureBlock:progressBlock:]"
                   moduleName = "BANetManager"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/boai/Documents/%E5%8D%9A%E7%88%B1%E6%B5%8B%E8%AF%95/gitHub/BANetManager%E3%80%90MY%E3%80%91/BANetManager/BANetManager/BANetManager.m"
-                  timestampString = "545558645.433901"
+                  urlString = "file:///Users/boai/%E5%8D%9A%E7%88%B1/GitHub/BANetManager%E3%80%90MY%E3%80%91/BANetManager/BANetManager/BANetManager.m"
+                  timestampString = "547554194.330276"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "274"
@@ -40,8 +40,8 @@
                   symbolName = "__108+[BANetManager ba_requestWithType:isNeedCache:urlString:parameters:successBlock:failureBlock:progressBlock:]_block_invoke"
                   moduleName = "BANetManager"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/boai/Documents/%E5%8D%9A%E7%88%B1%E6%B5%8B%E8%AF%95/gitHub/BANetManager%E3%80%90MY%E3%80%91/BANetManager/BANetManager/BANetManager.m"
-                  timestampString = "545558645.437627"
+                  urlString = "file:///Users/boai/%E5%8D%9A%E7%88%B1/GitHub/BANetManager%E3%80%90MY%E3%80%91/BANetManager/BANetManager/BANetManager.m"
+                  timestampString = "547554194.332617"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "276"
@@ -49,6 +49,102 @@
                   offsetFromSymbolStart = "100">
                </Location>
             </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "BANetManagerTests/BANetManagerTests.m"
+            timestampString = "547554194.280688"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "55"
+            endingLineNumber = "55"
+            landmarkName = "-testBa_netType"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "BANetManagerTests/BANetManagerTests.m"
+            timestampString = "547554194.281315"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "51"
+            endingLineNumber = "51"
+            landmarkName = "-testBa_netType"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "BANetManagerTests/BANetManagerTests.m"
+            timestampString = "547554194.281565"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "72"
+            endingLineNumber = "72"
+            landmarkName = "-testBa_netType"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "BANetManagerTests/BANetManagerTests.m"
+            timestampString = "547554194.281849"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "92"
+            endingLineNumber = "92"
+            landmarkName = "-testGet"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "BANetManagerTests/BANetManagerTests.m"
+            timestampString = "547554194.282122"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "89"
+            endingLineNumber = "89"
+            landmarkName = "-testGet"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "BANetManagerTests/BANetManagerTests.m"
+            timestampString = "547554194.28236"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "95"
+            endingLineNumber = "95"
+            landmarkName = "-testGet"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
