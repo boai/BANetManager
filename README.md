@@ -4,7 +4,7 @@
 ![](https://img.shields.io/badge/license-MIT%20License-brightgreen.svg) 
 ![](https://img.shields.io/cocoapods/v/BANetManager.svg?style=flat) ![](https://img.shields.io/cocoapods/dt/BANetManager.svg
 )  [![](https://img.shields.io/badge/微博-博爱1616-red.svg)](http://weibo.com/538298123)
-[![codecov.io](https://codecov.io/github/BAHome/BANetManager/coverage.svg?branch=master)](https://codecov.io/github/BAHome/BANetManager?branch=master)
+[![codecov.io](https://codecov.io/github/BAHome/BANetManager/branch/master/graphs/badge.svg)](https://codecov.io/github/BAHome/BANetManager)
 
 
 ## 1、功能及简介
