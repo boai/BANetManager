@@ -186,7 +186,7 @@ UIAlertAction *sureAction = [UIAlertAction actionWithTitle:@"确 定" style:UIAl
     entity.urlString = url5;
     entity.needCache = YES;
     [BANetManager ba_request_GETWithEntity:entity successBlock:^(id response) {
-        NSLog(@"get 请求数据结果： *** %@", response);
+//        NSLog(@"get 请求数据结果： *** %@", response);
         NSString *msg = [NSString stringWithFormat:@"get 请求数据结果：%@", response];
         BAKit_ShowAlertWithMsg(msg);
     } failureBlock:^(NSError *error) {
@@ -230,7 +230,7 @@ UIAlertAction *sureAction = [UIAlertAction actionWithTitle:@"确 定" style:UIAl
     
     // 如果打印数据不完整，是因为 Xcode 8 版本问题，请下断点打印数据
     [BANetManager ba_request_POSTWithEntity:entity successBlock:^(id response) {
-        NSLog(@"post 请求数据结果： *** %@", response);
+//        NSLog(@"post 请求数据结果： *** %@", response);
         self.uploadLabel.text = @"上传完成";
         [sender setTitle:@"上传完成" forState:UIControlStateNormal];
     } failureBlock:^(NSError *error) {

@@ -248,10 +248,13 @@ static NSMutableArray *tasks;
     NSString *isCache = isNeedCache ? @"开启":@"关闭";
     CGFloat allCacheSize = [BANetManagerCache ba_getAllHttpCacheSize];
     
-    NSLog(@"\n******************** 请求参数 ***************************");
-    NSLog(@"\n请求头: %@\n超时时间设置：%.1f 秒【默认：30秒】\nAFHTTPResponseSerializer：%@【默认：AFJSONResponseSerializer】\nAFHTTPRequestSerializer：%@【默认：AFJSONRequestSerializer】\n请求方式: %@\n请求URL: %@\n请求param: %@\n是否启用缓存：%@【默认：开启】\n目前总缓存大小：%.6fM\n", BANetManagerShare.sessionManager.requestSerializer.HTTPRequestHeaders, timeoutInterval, scc2, scc3, requestType, URLString, parameters, isCache, allCacheSize);
-    NSLog(@"\n********************************************************");
-    
+    if (BANetManagerShare.isOpenLog)
+    {
+        NSLog(@"\n******************** 请求参数 ***************************");
+        NSLog(@"\n请求头: %@\n超时时间设置：%.1f 秒【默认：30秒】\nAFHTTPResponseSerializer：%@【默认：AFJSONResponseSerializer】\nAFHTTPRequestSerializer：%@【默认：AFJSONRequestSerializer】\n请求方式: %@\n请求URL: %@\n请求param: %@\n是否启用缓存：%@【默认：开启】\n目前总缓存大小：%.6fM\n", BANetManagerShare.sessionManager.requestSerializer.HTTPRequestHeaders, timeoutInterval, scc2, scc3, requestType, URLString, parameters, isCache, allCacheSize);
+        NSLog(@"\n********************************************************");
+    }
+
     BAURLSessionTask *sessionTask = nil;
     
     // 读取缓存
@@ -263,8 +266,10 @@ static NSMutableArray *tasks;
         {
             successBlock(responseCacheData);
         }
-        NSLog(@"取用缓存数据结果： *** %@", responseCacheData);
-        
+        if (BANetManagerShare.isOpenLog)
+        {
+            NSLog(@"取用缓存数据结果： *** %@", responseCacheData);
+        }
         [[weakSelf tasks] removeObject:sessionTask];
         return nil;
     }
@@ -305,8 +310,10 @@ static NSMutableArray *tasks;
     else if (type == BAHttpRequestTypePost)
     {
         sessionTask = [BANetManagerShare.sessionManager POST:URLString parameters:parameters progress:^(NSProgress * _Nonnull uploadProgress) {
-            NSLog(@"上传进度--%lld, 总进度---%lld",uploadProgress.completedUnitCount,uploadProgress.totalUnitCount);
-            
+            if (BANetManagerShare.isOpenLog)
+            {
+                NSLog(@"上传进度--%lld, 总进度---%lld",uploadProgress.completedUnitCount,uploadProgress.totalUnitCount);
+            }
             /*! 回到主线程刷新UI */
             dispatch_async(dispatch_get_main_queue(), ^{
                 if (progressBlock)
@@ -315,8 +322,10 @@ static NSMutableArray *tasks;
                 }
             });
         } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-            NSLog(@"post 请求数据结果： *** %@", responseObject);
-
+            if (BANetManagerShare.isOpenLog)
+            {
+                NSLog(@"post 请求数据结果： *** %@", responseObject);
+            }
             if (successBlock)
             {
                 successBlock(responseObject);
@@ -349,7 +358,7 @@ static NSMutableArray *tasks;
             [[weakSelf tasks] removeObject:sessionTask];
             
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-            
+            NSLog(@"错误信息：%@",error);
             if (failureBlock)
             {
                 failureBlock(error);
@@ -369,7 +378,7 @@ static NSMutableArray *tasks;
             [[weakSelf tasks] removeObject:sessionTask];
             
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-            
+            NSLog(@"错误信息：%@",error);
             if (failureBlock)
             {
                 failureBlock(error);
@@ -494,10 +503,12 @@ static NSMutableArray *tasks;
     /*! 检查地址中是否有中文 */
     NSString *URLString = [NSURL URLWithString:imageEntity.urlString] ? imageEntity.urlString : [self strUTF8Encoding:imageEntity.urlString];
     
-    NSLog(@"******************** 请求参数 ***************************");
-    NSLog(@"请求头: %@\n请求方式: %@\n请求URL: %@\n请求param: %@\n\n",BANetManagerShare.sessionManager.requestSerializer.HTTPRequestHeaders, @"POST",URLString, imageEntity.parameters);
-    NSLog(@"********************************************************");
-    
+    if (BANetManagerShare.isOpenLog)
+    {
+        NSLog(@"******************** 请求参数 ***************************");
+        NSLog(@"请求头: %@\n请求方式: %@\n请求URL: %@\n请求param: %@\n\n",BANetManagerShare.sessionManager.requestSerializer.HTTPRequestHeaders, @"POST",URLString, imageEntity.parameters);
+        NSLog(@"********************************************************");
+    }
     BAURLSessionTask *sessionTask = nil;
     sessionTask = [BANetManagerShare.sessionManager POST:URLString parameters:imageEntity.parameters constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
         /*! 出于性能考虑,将上传图片进行压缩 */
@@ -510,9 +521,10 @@ static NSMutableArray *tasks;
                 PHAsset *asset = (PHAsset *)obj;
                 PHCachingImageManager *imageManager = [[PHCachingImageManager alloc] init];
                 [imageManager requestImageForAsset:asset targetSize:CGSizeMake(asset.pixelWidth , asset.pixelHeight) contentMode:PHImageContentModeAspectFit options:nil resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
-                    
-                    NSLog(@" width:%f height:%f",result.size.width,result.size.height);
-                    
+                    if (BANetManagerShare.isOpenLog)
+                    {
+                        NSLog(@" width:%f height:%f",result.size.width,result.size.height);
+                    }
                     [self ba_uploadImageWithFormData:formData resizedImage:result imageType:imageEntity.imageType imageScale:imageEntity.imageScale fileNames:imageEntity.fileNames index:idx];
                 }];
             } else {
@@ -523,7 +535,10 @@ static NSMutableArray *tasks;
         }];
         
     } progress:^(NSProgress * _Nonnull uploadProgress) {
-        NSLog(@"上传进度--%lld, 总进度---%lld",uploadProgress.completedUnitCount,uploadProgress.totalUnitCount);
+        if (BANetManagerShare.isOpenLog)
+        {
+            NSLog(@"上传进度--%lld, 总进度---%lld",uploadProgress.completedUnitCount,uploadProgress.totalUnitCount);
+        }
         /*! 回到主线程刷新UI */
         dispatch_async(dispatch_get_main_queue(), ^{
             if (progressBlock) {
@@ -531,13 +546,17 @@ static NSMutableArray *tasks;
             }
         });
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        NSLog(@"上传图片成功 = %@",responseObject);
+        if (BANetManagerShare.isOpenLog)
+        {
+            NSLog(@"上传图片成功 = %@",responseObject);
+        }
         if (successBlock) {
             successBlock(responseObject);
         }
         
         [[weakSelf tasks] removeObject:sessionTask];
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        NSLog(@"错误信息：%@",error);
         if (failureBlock) {
             failureBlock(error);
         }
@@ -605,8 +624,10 @@ static NSMutableArray *tasks;
                     [formData appendPartWithFileURL:filePathURL2 name:@"video" fileName:outfilePath mimeType:@"application/octet-stream" error:nil];
                     
                 } progress:^(NSProgress * _Nonnull uploadProgress) {
-                    NSLog(@"上传进度--%lld, 总进度---%lld",uploadProgress.completedUnitCount,uploadProgress.totalUnitCount);
-                    
+                    if (BANetManagerShare.isOpenLog)
+                    {
+                        NSLog(@"上传进度--%lld, 总进度---%lld",uploadProgress.completedUnitCount,uploadProgress.totalUnitCount);
+                    }
                     /*! 回到主线程刷新UI */
                     dispatch_async(dispatch_get_main_queue(), ^{
                         if (progressBlock)
@@ -616,6 +637,7 @@ static NSMutableArray *tasks;
                     });
                 } success:^(NSURLSessionDataTask * _Nonnull task, NSDictionary *  _Nullable responseObject) {
                     NSLog(@"上传视频成功 = %@",responseObject);
+                    
                     if (successBlock)
                     {
                         successBlock(responseObject);
@@ -657,17 +679,20 @@ static NSMutableArray *tasks;
     BAFileDataEntity *fileEntity = (BAFileDataEntity *)entity;
     
     NSURLRequest *downloadRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:fileEntity.urlString]];
-    
-    NSLog(@"******************** 请求参数 ***************************");
-    NSLog(@"请求头: %@\n请求方式: %@\n请求URL: %@\n请求param: %@\n\n",BANetManagerShare.sessionManager.requestSerializer.HTTPRequestHeaders, @"download", fileEntity.urlString, fileEntity.parameters);
-    NSLog(@"******************************************************");
-    
+    if (BANetManagerShare.isOpenLog)
+    {
+        NSLog(@"******************** 请求参数 ***************************");
+        NSLog(@"请求头: %@\n请求方式: %@\n请求URL: %@\n请求param: %@\n\n",BANetManagerShare.sessionManager.requestSerializer.HTTPRequestHeaders, @"download", fileEntity.urlString, fileEntity.parameters);
+        NSLog(@"******************************************************");
+    }
     
     BAURLSessionTask *sessionTask = nil;
     
     sessionTask = [BANetManagerShare.sessionManager downloadTaskWithRequest:downloadRequest progress:^(NSProgress * _Nonnull downloadProgress) {
-        
-        NSLog(@"下载进度：%.2lld%%",100 * downloadProgress.completedUnitCount/downloadProgress.totalUnitCount);
+        if (BANetManagerShare.isOpenLog)
+        {
+            NSLog(@"下载进度：%.2lld%%",100 * downloadProgress.completedUnitCount/downloadProgress.totalUnitCount);
+        }
         /*! 回到主线程刷新UI */
         dispatch_async(dispatch_get_main_queue(), ^{
             
@@ -683,7 +708,10 @@ static NSMutableArray *tasks;
         if (!fileEntity.filePath)
         {
             NSURL *downloadURL = [[NSFileManager defaultManager] URLForDirectory:NSDocumentDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:NO error:nil];
-            NSLog(@"默认路径--%@",downloadURL);
+            if (BANetManagerShare.isOpenLog)
+            {
+                NSLog(@"默认路径--%@",downloadURL);
+            }
             return [downloadURL URLByAppendingPathComponent:[response suggestedFilename]];
         }
         else
@@ -703,12 +731,12 @@ static NSMutableArray *tasks;
                 /*! 返回完整路径 */
                 successBlock([filePath path]);
             }
-            else
+        }
+        else
+        {
+            if (failureBlock)
             {
-                if (failureBlock)
-                {
-                    failureBlock(error);
-                }
+                failureBlock(error);
             }
         }
     }];
@@ -743,11 +771,12 @@ static NSMutableArray *tasks;
     }
     
     BAFileDataEntity *fileEntity = (BAFileDataEntity *)entity;
-    
-    NSLog(@"******************** 请求参数 ***************************");
-    NSLog(@"请求头: %@\n请求方式: %@\n请求URL: %@\n请求param: %@\n\n",BANetManagerShare.sessionManager.requestSerializer.HTTPRequestHeaders, @"uploadFile", fileEntity.urlString, fileEntity.parameters);
-    NSLog(@"******************************************************");
-    
+    if (BANetManagerShare.isOpenLog)
+    {
+        NSLog(@"******************** 请求参数 ***************************");
+        NSLog(@"请求头: %@\n请求方式: %@\n请求URL: %@\n请求param: %@\n\n",BANetManagerShare.sessionManager.requestSerializer.HTTPRequestHeaders, @"uploadFile", fileEntity.urlString, fileEntity.parameters);
+        NSLog(@"******************************************************");
+    }
     BAURLSessionTask *sessionTask = nil;
     sessionTask = [BANetManagerShare.sessionManager POST:fileEntity.urlString parameters:fileEntity.parameters constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
         
@@ -758,9 +787,10 @@ static NSMutableArray *tasks;
             failureBlock(error);
         }
     } progress:^(NSProgress * _Nonnull uploadProgress) {
-        
-        NSLog(@"上传进度--%lld, 总进度---%lld",uploadProgress.completedUnitCount,uploadProgress.totalUnitCount);
-        
+        if (BANetManagerShare.isOpenLog)
+        {
+            NSLog(@"上传进度--%lld, 总进度---%lld",uploadProgress.completedUnitCount,uploadProgress.totalUnitCount);
+        }
         /*! 回到主线程刷新UI */
         dispatch_async(dispatch_get_main_queue(), ^{
             if (progressBlock)
@@ -870,7 +900,6 @@ static NSMutableArray *tasks;
         }];
     }
 }
-
 
 #pragma mark - 压缩图片尺寸
 /*! 对图片尺寸进行压缩 */

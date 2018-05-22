@@ -20,6 +20,12 @@
  项目源码地址：
  OC 版 ：https://github.com/BAHome/BANetManager
  
+ 最新更新时间：2018-05-22 【倒叙】<br>
+ 最新Version：【Version：2.3.10】<br>
+ 更新内容：<br>
+ 2.3.10.1、新增 属性【isOpenLog】（注意：是否开启 log 打印，默认不开启）
+ 2.3.10.2、优化部分代码
+ 
  最新更新时间：2018-04-16 【倒叙】<br>
  最新Version：【Version：2.3.9】<br>
  更新内容：<br>
