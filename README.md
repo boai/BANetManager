@@ -4,7 +4,7 @@
 ![](https://img.shields.io/badge/license-MIT%20License-brightgreen.svg) 
 ![](https://img.shields.io/cocoapods/v/BANetManager.svg?style=flat) ![](https://img.shields.io/cocoapods/dt/BANetManager.svg
 )  [![](https://img.shields.io/badge/微博-博爱1616-red.svg)](http://weibo.com/538298123)
-[![codecov.io](https://codecov.io/github/BANetManager/BANetManager/coverage.svg?branch=master)](https://codecov.io/github/BANetManager/BANetManager?branch=master)
+[![codecov.io](https://codecov.io/github/BAHome/BANetManager/branch/master/graphs/badge.svg)](https://codecov.io/github/BAHome/BANetManager)
 
 
 ## 1、功能及简介
@@ -24,6 +24,7 @@
 * 14、控制台打印 debug 状态下显示中文<br>
 * 15、新增 默认请求头：@"application/x-www-form-urlencoded" <br>
 * 16、新增 删除所有缓存的方法，可以自由删除当前的所有缓存！<br>
+* 17、新增单元测试
 
  
 ## 2、图片示例
@@ -151,6 +152,11 @@ typedef NSURLSessionTask BAURLSessionTask;
  将传入 的 string 参数序列化
  */
 @property(nonatomic, assign) BOOL isSetQueryStringSerialization;
+
+/**
+ 是否开启 log 打印，默认不开启
+ */
+@property(nonatomic, assign) BOOL isOpenLog;
 
 /*!
  *  获得全局唯一的网络请求实例单例方法
@@ -553,6 +559,12 @@ typedef NSURLSessionTask BAURLSessionTask;
  欢迎使用 [【BAHome】](https://github.com/BAHome) 系列开源代码 ！
  如有更多需求，请前往：[【https://github.com/BAHome】](https://github.com/BAHome) 
   
+ 最新更新时间：2018-05-22 【倒叙】<br>
+ 最新Version：【Version：2.3.10】<br>
+ 更新内容：<br>
+ 2.3.10.1、新增 属性【isOpenLog】（注意：是否开启 log 打印，默认不开启）
+ 2.3.10.2、优化部分代码
+ 
  最新更新时间：2018-04-16 【倒叙】<br>
  最新Version：【Version：2.3.9】<br>
  更新内容：<br>

@@ -12,6 +12,7 @@
 		C424BBDE1FC3D6A4009B7F6C /* BANetManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C424BBD41FC3D6A3009B7F6C /* BANetManager.m */; };
 		C424BBDF1FC3D6A4009B7F6C /* BADataEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = C424BBD71FC3D6A3009B7F6C /* BADataEntity.m */; };
 		C424BBE01FC3D6A4009B7F6C /* UIImage+CompressImage.m in Sources */ = {isa = PBXBuildFile; fileRef = C424BBDA1FC3D6A3009B7F6C /* UIImage+CompressImage.m */; };
+		C429CD9F20A2FEFD00FE8A25 /* BANetManagerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C429CD9E20A2FEFD00FE8A25 /* BANetManagerTests.m */; };
 		C492313F1ED0431A00B61C37 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C492313E1ED0431A00B61C37 /* main.m */; };
 		C49231421ED0431A00B61C37 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C49231411ED0431A00B61C37 /* AppDelegate.m */; };
 		C492314A1ED0431A00B61C37 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C49231491ED0431A00B61C37 /* Assets.xcassets */; };
@@ -20,6 +21,16 @@
 		C49231711ED26D2D00B61C37 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C492316F1ED26D2D00B61C37 /* Main.storyboard */; };
 		F852E0031127B2CA28F182FA /* libPods-BANetManager.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E8F4FEA979F0E81B0C453A4 /* libPods-BANetManager.a */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		C429CDA120A2FEFD00FE8A25 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C49231321ED0431A00B61C37 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C49231391ED0431A00B61C37;
+			remoteInfo = BANetManager;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		1534E80A7F0B9F819A7C0076 /* Pods-BANetManager.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BANetManager.release.xcconfig"; path = "Pods/Target Support Files/Pods-BANetManager/Pods-BANetManager.release.xcconfig"; sourceTree = "<group>"; };
@@ -36,6 +47,9 @@
 		C424BBDA1FC3D6A3009B7F6C /* UIImage+CompressImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+CompressImage.m"; sourceTree = "<group>"; };
 		C424BBDB1FC3D6A4009B7F6C /* BANetManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BANetManager.h; sourceTree = "<group>"; };
 		C424BBDC1FC3D6A4009B7F6C /* BANetManagerCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BANetManagerCache.h; sourceTree = "<group>"; };
+		C429CD9C20A2FEFD00FE8A25 /* BANetManagerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BANetManagerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		C429CD9E20A2FEFD00FE8A25 /* BANetManagerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BANetManagerTests.m; sourceTree = "<group>"; };
+		C429CDA020A2FEFD00FE8A25 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C492313A1ED0431A00B61C37 /* BANetManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BANetManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C492313E1ED0431A00B61C37 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		C49231401ED0431A00B61C37 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -49,6 +63,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		C429CD9920A2FEFD00FE8A25 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C49231371ED0431A00B61C37 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -77,10 +98,20 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		C429CD9D20A2FEFD00FE8A25 /* BANetManagerTests */ = {
+			isa = PBXGroup;
+			children = (
+				C429CD9E20A2FEFD00FE8A25 /* BANetManagerTests.m */,
+				C429CDA020A2FEFD00FE8A25 /* Info.plist */,
+			);
+			path = BANetManagerTests;
+			sourceTree = "<group>";
+		};
 		C49231311ED0431A00B61C37 = {
 			isa = PBXGroup;
 			children = (
 				C492313C1ED0431A00B61C37 /* BANetManager */,
+				C429CD9D20A2FEFD00FE8A25 /* BANetManagerTests */,
 				C492313B1ED0431A00B61C37 /* Products */,
 				1EDD0ABE2F68B858EBD30FB8 /* Pods */,
 				B3573AA6CFD764CB9D84D536 /* Frameworks */,
@@ -91,6 +122,7 @@
 			isa = PBXGroup;
 			children = (
 				C492313A1ED0431A00B61C37 /* BANetManager.app */,
+				C429CD9C20A2FEFD00FE8A25 /* BANetManagerTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -141,6 +173,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		C429CD9B20A2FEFD00FE8A25 /* BANetManagerTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C429CDA520A2FEFD00FE8A25 /* Build configuration list for PBXNativeTarget "BANetManagerTests" */;
+			buildPhases = (
+				C429CD9820A2FEFD00FE8A25 /* Sources */,
+				C429CD9920A2FEFD00FE8A25 /* Frameworks */,
+				C429CD9A20A2FEFD00FE8A25 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C429CDA220A2FEFD00FE8A25 /* PBXTargetDependency */,
+			);
+			name = BANetManagerTests;
+			productName = BANetManagerTests;
+			productReference = C429CD9C20A2FEFD00FE8A25 /* BANetManagerTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		C49231391ED0431A00B61C37 /* BANetManager */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = C49231511ED0431A00B61C37 /* Build configuration list for PBXNativeTarget "BANetManager" */;
@@ -170,9 +220,15 @@
 				LastUpgradeCheck = 0830;
 				ORGANIZATIONNAME = boai;
 				TargetAttributes = {
+					C429CD9B20A2FEFD00FE8A25 = {
+						CreatedOnToolsVersion = 9.4;
+						DevelopmentTeam = J657G2JCAQ;
+						ProvisioningStyle = Automatic;
+						TestTargetID = C49231391ED0431A00B61C37;
+					};
 					C49231391ED0431A00B61C37 = {
 						CreatedOnToolsVersion = 8.3.2;
-						DevelopmentTeam = JB3QR65942;
+						DevelopmentTeam = A7FRU6ZJRL;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -191,11 +247,19 @@
 			projectRoot = "";
 			targets = (
 				C49231391ED0431A00B61C37 /* BANetManager */,
+				C429CD9B20A2FEFD00FE8A25 /* BANetManagerTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		C429CD9A20A2FEFD00FE8A25 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C49231381ED0431A00B61C37 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -261,6 +325,14 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		C429CD9820A2FEFD00FE8A25 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C429CD9F20A2FEFD00FE8A25 /* BANetManagerTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C49231361ED0431A00B61C37 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -276,6 +348,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		C429CDA220A2FEFD00FE8A25 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C49231391ED0431A00B61C37 /* BANetManager */;
+			targetProxy = C429CDA120A2FEFD00FE8A25 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		C492314B1ED0431A00B61C37 /* LaunchScreen.storyboard */ = {
@@ -297,6 +377,64 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		C429CDA320A2FEFD00FE8A25 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = J657G2JCAQ;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = BANetManagerTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = boai.BANetManagerTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BANetManager.app/BANetManager";
+			};
+			name = Debug;
+		};
+		C429CDA420A2FEFD00FE8A25 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = J657G2JCAQ;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = BANetManagerTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = boai.BANetManagerTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BANetManager.app/BANetManager";
+			};
+			name = Release;
+		};
 		C492314F1ED0431A00B61C37 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -392,11 +530,11 @@
 			baseConfigurationReference = 3A5CFBEBCCE88E55DFFA7211 /* Pods-BANetManager.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = JB3QR65942;
+				DEVELOPMENT_TEAM = A7FRU6ZJRL;
 				INFOPLIST_FILE = BANetManager/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.boaihome.BANetManagerxinhuamm;
+				PRODUCT_BUNDLE_IDENTIFIER = com.boaihome.BANetManager;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -406,11 +544,11 @@
 			baseConfigurationReference = 1534E80A7F0B9F819A7C0076 /* Pods-BANetManager.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = JB3QR65942;
+				DEVELOPMENT_TEAM = A7FRU6ZJRL;
 				INFOPLIST_FILE = BANetManager/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.boaihome.BANetManagerxinhuamm;
+				PRODUCT_BUNDLE_IDENTIFIER = com.boaihome.BANetManager;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -418,6 +556,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		C429CDA520A2FEFD00FE8A25 /* Build configuration list for PBXNativeTarget "BANetManagerTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C429CDA320A2FEFD00FE8A25 /* Debug */,
+				C429CDA420A2FEFD00FE8A25 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		C49231351ED0431A00B61C37 /* Build configuration list for PBXProject "BANetManager" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

@@ -11,7 +11,7 @@
 @implementation BADataEntity
 
 - (void)dealloc {
-    NSLog(@"\n\n 【dealloc %@:%p】\n", NSStringFromClass([self class]), self);
+//    NSLog(@"\n\n 【dealloc %@:%p】\n", NSStringFromClass([self class]), self);
 }
 
 @end

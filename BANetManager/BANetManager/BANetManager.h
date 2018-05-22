@@ -164,6 +164,11 @@ typedef NSURLSessionTask BAURLSessionTask;
  */
 @property(nonatomic, assign) BOOL isSetQueryStringSerialization;
 
+/**
+ 是否开启 log 打印，默认不开启
+ */
+@property(nonatomic, assign) BOOL isOpenLog;
+
 /*!
  *  获得全局唯一的网络请求实例单例方法
  *
