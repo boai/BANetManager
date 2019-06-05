@@ -588,7 +588,7 @@ static NSMutableArray *tasks;
     }
     BAFileDataEntity *fileEntity = (BAFileDataEntity *)entity;
     /*! 获得视频资源 */
-    AVURLAsset *avAsset = [AVURLAsset URLAssetWithURL:[NSURL URLWithString:fileEntity.filePath]  options:nil];
+    AVURLAsset *avAsset = [AVURLAsset URLAssetWithURL:[NSURL fileURLWithPath:fileEntity.filePath]  options:nil];
     
     /*! 压缩 */
     
