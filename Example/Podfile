@@ -1,0 +1,12 @@
+#use_frameworks!
+
+platform :ios, '9.0'
+
+target 'BANetManager_Example' do
+  pod 'BANetManager', :path => '../'
+
+  pod 'AFNetworking'
+  pod 'YYCache'
+  pod 'MJExtension'
+
+end
