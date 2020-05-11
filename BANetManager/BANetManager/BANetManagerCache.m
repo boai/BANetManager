@@ -14,8 +14,7 @@ static  YYCache *_dataCache;
 
 @implementation BANetManagerCache
 
-+ (void)initialize
-{
++ (void)initialize {
     _dataCache = [YYCache cacheWithName:kBANetManagerCache];
 }
 
@@ -28,8 +27,7 @@ static  YYCache *_dataCache;
  */
 + (void)ba_setHttpCache:(id)httpData
               urlString:(NSString *)urlString
-             parameters:(NSDictionary *)parameters
-{
+             parameters:(NSDictionary *)parameters {
     NSString *cacheKey = [self ba_cacheWithUrlString:urlString parameters:parameters];
     [_dataCache setObject:httpData forKey:cacheKey];
 }
@@ -42,8 +40,7 @@ static  YYCache *_dataCache;
  @return 缓存的服务器数据
  */
 + (id)ba_httpCacheWithUrlString:(NSString *)urlString
-                     parameters:(NSDictionary *)parameters
-{
+                     parameters:(NSDictionary *)parameters {
     NSString *cacheKey = [self ba_cacheWithUrlString:urlString parameters:parameters];
     return [_dataCache objectForKey:cacheKey];
 }
@@ -56,8 +53,7 @@ static  YYCache *_dataCache;
  @param block 异步回调缓存的数据
  */
 + (void)ba_httpCacheWithUrlString:(NSString *)urlString
-                       parameters:(NSDictionary *)parameters block:(void(^)(id <NSCoding> responseObject))block
-{
+                       parameters:(NSDictionary *)parameters block:(void(^)(id <NSCoding> responseObject))block {
     NSString *cacheKey = [self ba_cacheWithUrlString:urlString parameters:parameters];
     [_dataCache objectForKey:cacheKey withBlock:^(NSString * _Nonnull key, id<NSCoding>  _Nonnull object) {
         
@@ -69,14 +65,11 @@ static  YYCache *_dataCache;
 }
 
 + (NSString *)ba_cacheWithUrlString:(NSString *)urlString
-                         parameters:(NSDictionary *)parameters
-{
-    if (!parameters)
-    {
+                         parameters:(NSDictionary *)parameters {
+    if (!parameters) {
         return urlString;
     }
-    if ([parameters isKindOfClass:[NSDictionary class]])
-    {
+    if ([parameters isKindOfClass:[NSDictionary class]]) {
         NSData *cacheData = [NSJSONSerialization dataWithJSONObject:parameters options:0 error:nil];
         NSString *cacheString = [[NSString alloc] initWithData:cacheData encoding:NSUTF8StringEncoding];
         
@@ -92,8 +85,7 @@ static  YYCache *_dataCache;
 
  @return 总对象的大小（以M为单位）。
  */
-+ (CGFloat)ba_getAllHttpCacheSize
-{
++ (CGFloat)ba_getAllHttpCacheSize {
     return [_dataCache.diskCache totalCost]/1024.0/1024.0;
 }
 
@@ -101,8 +93,7 @@ static  YYCache *_dataCache;
    清空缓存。
    此方法可能会阻止调用线程，直到文件删除完成。
  */
-+ (void)ba_clearAllHttpCache
-{
++ (void)ba_clearAllHttpCache {
     [_dataCache.diskCache removeAllObjects];
 }
 

@@ -9,6 +9,8 @@ target 'BANetManager' do
 
 	pod 'AFNetworking'
     pod 'YYCache'
+    pod 'MJExtension'
+
 #    pod 'BANetManager'
 
 end

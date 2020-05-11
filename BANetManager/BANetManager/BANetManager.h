@@ -73,8 +73,7 @@
 
 
 /*! 使用枚举NS_ENUM:区别可判断编译器是否支持新式枚举,支持就使用新的,否则使用旧的 */
-typedef NS_ENUM(NSUInteger, BANetworkStatus)
-{
+typedef NS_ENUM(NSUInteger, BANetworkStatus) {
     /*! 未知网络 */
     BANetworkStatusUnknown           = 0,
     /*! 没有网络 */
@@ -86,8 +85,7 @@ typedef NS_ENUM(NSUInteger, BANetworkStatus)
 };
 
 /*！定义请求类型的枚举 */
-typedef NS_ENUM(NSUInteger, BAHttpRequestType)
-{
+typedef NS_ENUM(NSUInteger, BAHttpRequestType) {
     /*! get请求 */
     BAHttpRequestTypeGet = 0,
     /*! post请求 */
@@ -158,11 +156,6 @@ typedef NSURLSessionTask BAURLSessionTask;
  自定义请求头：httpHeaderField
  */
 @property(nonatomic, strong) NSDictionary *httpHeaderFieldDictionary;
-
-/**
- 将传入 的 string 参数序列化
- */
-@property(nonatomic, assign) BOOL isSetQueryStringSerialization;
 
 /**
  是否开启 log 打印，默认不开启

@@ -65,8 +65,7 @@
 
 @implementation UIImage (CompressImage)
 
-+(JPEGImage *)needCompressImage:(UIImage *)image size:(CGSize )size scale:(CGFloat )scale
-{
++(JPEGImage *)needCompressImage:(UIImage *)image size:(CGSize )size scale:(CGFloat )scale {
     JPEGImage *newImage = nil;
     //创建画板
     UIGraphicsBeginImageContext(size);
@@ -87,14 +86,12 @@
     return newImage;
 }
 
-+(JPEGImage *)needCompressImageData:(NSData *)imageData size:(CGSize )size scale:(CGFloat )scale
-{
++(JPEGImage *)needCompressImageData:(NSData *)imageData size:(CGSize )size scale:(CGFloat )scale {
     PNGImage *image = [UIImage imageWithData:imageData];
     return [UIImage needCompressImage:image size:size scale:scale];
 }
 
-+ (JPEGImage *)needCenterImage:(UIImage *)image size:(CGSize )size scale:(CGFloat )scale
-{
++ (JPEGImage *)needCenterImage:(UIImage *)image size:(CGSize )size scale:(CGFloat )scale {
     /* 想切中间部分,待解决 */
 //#warning area of center image
     JPEGImage *newImage = nil;
@@ -116,24 +113,20 @@
     return newImage;
 }
 
-+(JPEGImage *)jpegImageWithPNGImage:(PNGImage *)pngImage
-{
++(JPEGImage *)jpegImageWithPNGImage:(PNGImage *)pngImage {
     return [UIImage needCompressImage:pngImage size:pngImage.size scale:1.0];
 }
 
-+(JPEGImage *)jpegImageWithPNGData:(PNGData *)pngData
-{
++(JPEGImage *)jpegImageWithPNGData:(PNGData *)pngData {
     PNGImage *pngImage = [UIImage imageWithData:pngData];
     return [UIImage needCompressImage:pngImage size:pngImage.size scale:1.0];
 }
 
-+(JPEGData *)jpegDataWithPNGData:(PNGData *)pngData
-{
++(JPEGData *)jpegDataWithPNGData:(PNGData *)pngData {
     return UIImageJPEGRepresentation([UIImage jpegImageWithPNGData:pngData], 1.0);
 }
 
-+(JPEGData *)jpegDataWithPNGImage:(PNGImage *)pngImage
-{
++(JPEGData *)jpegDataWithPNGImage:(PNGImage *)pngImage {
     return UIImageJPEGRepresentation([UIImage jpegImageWithPNGImage:pngImage], 1.0);
 }
 @end

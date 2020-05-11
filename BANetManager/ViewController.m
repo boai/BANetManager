@@ -64,6 +64,7 @@
 #import "ViewController.h"
 #import "BANetManager_OC.h"
 
+#import "MJExtension.h"
 
 static NSString * const url1 = @"http://c.m.163.com/nc/video/home/1-10.html";
 static NSString * const url2 = @"http://apis.baidu.com/apistore/";
@@ -85,8 +86,7 @@ UIAlertAction *sureAction = [UIAlertAction actionWithTitle:@"确 定" style:UIAl
 [alert addAction:sureAction];\
 [self presentViewController:alert animated:YES completion:nil];
 
-@interface ViewController ()
-{
+@interface ViewController () {
     BOOL isFinishDownload;
 }
 @property (weak, nonatomic) IBOutlet UILabel *uploadLabel;
@@ -116,13 +116,11 @@ UIAlertAction *sureAction = [UIAlertAction actionWithTitle:@"确 定" style:UIAl
 
 @implementation ViewController
 
-- (void)viewWillAppear:(BOOL)animated
-{
+- (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
 }
 
-- (void)viewWillDisappear:(BOOL)animated
-{
+- (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
 }
 
@@ -140,32 +138,27 @@ UIAlertAction *sureAction = [UIAlertAction actionWithTitle:@"确 定" style:UIAl
 }
 
 #pragma mark - 网络类型判断
-- (void)ba_netType
-{
+- (void)ba_netType {
 //    BAWeak;
     [BANetManager ba_startNetWorkMonitoringWithBlock:^(BANetworkStatus status) {
         NSString *msg;
         switch (status) {
-            case 0:
-            {
+            case 0: {
                 msg = @"未知网络";
                 BAKit_ShowAlertWithMsg(msg);
             }
                 break;
-            case 1:
-            {
+            case 1: {
                 msg = @"没有网络";
                 BAKit_ShowAlertWithMsg(msg);
             }
                 break;
-            case 2:
-            {
+            case 2: {
                 msg = @"您的网络类型为：手机 3G/4G 网络";
                 BAKit_ShowAlertWithMsg(msg);
             }
                 break;
-            case 3:
-            {
+            case 3: {
                 msg = @"您的网络类型为：wifi 网络";
                 /*! wifi 网络下请求网络：可以在父类写此方法，具体使用demo，详见：https://github.com/boai/BABaseProject */
                 BAKit_ShowAlertWithMsg(msg);
@@ -179,8 +172,7 @@ UIAlertAction *sureAction = [UIAlertAction actionWithTitle:@"确 定" style:UIAl
 }
 
 #pragma mark - get
-- (IBAction)getData:(UIButton *)sender
-{
+- (IBAction)getData:(UIButton *)sender {
     // 如果打印数据不完整，是因为 Xcode 8 版本问题，请下断点打印数据
     BADataEntity *entity = [BADataEntity new];
     entity.urlString = url5;
@@ -195,15 +187,14 @@ UIAlertAction *sureAction = [UIAlertAction actionWithTitle:@"确 定" style:UIAl
 }
 
 #pragma mark - post
-- (IBAction)postData:(UIButton *)sender
-{
+- (IBAction)postData:(UIButton *)sender {
     [sender setTitle:@"post" forState:UIControlStateNormal];
     // 自定义超时设置
     BANetManagerShare.timeoutInterval = 15;
     
     // 自定义添加请求头
-//    NSDictionary *headerDict = @{@"Accept":@"application/json", @"Accept-Encoding":@"gzip", @"charset":@"utf-8"};
-//    BANetManagerShare.httpHeaderFieldDictionary = headerDict;
+    NSDictionary *headerDict = @{@"Accept":@"application/json", @"Accept-Encoding":@"gzip", @"charset":@"utf-8"};
+    BANetManagerShare.httpHeaderFieldDictionary = headerDict;
     
     // 自定义更改 requestSerializer
 //        BANetManagerShare.requestSerializer = BAHttpRequestSerializerHTTP;
@@ -213,24 +204,30 @@ UIAlertAction *sureAction = [UIAlertAction actionWithTitle:@"确 定" style:UIAl
     // 清楚当前所有请求头
 //    [BANetManager ba_clearAuthorizationHeader];
     
+    NSString *url = @"http://apptest.bawanli.com/topup/index";
     
 //    NSString *url = @"http://115.29.201.135/mobile/mobileapi.php";
 //    NSString *parameters = @"sAp3OxNlYMZZa7OlRi2TwguoTtwNwwFwOo5k8LL3ERtcTbAvGPhZ5yUWiiIJeXx2WjYlnMU1nFOoi2JSKJDINW62lcM9DB9XDdZQACnY60g=";
 //    int page = 1;
     NSDictionary *parameters = @{
-                           @"txtusername":@"13651789999",
-                           @"txtpassword":@"123456"
+                           @"sign":@"CDFBAD6F44CBD0F26771DCAEE522C2E8",
+                           @"shop_code":@"lw"
                            };
+   
 //    NSDictionary *parameters = [NSDictionary dictionaryWithObjectsAndKeys:@(page).stringValue, @"page", @"10", @"per_page", nil];;
     
-    BADataEntity *entity = [BADataEntity new];
-    entity.urlString = url6;
+    BADataEntity *entity = BADataEntity.new;
+    entity.urlString = url;
     entity.needCache = NO;
-    entity.parameters = parameters;
-    
+    // AFN 4.0 可以单独适配 header 了
+//    entity.headers = @{};
+    entity.parameters = [parameters mj_JSONString];
+    // 此请求为 body 请求, 非 body 请求注掉下面那行就行或者设置为 NO
+    entity.isSetQueryStringSerialization = YES;
+
     // 如果打印数据不完整，是因为 Xcode 8 版本问题，请下断点打印数据
     [BANetManager ba_request_POSTWithEntity:entity successBlock:^(id response) {
-//        NSLog(@"post 请求数据结果： *** %@", response);
+        NSLog(@"post 请求数据结果： *** %@", response);
         self.uploadLabel.text = @"上传完成";
         [sender setTitle:@"上传完成" forState:UIControlStateNormal];
     } failureBlock:^(NSError *error) {
@@ -243,8 +240,7 @@ UIAlertAction *sureAction = [UIAlertAction actionWithTitle:@"确 定" style:UIAl
 }
 
 #pragma mark - 下载视频、图片
-- (IBAction)downloadData:(UIButton *)sender
-{
+- (IBAction)downloadData:(UIButton *)sender {
     UIButton *downloadBtn = (UIButton *)sender;
     NSString *path1 = [NSHomeDirectory() stringByAppendingString:[NSString stringWithFormat:@"/Documents/半塘.mp4"]];
     //    NSString *path2 = [NSHomeDirectory() stringByAppendingString:[NSString stringWithFormat:@"/Documents/image123.mp3"]];
@@ -289,8 +285,7 @@ UIAlertAction *sureAction = [UIAlertAction actionWithTitle:@"确 定" style:UIAl
 }
 
 #pragma mark - 上传图片
-- (IBAction)uploadImageData:(UIButton *)sender
-{
+- (IBAction)uploadImageData:(UIButton *)sender {
     /*!
      
      1、此上传图片单张、多图上传都经过几十个项目亲测可用，大家可以放心使用，使用过程中有问题，请加群：479663605 进行反馈，多谢！
@@ -309,8 +304,7 @@ UIAlertAction *sureAction = [UIAlertAction actionWithTitle:@"确 定" style:UIAl
 }
 
 #pragma mark - 上传视频
-- (IBAction)uploadVideoData:(UIButton *)sender
-{
+- (IBAction)uploadVideoData:(UIButton *)sender {
     /*!
      
      1、此上传视频都经过几十个项目亲测可用，大家可以放心使用，使用过程中有问题，请加群：479663605 进行反馈，多谢！
@@ -329,8 +323,7 @@ UIAlertAction *sureAction = [UIAlertAction actionWithTitle:@"确 定" style:UIAl
 }
 
 #pragma mark - put 请求
-- (IBAction)putData:(UIButton *)sender
-{
+- (IBAction)putData:(UIButton *)sender {
     NSDictionary *dict = @{@"EquipmentType":@"iPhone", @"EquipmentGUID":@"b61df00d-87db-426f-bc5a-bc8fffa907db"};
     BADataEntity *entity = [BADataEntity new];
     entity.urlString = @"http://120.76.245.240:8080/bda/resetPassword/?account=761463699@qq.com&password=q&OTP=634613";
@@ -344,15 +337,13 @@ UIAlertAction *sureAction = [UIAlertAction actionWithTitle:@"确 定" style:UIAl
 }
 
 #pragma mark - delete 请求
-- (IBAction)deleteData:(UIButton *)sender
-{
+- (IBAction)deleteData:(UIButton *)sender {
     BADataEntity *entity = [BADataEntity new];
     [BANetManager ba_request_DELETEWithEntity:entity successBlock:nil failureBlock:nil progressBlock:nil];
 }
 
 #pragma mark - 上传文件
-- (IBAction)uploadFileButtonAction:(UIButton *)sender
-{
+- (IBAction)uploadFileButtonAction:(UIButton *)sender {
     BAFileDataEntity *fileEntity = [BAFileDataEntity new];
     [BANetManager ba_uploadFileWithWithEntity:fileEntity successBlock:^(id response) {
         

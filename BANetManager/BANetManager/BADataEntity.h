@@ -19,6 +19,15 @@
 /** 是否缓存响应 */
 @property (nonatomic, assign, getter=isNeedCache) BOOL needCache;
 
+#pragma mark - 2020-05-11 新增，适配 AFN 4.0
+/** 请求头， 适配新版本 */
+@property(nonatomic, strong) NSDictionary *headers;
+
+/**
+ 将传入 的 string 参数序列化，body 请求
+ */
+@property(nonatomic, assign) BOOL isSetQueryStringSerialization;
+
 @end
 
 @interface BAFileDataEntity : BADataEntity

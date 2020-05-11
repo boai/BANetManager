@@ -43,32 +43,27 @@ static NSString * const url1 = @"http://c.m.163.com/nc/video/home/1-10.html";
 }
 
 #pragma mark - 网络类型判断
-- (void)testBa_netType
-{
+- (void)testBa_netType {
     //    BAWeak;
     [BANetManager ba_startNetWorkMonitoringWithBlock:^(BANetworkStatus status) {
         NSString *msg;
         switch (status) {
-            case 0:
-            {
+            case 0: {
                 msg = @"未知网络";
                 NSLog(msg);
             }
                 break;
-            case 1:
-            {
+            case 1: {
                 msg = @"没有网络";
                 NSLog(msg);
             }
                 break;
-            case 2:
-            {
+            case 2: {
                 msg = @"您的网络类型为：手机 3G/4G 网络";
                 NSLog(msg);
             }
                 break;
-            case 3:
-            {
+            case 3: {
                 msg = @"您的网络类型为：wifi 网络";
                 /*! wifi 网络下请求网络：可以在父类写此方法，具体使用demo，详见：https://github.com/boai/BABaseProject */
                 NSLog(msg);
@@ -81,8 +76,7 @@ static NSString * const url1 = @"http://c.m.163.com/nc/video/home/1-10.html";
     }];
 }
 
-- (void)testGet
-{
+- (void)testGet {
     // 如果打印数据不完整，是因为 Xcode 8 版本问题，请下断点打印数据
     BADataEntity *entity = [BADataEntity new];
     entity.urlString = url1;
