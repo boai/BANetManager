@@ -1,0 +1,6 @@
+framework module BANetManager {
+  umbrella header "BANetManager-umbrella.h"
+
+  export *
+  module * { export * }
+}
