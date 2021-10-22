@@ -191,9 +191,15 @@ UIAlertAction *sureAction = [UIAlertAction actionWithTitle:@"确 定" style:UIAl
     [sender setTitle:@"post" forState:UIControlStateNormal];
     // 自定义超时设置
     BANetManagerShare.timeoutInterval = 15;
-    
+    BANetManagerShare.isOpenLog = YES;
     // 自定义添加请求头
-    NSDictionary *headerDict = @{@"Accept":@"application/json", @"Accept-Encoding":@"gzip", @"charset":@"utf-8"};
+    NSDictionary *headerDict = @{
+        @"Accept":@"application/json",
+//        @"Accept-Encoding":@"gzip",
+//        @"charset":@"utf-8",
+        @"Content-Type":@"application/json"
+//        application/json;charset=UTF-8,application/x-www-form-urlencoded
+    };
     BANetManagerShare.httpHeaderFieldDictionary = headerDict;
     
     // 自定义更改 requestSerializer
@@ -204,26 +210,43 @@ UIAlertAction *sureAction = [UIAlertAction actionWithTitle:@"确 定" style:UIAl
     // 清楚当前所有请求头
 //    [BANetManager ba_clearAuthorizationHeader];
     
-    NSString *url = @"http://apptest.bawanli.com/topup/index";
-    
+//    NSString *url = @"http://apptest.bawanli.com/topup/index";
+    NSString *url = [NSString stringWithFormat:@"http://ecity.bjsszt.cn/msg/phone/generateCode"];
+//    NSString *url = [NSString stringWithFormat:@"http://api.tianapi.com/txapi/scanplant/index?key=%@",@"b103fb06690a60601ed2c305ec247b38"];
+
 //    NSString *url = @"http://115.29.201.135/mobile/mobileapi.php";
 //    NSString *parameters = @"sAp3OxNlYMZZa7OlRi2TwguoTtwNwwFwOo5k8LL3ERtcTbAvGPhZ5yUWiiIJeXx2WjYlnMU1nFOoi2JSKJDINW62lcM9DB9XDdZQACnY60g=";
 //    int page = 1;
-    NSDictionary *parameters = @{
-                           @"sign":@"CDFBAD6F44CBD0F26771DCAEE522C2E8",
-                           @"shop_code":@"lw"
-                           };
+//    NSDictionary *parameters = @{
+//                           @"sign":@"CDFBAD6F44CBD0F26771DCAEE522C2E8",
+//                           @"shop_code":@"lw"
+//                           };
    
 //    NSDictionary *parameters = [NSDictionary dictionaryWithObjectsAndKeys:@(page).stringValue, @"page", @"10", @"per_page", nil];;
+    
+//    UIImage *imgs = [UIImage imageNamed:@"bg_label"];
+//    NSData *data = UIImageJPEGRepresentation(imgs, 0.0001);
+    
+//    NSString *encodedImageString = [data base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    parameters = @{
+        @"bizPara": @{
+            @"phone": @"15711265153"
+        },
+    }.mutableCopy;
+//    parameters[@"img"] = encodedImageString;
+//    parameters[@"img"] = @"data:image/jpeg;base64,/9j/4SzHRXhpZgAATU0AKgAAAAgABgESAAMAAAABAAEAAAEaAAUAAAABAAAAVgEbAAUAAAABAAAAXgEoAAMAAAABAAIAAAITAAMAAAABAAEAAIdpAAQAAAABAAAAZgAAAMAAAABIAAAAAQAAAEgAAAABAAeQAAAHAAAABDAyMjGRAQAHAAAABAECAwCgAAAHAAAABDAxMDCgAQADAAAAAQABAACgAgAEAAAAAQAA";
+//    parameters[@"key"] = @"b103fb06690a60601ed2c305ec247b38";
     
     BADataEntity *entity = BADataEntity.new;
     entity.urlString = url;
     entity.needCache = NO;
     // AFN 4.0 可以单独适配 header 了
-//    entity.headers = @{};
-    entity.parameters = [parameters mj_JSONString];
+//    entity.headers = headerDict;
+    entity.parameters = parameters;
+//    entity.parameters = [parameters mj_JSONString];
     // 此请求为 body 请求, 非 body 请求注掉下面那行就行或者设置为 NO
-    entity.isSetQueryStringSerialization = YES;
+//    entity.isSetQueryStringSerialization = YES;
 
     // 如果打印数据不完整，是因为 Xcode 8 版本问题，请下断点打印数据
     [BANetManager ba_request_POSTWithEntity:entity successBlock:^(id response) {
